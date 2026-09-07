@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Graphique d'évolution de la croissance porcine
+    // Graphique de croissance
     const ctx = document.getElementById('porcineChart').getContext('2d');
-    const porcineChart = new Chart(ctx, {
+    new Chart(ctx, {
         type: 'line',
         data: {
             labels: ['Semaine 1', 'Semaine 2', 'Semaine 3', 'Semaine 4', 'Semaine 5', 'Semaine 6'],
@@ -17,17 +17,12 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         options: {
             responsive: true,
-            plugins: {
-                legend: { display: false }
-            },
-            scales: {
-                y: { beginAtZero: false, grid: { color: '#f0f0f0' } },
-                x: { grid: { display: false } }
-            }
+            plugins: { legend: { display: false } },
+            scales: { y: { beginAtZero: false, grid: { color: '#f0f0f0' } }, x: { grid: { display: false } } }
         }
     });
 
-    // Simulateur de formulation & coûts (style Afaporc)
+    // Simulateur de formulation
     function calculateFormulation() {
         const qMais = parseFloat(document.getElementById('q_mais').value) || 0;
         const qSon = parseFloat(document.getElementById('q_son').value) || 0;
@@ -35,10 +30,10 @@ document.addEventListener('DOMContentLoaded', function() {
         const qLfl = parseFloat(document.getElementById('q_lfl').value) || 0;
 
         const totalKg = qMais + qSon + qSoja + qLfl;
-
         const alertDiv = document.getElementById('totalKgAlert');
+        
         if (totalKg === 100) {
-            alertDiv.textContent = `Total : ${totalKg} kg ✅ (Base 100 kg parfaite)`;
+            alertDiv.textContent = `Total : ${totalKg} kg ✅ (Équilibré)`;
             alertDiv.style.background = '#e8f5e9';
             alertDiv.style.color = '#1b5e20';
         } else {
@@ -47,53 +42,39 @@ document.addEventListener('DOMContentLoaded', function() {
             alertDiv.style.color = '#c62828';
         }
 
-        // Prix unitaires estimés en Ariary (Ar) par kg
-        const pMais = 1400;
-        const pSon = 700;
-        const pSoja = 2800;
-        const pLfl = 4500;
-
-        const totalCost = (qMais * pMais) + (qSon * pSon) + (qSoja * pSoja) + (qLfl * pLfl);
+        const totalCost = (qMais * 1400) + (qSon * 700) + (qSoja * 2800) + (qLfl * 4500);
         const costPerKg = totalKg > 0 ? totalCost / totalKg : 0;
 
         document.getElementById('resCost').textContent = totalCost.toLocaleString('fr-FR') + ' Ar';
         document.getElementById('resCostPerKg').textContent = Math.round(costPerKg).toLocaleString('fr-FR') + ' Ar / kg';
+        
+        const headerCost = document.getElementById('headerCostKg');
+        if(headerCost) headerCost.textContent = Math.round(costPerKg) + ' Ar';
     }
 
-    // Écouteurs sur les inputs du simulateur
-    const inputs = document.querySelectorAll('.ing-input');
-    inputs.forEach(input => {
+    document.querySelectorAll('.ing-input').forEach(input => {
         input.addEventListener('input', calculateFormulation);
     });
-
-    const btnRecalc = document.getElementById('btnRecalc');
-    if(btnRecalc) {
-        btnRecalc.addEventListener('click', calculateFormulation);
-    }
-
-    // Calcul initial au chargement
     calculateFormulation();
 
-    // Formulaire d'enregistrement dynamique de pesée
+    // Formulaire d'enregistrement d'événements
     const form = document.getElementById('recordForm');
     if(form) {
         form.addEventListener('submit', function(e) {
             e.preventDefault();
             const date = document.getElementById('date').value;
+            const type = document.getElementById('eventType').value;
             const lot = document.getElementById('lot').value;
-            const weight = document.getElementById('weight').value;
+            const details = document.getElementById('details').value;
 
-            if(date && lot && weight) {
-                alert(`Pesée enregistrée avec succès !\nDate : ${date}\nLot : ${lot}\nPoids moyen : ${weight} kg`);
+            if(date && lot && details) {
+                alert(`Événement enregistré avec succès !\nType : ${type}\nRéférence : ${lot}\nDétails : ${details}`);
                 form.reset();
                 document.getElementById('date').value = new Date().toISOString().split('T')[0];
             }
         });
     }
 
-    // Date du jour par défaut
     const dateInput = document.getElementById('date');
-    if(dateInput) {
-        dateInput.value = new Date().toISOString().split('T')[0];
-    }
+    if(dateInput) dateInput.value = new Date().toISOString().split('T')[0];
 });
