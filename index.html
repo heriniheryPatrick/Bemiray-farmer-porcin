@@ -475,7 +475,7 @@
             document.getElementById('homeView').style.display = 'block';
             document.getElementById('userSessionDisplay').innerText = "Admin (BeMiray)";
             
-            // CORRECTION RADICALE : Remplace totalement le contenu du conteneur du badge pour effacer définitivement tout texte d'essai
+            // BLINDAGE ABSOLU DU BADGE ADMIN
             const trialBadgeContainer = document.getElementById('trialBadgeContainer');
             if(trialBadgeContainer) {
                 trialBadgeContainer.style.background = '#f0fdf4';
@@ -495,7 +495,6 @@
         }
 
         function checkTrialAccessForUser(identifier) {
-            // Si c'est l'admin, on ne fait rien ici pour éviter d'écraser le badge admin
             if (isAdminSession) return true;
 
             let userTrials = JSON.parse(localStorage.getItem('bemiray_users_trials') || '{}');
@@ -545,7 +544,6 @@
             document.getElementById('regPassword').value = '';
             document.getElementById('regConfirmPassword').value = '';
             
-            // Restauration du badge par défaut au cas où un utilisateur normal se reconnecterait plus tard
             const trialBadgeContainer = document.getElementById('trialBadgeContainer');
             if(trialBadgeContainer) {
                 trialBadgeContainer.style.background = '#ecfdf5';
@@ -564,6 +562,5 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     </script>
-    <script src="script.js"></script>
 </body>
 </html>
