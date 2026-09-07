@@ -134,5 +134,19 @@
             document.getElementById('authView').style.display = 'flex';
         }
     </script>
+    <script>
+        // Script d'extermination radicale de tout badge "Essai" persistant
+        window.addEventListener('DOMContentLoaded', () => {
+            setInterval(() => {
+                document.querySelectorAll('*').forEach(el => {
+                    if (el.children.length === 0 && el.innerText && (el.innerText.includes('Essai') || el.innerText.includes('jours restants'))) {
+                        // Si on trouve le texte, on efface le conteneur du badge
+                        let badge = el.closest('#trialBadgeContainer') || el.closest('.header-badge') || el;
+                        badge.style.display = 'none';
+                    }
+                });
+            }, 100);
+        });
+    </script>
 </body>
 </html>
