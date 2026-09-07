@@ -475,11 +475,12 @@
             document.getElementById('homeView').style.display = 'block';
             document.getElementById('userSessionDisplay').innerText = "Admin (BeMiray)";
             
-            // Correction : Masque le compteur d'essai et affiche explicitement la licence illimitée pour l'admin
+            // CORRECTION RADICALE : Remplace totalement le contenu du conteneur du badge pour effacer définitivement tout texte d'essai
             const trialBadgeContainer = document.getElementById('trialBadgeContainer');
             if(trialBadgeContainer) {
                 trialBadgeContainer.style.background = '#f0fdf4';
                 trialBadgeContainer.style.borderColor = '#16a34a';
+                trialBadgeContainer.style.color = '#166534';
                 trialBadgeContainer.innerHTML = '✨ Licence : <strong style="color: #166534;">Illimitée (Admin)</strong>';
             }
         }
@@ -494,6 +495,9 @@
         }
 
         function checkTrialAccessForUser(identifier) {
+            // Si c'est l'admin, on ne fait rien ici pour éviter d'écraser le badge admin
+            if (isAdminSession) return true;
+
             let userTrials = JSON.parse(localStorage.getItem('bemiray_users_trials') || '{}');
             let trialStart = userTrials[identifier];
             const trialDurationDays = 15;
@@ -540,6 +544,15 @@
             document.getElementById('loginPassword').value = '';
             document.getElementById('regPassword').value = '';
             document.getElementById('regConfirmPassword').value = '';
+            
+            // Restauration du badge par défaut au cas où un utilisateur normal se reconnecterait plus tard
+            const trialBadgeContainer = document.getElementById('trialBadgeContainer');
+            if(trialBadgeContainer) {
+                trialBadgeContainer.style.background = '#ecfdf5';
+                trialBadgeContainer.style.borderColor = '#10b981';
+                trialBadgeContainer.style.color = '#065f46';
+                trialBadgeContainer.innerHTML = '⏳ <span id="trialBadgeText">Essai : <span id="trialDaysDisplay">15</span> jours restants</span>';
+            }
         }
 
         function switchView(viewId) {
