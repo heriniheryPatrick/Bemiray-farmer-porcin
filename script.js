@@ -22,46 +22,53 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Simulateur de provende & calculs nutritionnels (Protides, Calcium, Coûts)
+    // Simulateur expert de provende avec tous les ingrédients malgaches
     function calculateFormulation() {
         const qMais = parseFloat(document.getElementById('q_mais').value) || 0;
+        const qManioc = parseFloat(document.getElementById('q_manioc').value) || 0;
         const qSon = parseFloat(document.getElementById('q_son').value) || 0;
+        const qApombo = parseFloat(document.getElementById('q_apombo').value) || 0;
+        const qDreche = parseFloat(document.getElementById('q_dreche').value) || 0;
         const qSoja = parseFloat(document.getElementById('q_soja').value) || 0;
+        const qArachide = parseFloat(document.getElementById('q_arachide').value) || 0;
+        const qPoisson = parseFloat(document.getElementById('q_poisson').value) || 0;
         const qCalcium = parseFloat(document.getElementById('q_calcium').value) || 0;
         const qPremix = parseFloat(document.getElementById('q_premix').value) || 0;
 
-        const totalKg = qMais + qSon + qSoja + qCalcium + qPremix;
+        const totalKg = qMais + qManioc + qSon + qApombo + qDreche + qSoja + qArachide + qPoisson + qCalcium + qPremix;
         const alertDiv = document.getElementById('totalKgAlert');
         
         if (totalKg === 100) {
-            alertDiv.textContent = `Total : ${totalKg} kg ✅ (Mélange validé)`;
+            alertDiv.textContent = `Total : ${totalKg} kg ✅ (Mélange 100% équilibré)`;
             alertDiv.style.background = '#e8f5e9';
             alertDiv.style.color = '#1b5e20';
         } else {
-            alertDiv.textContent = `Total : ${totalKg} kg ⚠️ (Le total doit être égal à 100 kg)`;
+            alertDiv.textContent = `Total : ${totalKg} kg ⚠️ (Le total doit être strictement égal à 100 kg)`;
             alertDiv.style.background = '#ffebee';
             alertDiv.style.color = '#c62828';
         }
 
-        // Teneurs nutritionnelles moyennes estimées par ingrédient (%) :
-        // Maïs : ~9% protéines, ~0.02% calcium
-        // Son de riz : ~12% protéines, ~0.08% calcium
-        // Tourteau de soja : ~44% protéines, ~0.3% calcium
-        // Coquille d'huître : ~0% protéines, ~38% calcium
-        // Prémix : ~10% protéines, ~15% calcium/minéraux
-        const protTotal = (qMais * 0.09) + (qSon * 0.12) + (qSoja * 0.44) + (qCalcium * 0.0) + (qPremix * 0.10);
-        const calcTotal = (qMais * 0.0002) + (qSon * 0.0008) + (qSoja * 0.003) + (qCalcium * 0.38) + (qPremix * 0.15);
+        // Teneurs nutritionnelles estimées (Protéines % et Calcium %) :
+        // Maïs: 9% P, 0.02% Ca | Manioc: 2% P, 0.1% Ca | Son: 12% P, 0.08% Ca | Apombo: 13% P, 0.1% Ca
+        // Drêche: 22% P, 0.2% Ca | Soja: 44% P, 0.3% Ca | Arachide (Voanjo): 40% P, 0.2% Ca
+        // Poudre de poisson: 60% P, 5% Ca | Coquille d'huître: 0% P, 38% Ca | Prémix: 10% P, 15% Ca
+        const protTotal = (qMais * 0.09) + (qManioc * 0.02) + (qSon * 0.12) + (qApombo * 0.13) + 
+                          (qDreche * 0.22) + (qSoja * 0.44) + (qArachide * 0.40) + (qPoisson * 0.60) + 
+                          (qCalcium * 0.0) + (qPremix * 0.10);
 
-        // Prix unitaires indicatifs à Madagascar (Ar / kg)
-        const pMais = 1400;
-        const pSon = 700;
-        const pSoja = 2800;
-        const pCalcium = 600;
-        const pPremix = 6500;
+        const calcTotal = (qMais * 0.0002) + (qManioc * 0.001) + (qSon * 0.0008) + (qApombo * 0.001) + 
+                          (qDreche * 0.002) + (qSoja * 0.003) + (qArachide * 0.002) + (qPoisson * 0.05) + 
+                          (qCalcium * 0.38) + (qPremix * 0.15);
 
-        const totalCost = (qMais * pMais) + (qSon * pSon) + (qSoja * pSoja) + (qCalcium * pCalcium) + (qPremix * pPremix);
+        // Prix unitaires indicatifs à Madagascar (Ar / kg) :
+        // Maïs: 1400 | Manioc: 900 | Son: 700 | Apombo: 650 | Drêche: 800 | Soja: 2800 | Arachide: 3200 | Poisson: 5000 | Calcium: 600 | Prémix: 6500
+        const totalCost = (qMais * 1400) + (qManioc * 900) + (qSon * 700) + (qApombo * 650) + 
+                          (qDreche * 800) + (qSoja * 2800) + (qArachide * 3200) + (qPoisson * 5000) + 
+                          (qCalcium * 600) + (qPremix * 6500);
+
         const costPerKg = totalKg > 0 ? totalCost / totalKg : 0;
 
+        document.getElementById('resMatiereSeche').textContent = totalKg + ' kg';
         document.getElementById('resProteines').textContent = protTotal.toFixed(1) + ' %';
         document.getElementById('resCalcium').textContent = calcTotal.toFixed(2) + ' %';
         document.getElementById('resCost').textContent = totalCost.toLocaleString('fr-FR') + ' Ar';
@@ -76,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     calculateFormulation();
 
-    // Formulaire d'enregistrement d'événements
+    // Formulaire d'enregistrement
     const form = document.getElementById('recordForm');
     if(form) {
         form.addEventListener('submit', function(e) {
