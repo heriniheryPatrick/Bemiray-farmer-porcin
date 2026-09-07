@@ -4,116 +4,290 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BeMiray Farmer - Ambohitraina Ilafy</title>
-    <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        body { background-color: #f8fafc; color: #1e293b; min-height: 100vh; display: flex; flex-direction: column; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; width: 100%; }
+        
+        /* AUTH SECTION */
+        #authView { display: flex; justify-content: center; align-items: center; min-height: 100vh; background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); }
+        .auth-card { background: #ffffff; padding: 40px 30px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); width: 100%; max-width: 420px; text-align: center; }
+        .form-group { margin-bottom: 16px; text-align: left; }
+        .form-group label { display: block; font-weight: 600; font-size: 0.85rem; color: #334155; margin-bottom: 6px; }
+        .form-group input { width: 100%; padding: 11px 14px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem; outline: none; transition: border-color 0.2s; }
+        .form-group input:focus { border-color: #166534; box-shadow: 0 0 0 3px rgba(22, 101, 52, 0.1); }
+        .btn-main { width: 100%; padding: 12px; background: #166534; color: #fff; border: none; border-radius: 8px; font-weight: 600; font-size: 0.95rem; cursor: pointer; transition: background 0.2s; }
+        .btn-main:hover { background: #14532d; }
+
+        /* APP HEADER */
+        #appHeader { display: none; background: #ffffff; border-bottom: 1px solid #e2e8f0; padding: 15px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .header-flex { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
+        .admin-licence-badge { background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; padding: 8px 16px; border-radius: 20px; font-weight: 700; font-size: 0.85rem; display: flex; align-items: center; gap: 6px; }
+        
+        /* VIEWS & DASHBOARD */
+        .view-section { display: none; padding: 30px 0; flex: 1; }
+        .welcome-box { background: linear-gradient(135deg, #166534 0%, #14532d 100%); color: white; padding: 30px; border-radius: 16px; margin-bottom: 30px; box-shadow: 0 4px 12px rgba(22,101,52,0.15); }
+        .welcome-box h2 { font-size: 1.8rem; margin-bottom: 8px; }
+        .welcome-box p { opacity: 0.9; font-size: 0.95rem; }
+        
+        .grid-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+        .card-mod { background: white; border-radius: 12px; padding: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.04); border: 1px solid #e2e8f0; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        .card-mod:hover { transform: translateY(-3px); box-shadow: 0 10px 15px rgba(0,0,0,0.08); border-color: #166534; }
+        .card-mod h3 { color: #0f172a; margin-bottom: 10px; font-size: 1.1rem; }
+        .card-mod p { color: #64748b; font-size: 0.85rem; line-height: 1.4; margin-bottom: 15px; }
+        .card-mod .link-text { color: #166534; font-weight: 600; font-size: 0.85rem; }
+
+        /* CONTENT CARDS & TABLES */
+        .card { background: white; border-radius: 12px; padding: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.04); border: 1px solid #e2e8f0; margin-bottom: 20px; }
+        .nav-back-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 10px; }
+        .btn-back { background: #f1f5f9; border: 1px solid #cbd5e1; padding: 8px 14px; border-radius: 8px; font-weight: 600; font-size: 0.85rem; cursor: pointer; color: #334155; }
+        .btn-back:hover { background: #e2e8f0; }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; text-align: left; font-size: 0.9rem; }
+        th, td { padding: 12px; border-bottom: 1px solid #e2e8f0; }
+        th { background: #f8fafc; color: #334155; font-weight: 600; }
+
+        footer { text-align: center; padding: 20px; font-size: 0.8rem; color: #64748b; border-top: 1px solid #e2e8f0; background: #ffffff; margin-top: auto; }
+    </style>
 </head>
 <body>
-    <!-- BANDEAU D'ALERTE DÉFILANT -->
-    <div class="top-ticker-bar" style="background: linear-gradient(90deg, #065f46 0%, #059669 100%); color: #ffffff; padding: 8px 0; font-size: 0.85rem; font-weight: 600; width: 100%; box-shadow: 0 2px 4px rgba(0,0,0,0.1); position: relative; z-index: 1000;">
-        <div class="container" style="display: flex; align-items: center; justify-content: space-between;">
-            <div style="display: flex; align-items: center; gap: 8px; width: 100%;">
-                <span style="background: rgba(255,255,255,0.2); padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap;">BeMiray Info</span>
-                <marquee behavior="scroll" direction="left" scrollamount="5" style="width: 100%;">
-                    🚨 Plateforme sécurisée BeMiray Farmer (Ambohitraina, Ilafy) &bull; Licence Officielle &bull; Code de sécurité à 6 chiffres &bull;
-                </marquee>
-            </div>
-        </div>
-    </div>
 
-    <!-- ÉTAPE 1 : FORMULAIRE DE CONNEXION -->
-    <section id="authView" class="auth-wrapper" style="display: flex; justify-content: center; align-items: center; min-height: 80vh; padding: 20px;">
-        <div class="card auth-card" style="max-width: 450px; width: 100%; padding: 40px 30px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); border-radius: 16px; background: #ffffff;">
-            <div style="text-align: center;">
-                <div class="brand-logo-container" style="width: 85px !important; height: 85px !important; margin: 0 auto 15px auto; border-radius: 12px; overflow: hidden; display: flex; align-items: center; justify-content: center; background: #ffffff; border: 1px solid #cbd5e1;">
-                    <img src="logo-bemiray.jpg" alt="Logo BeMiray Farmer" class="real-logo-img" style="width: 100%; height: 100%; object-fit: contain;">
+    <!-- ÉTAPE : CONNEXION -->
+    <section id="authView">
+        <div class="auth-card">
+            <h1 style="font-size: 1.5rem; color: #0f172a; margin-bottom: 5px;">BeMiray Farmer</h1>
+            <p style="font-size: 0.75rem; font-weight: 700; color: #166534; letter-spacing: 0.5px; margin-bottom: 25px;">AMBOHITRAINA, ILAFY • ANTANANARIVO</p>
+            
+            <form onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label>Identifiant Admin :</label>
+                    <input type="text" id="userInput" value="admin@bemiray.mg" required>
                 </div>
-                <h1 style="font-size: 1.5rem; color: #0f172a; margin-bottom: 2px;">BeMiray Farmer</h1>
-                <p style="font-weight: 700; color: #166534; font-size: 0.8rem; letter-spacing: 0.5px; margin-bottom: 20px;">AMBOHITRAINA, ILAFY • ANTANANARIVO</p>
-            </div>
-
-            <form id="loginFormContainer" onsubmit="handleLoginSubmit(event)">
-                <div class="form-group" style="margin-bottom: 15px;">
-                    <label style="font-weight: 600; font-size: 0.85rem; color: #334155; margin-bottom: 5px; display: block;">Identifiant Admin :</label>
-                    <input type="text" id="loginIdentifier" value="admin@bemiray.mg" required style="width: 100%; padding: 10px 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem;">
+                <div class="form-group">
+                    <label>Mot de passe :</label>
+                    <input type="password" id="passInput" value="admin2026" required>
                 </div>
-                <div class="form-group" style="margin-bottom: 20px;">
-                    <label style="font-weight: 600; font-size: 0.85rem; color: #334155; margin-bottom: 5px; display: block;">Mot de passe :</label>
-                    <input type="password" id="loginPassword" value="admin2026" required style="width: 100%; padding: 10px 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem;">
-                </div>
-                <button type="submit" class="btn" style="width: 100%; padding: 12px; font-size: 0.95rem; background: #166534; border-radius: 8px; color: white; font-weight: 600; border: none; cursor: pointer;">Se connecter &rarr;</button>
+                <button type="submit" class="btn-main">Se connecter à l'espace Admin &rarr;</button>
             </form>
-            <p id="authMessage" style="color: #dc2626; font-size: 0.8rem; margin-top: 15px; text-align: center; display: none;"></p>
+            <p id="errorMsg" style="color: #dc2626; font-size: 0.8rem; margin-top: 15px; display: none;"></p>
         </div>
     </section>
 
-    <!-- HEADER PROFESSIONNEL -->
-    <header class="app-header" id="appHeader" style="display: none; background: #ffffff; border-bottom: 1px solid #e2e8f0; padding: 15px 0; margin-bottom: 30px;">
-        <div class="container header-container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
-            <div class="brand" style="display: flex; align-items: center; gap: 15px;">
-                <div class="brand-logo-container" style="width: 85px !important; height: 85px !important; min-width: 85px; border-radius: 10px; overflow: hidden; display: flex; align-items: center; justify-content: center; background: #ffffff; border: 1px solid #cbd5e1;">
-                    <img src="logo-bemiray.jpg" alt="Logo BeMiray Farmer" class="real-logo-img" style="width: 100%; height: 100%; object-fit: contain;">
-                </div>
-                <div>
-                    <h1 style="font-size: 1.6rem; color: #0f172a; margin-bottom: 2px;">BeMiray Farmer</h1>
-                    <p class="brand-tagline" style="font-weight: 700; color: #166534; letter-spacing: 0.5px; font-size: 0.85rem;">AMBOHITRAINA, ILAFY • ANTANANARIVO</p>
-                </div>
+    <!-- HEADER ADMIN -->
+    <header id="appHeader">
+        <div class="container header-flex">
+            <div>
+                <h1 style="font-size: 1.4rem; color: #0f172a;">BeMiray Farmer</h1>
+                <p style="font-size: 0.75rem; color: #166534; font-weight: 700;">Ambohitraina, Ilafy, Antananarivo</p>
             </div>
-            
-            <div class="header-right-panel" style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
-                <div class="header-badge" style="background: #ecfdf5; color: #065f46; padding: 8px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; border: 1px solid #10b981;">
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <div class="admin-licence-badge">
                     ✨ Licence : <span>Illimitée (Admin)</span>
                 </div>
-                <button onclick="handleLogout()" class="btn-secondary" style="padding: 6px 12px; font-size: 0.8rem; cursor: pointer; border-radius: 6px; border: 1px solid #cbd5e1; background: #f8fafc;">Déconnexion</button>
+                <button onclick="handleLogout()" style="padding: 6px 12px; font-size: 0.8rem; background: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 6px; cursor: pointer; font-weight: 600;">Déconnexion</button>
             </div>
         </div>
     </header>
 
+    <!-- CONTENU PRINCIPAL -->
     <main class="container">
-        <!-- VUE ACCUEIL -->
-        <section id="homeView" class="view-section" style="display: none;">
-            <div class="welcome-banner" style="background: linear-gradient(135deg, #166534 0%, #14532d 100%); color: white; padding: 30px; border-radius: 16px; margin-bottom: 30px;">
+        
+        <!-- VUE ACCUEIL / TABLEAU DE BORD -->
+        <section id="homeView" class="view-section">
+            <div class="welcome-box">
                 <h2>Tableau de Bord Administrateur</h2>
-                <p>Bienvenue sur votre plateforme de gestion agropastorale sécurisée à Ambohitraina, Ilafy.</p>
+                <p>Bienvenue sur votre plateforme de gestion agropastorale sécurisée.</p>
             </div>
-
-            <div class="modules-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px;">
-                <div class="module-card" style="background: white; border-radius: 12px; padding: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.04); border: 1px solid #e2e8f0;">
+            <div class="grid-cards">
+                <div class="card-mod" onclick="switchView('formulationView')">
                     <h3>🧮 Formulation des Provendes</h3>
                     <p>Simulateur d'aliments personnalisé (Maïs, Soja, Minéraux) et calcul du coût de revient au kilo.</p>
+                    <span class="link-text">Ouvrir le simulateur &rarr;</span>
                 </div>
-                <div class="module-card" style="background: white; border-radius: 12px; padding: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.04); border: 1px solid #e2e8f0;">
+                <div class="card-mod" onclick="switchView('cheptelView')">
                     <h3>📋 Registre du Cheptel</h3>
                     <p>Suivi complet de vos porcs, catégories, poids et répartition par bâtiment.</p>
+                    <span class="link-text">Gérer le cheptel &rarr;</span>
+                </div>
+                <div class="card-mod" onclick="switchView('sanitaireView')">
+                    <h3>💉 Suivi Sanitaire</h3>
+                    <p>Historique des vaccinations, vermifugations et interventions vétérinaires.</p>
+                    <span class="link-text">Voir le registre sanitaire &rarr;</span>
+                </div>
+                <div class="card-mod" onclick="switchView('reproView')">
+                    <h3>🤰 Maternité & Reproduction</h3>
+                    <p>Suivi des saillies, dates de gestation prévues et mises bas.</p>
+                    <span class="link-text">Consulter la maternité &rarr;</span>
                 </div>
             </div>
         </section>
+
+        <!-- VUE : FORMULATION -->
+        <section id="formulationView" class="view-section">
+            <div class="nav-back-bar">
+                <button class="btn-back" onclick="switchView('homeView')">&larr; Retour à l'accueil</button>
+                <h2 style="font-size: 1.2rem; color: #0f172a;">🧮 Simulateur de Formulation</h2>
+            </div>
+            <div class="card">
+                <p style="color: #64748b; font-size: 0.9rem; margin-bottom: 15px;">Module de calcul des proportions de provende basé sur les stocks d'Ambohitraina, Ilafy.</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Ingrédient</th>
+                            <th>Quantité (kg)</th>
+                            <th>Prix unitaire (Ar/kg)</th>
+                            <th>Total (Ar)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Maïs concassé</td>
+                            <td>60 kg</td>
+                            <td>2 200 Ar</td>
+                            <td>132 000 Ar</td>
+                        </tr>
+                        <tr>
+                            <td>Tourteau de soja</td>
+                            <td>25 kg</td>
+                            <td>3 500 Ar</td>
+                            <td>87 500 Ar</td>
+                        </tr>
+                        <tr>
+                            <td>Son de riz / Farine</td>
+                            <td>12 kg</td>
+                            <td>1 200 Ar</td>
+                            <td>14 400 Ar</td>
+                        </tr>
+                        <tr>
+                            <td>Prémix / Minéraux</td>
+                            <td>3 kg</td>
+                            <td>6 000 Ar</td>
+                            <td>18 000 Ar</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- VUE : CHEPTEL -->
+        <section id="cheptelView" class="view-section">
+            <div class="nav-back-bar">
+                <button class="btn-back" onclick="switchView('homeView')">&larr; Retour à l'accueil</button>
+                <h2 style="font-size: 1.2rem; color: #0f172a;">📋 Registre du Cheptel</h2>
+            </div>
+            <div class="card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID / Sujet</th>
+                            <th>Catégorie</th>
+                            <th>Poids</th>
+                            <th>Bâtiment</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Truie #104</strong></td>
+                            <td>Reproductrice</td>
+                            <td>165 kg</td>
+                            <td>Maternité E01</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- VUE : SANITAIRE -->
+        <section id="sanitaireView" class="view-section">
+            <div class="nav-back-bar">
+                <button class="btn-back" onclick="switchView('homeView')">&larr; Retour à l'accueil</button>
+                <h2 style="font-size: 1.2rem; color: #0f172a;">💉 Suivi Sanitaire</h2>
+            </div>
+            <div class="card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Traitement</th>
+                            <th>Produit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>01/03/2026</td>
+                            <td>Vaccination Peste Porcine</td>
+                            <td>Pestiffa</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- VUE : REPRODUCTION -->
+        <section id="reproView" class="view-section">
+            <div class="nav-back-bar">
+                <button class="btn-back" onclick="switchView('homeView')">&larr; Retour à l'accueil</button>
+                <h2 style="font-size: 1.2rem; color: #0f172a;">🤰 Maternité & Reproduction</h2>
+            </div>
+            <div class="card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Truie</th>
+                            <th>Date Saillie</th>
+                            <th>Mise bas estimée</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Truie #112</strong></td>
+                            <td>10/01/2026</td>
+                            <td>03/05/2026</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
     </main>
 
     <footer>
-        <p>&copy; 2026 BeMiray Farmer - Lot AMB 65 Bis Ambohitraina, Ilafy, Antananarivo, Madagascar. Tous droits réservés.</p>
+        <p>&copy; 2026 BeMiray Farmer - Ambohitraina, Ilafy, Antananarivo, Madagascar.</p>
     </footer>
 
     <script>
-        function handleLoginSubmit(event) {
-            event.preventDefault();
-            const u = document.getElementById('loginIdentifier').value.trim();
-            const p = document.getElementById('loginPassword').value;
-            
+        function handle(e) { e.preventDefault(); }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const u = document.getElementById('userInput').value.trim();
+            const p = document.getElementById('passInput').value;
+
             if ((u === "admin@bemiray.mg" || u === "admin") && p === "admin2026") {
                 document.getElementById('authView').style.display = 'none';
                 document.getElementById('appHeader').style.display = 'block';
                 document.getElementById('homeView').style.display = 'block';
             } else {
-                const msg = document.getElementById('authMessage');
-                msg.innerText = "Identifiants incorrects. Utilisez admin@bemiray.mg / admin2026";
-                msg.style.display = 'block';
+                const err = document.getElementById('errorMsg');
+                err.innerText = "Identifiants incorrects. Utilisez admin@bemiray.mg / admin2026";
+                err.style.display = 'block';
             }
         }
 
         function handleLogout() {
             document.getElementById('appHeader').style.display = 'none';
-            document.getElementById('homeView').style.display = 'none';
+            document.querySelectorAll('.view-section').forEach(el => el.style.display = 'none');
             document.getElementById('authView').style.display = 'flex';
+        }
+
+        function switchView(viewId) {
+            document.querySelectorAll('.view-section').forEach(el => el.style.display = 'none');
+            const target = document.getElementById(viewId);
+            if (target) {
+                target.style.display = 'block';
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     </script>
 </body>
