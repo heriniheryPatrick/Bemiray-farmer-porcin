@@ -115,7 +115,7 @@
                 <button class="tab-btn active-tab" onclick="switchSubForm('manualSub', event)">🛠️ Formulation Manuelle & Ajout</button>
                 <button class="tab-btn" onclick="switchSubForm('autoSub', event)">🤖 Mode Automatique / LP</button>
                 <button class="tab-btn" onclick="switchSubForm('pointuesSub', event)">🎯 Formules Pointues (Cibles)</button>
-                <button class="tab-btn" onclick="switchSubForm('matriceSub', event)">📊 Matrice des Ingrédients</button>
+                <button class="tab-btn" onclick="switchSubForm('matriceSub', event)">📊 Matrice des Ingrédients (Base Complète)</button>
             </div>
 
             <div id="manualSub" class="formulation-subview active-sub">
@@ -142,7 +142,7 @@
                                 <td><input type="number" value="60" oninput="recalcManual()" class="m-qty" style="width:80px; padding:6px; border:1px solid #cbd5e1; border-radius:4px;"></td>
                                 <td><input type="number" value="2200" oninput="recalcManual()" class="m-price" style="width:90px; padding:6px; border:1px solid #cbd5e1; border-radius:4px;"></td>
                                 <td class="m-cost">132 000 Ar</td>
-                                <td><input type="number" step="0.1" value="9.0" oninput="recalcManual()" class="m-pb" style="width:70px; padding:6px; border:1px solid #cbd5e1; border-radius:4px;"></td>
+                                <td><input type="number" step="0.1" value="8.5" oninput="recalcManual()" class="m-pb" style="width:70px; padding:6px; border:1px solid #cbd5e1; border-radius:4px;"></td>
                                 <td><button class="btn-danger" onclick="removeRow(this)">Supprimer</button></td>
                             </tr>
                             <tr>
@@ -158,7 +158,7 @@
                                 <td><input type="number" value="12" oninput="recalcManual()" class="m-qty" style="width:80px; padding:6px; border:1px solid #cbd5e1; border-radius:4px;"></td>
                                 <td><input type="number" value="1200" oninput="recalcManual()" class="m-price" style="width:90px; padding:6px; border:1px solid #cbd5e1; border-radius:4px;"></td>
                                 <td class="m-cost">14 400 Ar</td>
-                                <td><input type="number" step="0.1" value="12.0" oninput="recalcManual()" class="m-pb" style="width:70px; padding:6px; border:1px solid #cbd5e1; border-radius:4px;"></td>
+                                <td><input type="number" step="0.1" value="12.8" oninput="recalcManual()" class="m-pb" style="width:70px; padding:6px; border:1px solid #cbd5e1; border-radius:4px;"></td>
                                 <td><button class="btn-danger" onclick="removeRow(this)">Supprimer</button></td>
                             </tr>
                             <tr>
@@ -187,7 +187,7 @@
                         </div>
                         <div class="stat-box">
                             <h4>Protéine Brute Moy.</h4>
-                            <p><span id="mTotProt">17.8</span> %</p>
+                            <p><span id="mTotProt">17.6</span> %</p>
                         </div>
                     </div>
                 </div>
@@ -250,21 +250,984 @@
 
             <div id="matriceSub" class="formulation-subview">
                 <div class="card">
-                    <h3>Valeurs de la Matrice des Matières Premières (Stock Ilafy)</h3>
+                    <h3>Matrice complète des Matières Premières, Céréales, Tourteaux, Prémixes et Minéraux</h3>
+                    <p style="color: #64748b; font-size: 0.85rem; margin-bottom: 15px;">Liste exhaustive intégrée provenant de la base technique de référence.</p>
                     <table>
                         <thead>
                             <tr>
-                                <th>Matière Première</th>
-                                <th>Matière Sèche (%)</th>
+                                <th>Matière Première / Ingrédient</th>
+                                <th>Énergie Digestible</th>
                                 <th>Protéine Brute (%)</th>
-                                <th>Prix unitaire actuel</th>
+                                <th>Prix unitaire estimé</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr><td><strong>Maïs concassé</strong></td><td>86%</td><td>9.0%</td><td>2 200 Ar / kg</td></tr>
-                            <tr><td><strong>Tourteau de Soja</strong></td><td>88%</td><td>44.0%</td><td>3 500 Ar / kg</td></tr>
-                            <tr><td><strong>Son de Riz</strong></td><td>90%</td><td>12.0%</td><td>1 200 Ar / kg</td></tr>
-                            <tr><td><strong>Prémix / CMV Porc</strong></td><td>95%</td><td>0.0%</td><td>6 000 Ar / kg</td></tr>
+                            <tr>
+                                <td><strong>Maïs</strong></td>
+                                <td>3400 kcal/kg</td>
+                                <td>9.0%</td>
+                                <td>2,200 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Son de Maïs</strong></td>
+                                <td>2680 kcal/kg</td>
+                                <td>8.0%</td>
+                                <td>1,500 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Orge</strong></td>
+                                <td>3100 kcal/kg</td>
+                                <td>9.9%</td>
+                                <td>2,500 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Sorgho</strong></td>
+                                <td>3060 kcal/kg</td>
+                                <td>10.0%</td>
+                                <td>2,300 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Avoine</strong></td>
+                                <td>2750 kcal/kg</td>
+                                <td>9.4%</td>
+                                <td>2,400 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Mil</strong></td>
+                                <td>2870 kcal/kg</td>
+                                <td>11.3%</td>
+                                <td>2,600 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Résidus d'ananas</strong></td>
+                                <td>- kcal/kg</td>
+                                <td>0%</td>
+                                <td>800 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Graine de blé</strong></td>
+                                <td>3500 kcal/kg</td>
+                                <td>15.0%</td>
+                                <td>2,800 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Son de blé</strong></td>
+                                <td>2900 kcal/kg</td>
+                                <td>15.0%</td>
+                                <td>1,400 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Huile rouge</strong></td>
+                                <td>8500 kcal/kg</td>
+                                <td>0%</td>
+                                <td>6,000 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tronc de bananier</strong></td>
+                                <td>950 kcal/kg</td>
+                                <td>5.0%</td>
+                                <td>500 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Feuilles de bananier</strong></td>
+                                <td>1300 kcal/kg</td>
+                                <td>10.0%</td>
+                                <td>600 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Huile de coprah</strong></td>
+                                <td>8250 kcal/kg</td>
+                                <td>0%</td>
+                                <td>6,500 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Graine de riz</strong></td>
+                                <td>3300 kcal/kg</td>
+                                <td>7.0%</td>
+                                <td>1,800 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Son de riz</strong></td>
+                                <td>2800 kcal/kg</td>
+                                <td>12.8%</td>
+                                <td>1,200 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Huile de soja</strong></td>
+                                <td>8250 kcal/kg</td>
+                                <td>0.0%</td>
+                                <td>7,000 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Farine basse</strong></td>
+                                <td>3320 kcal/kg</td>
+                                <td>13.3%</td>
+                                <td>1,900 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Mélasse de canne à sucre</strong></td>
+                                <td>2250 kcal/kg</td>
+                                <td>4.2%</td>
+                                <td>1,600 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tubercule d'igname cuit</strong></td>
+                                <td>1400 kcal/kg</td>
+                                <td>3.0%</td>
+                                <td>1,200 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Pomme de terre déshydratée</strong></td>
+                                <td>3360 kcal/kg</td>
+                                <td>9.2%</td>
+                                <td>2,100 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Le taro cuit</strong></td>
+                                <td>1200 kcal/kg</td>
+                                <td>2.0%</td>
+                                <td>1,100 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Épluchure de manioc</strong></td>
+                                <td>1100 kcal/kg</td>
+                                <td>4.0%</td>
+                                <td>700 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tubercule de manioc</strong></td>
+                                <td>3360 kcal/kg</td>
+                                <td>2.2%</td>
+                                <td>1,300 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Feuilles de patates douce</strong></td>
+                                <td>3500 kcal/kg</td>
+                                <td>5.0%</td>
+                                <td>900 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Patate douce déshydratée</strong></td>
+                                <td>3330 kcal/kg</td>
+                                <td>4.5%</td>
+                                <td>1,800 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Coque de cacao</strong></td>
+                                <td>1070 kcal/kg</td>
+                                <td>15.8%</td>
+                                <td>800 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Betterave rouge</strong></td>
+                                <td>540 kcal/kg</td>
+                                <td>1.3%</td>
+                                <td>1,000 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Banane verte déshydratée</strong></td>
+                                <td>3320 kcal/kg</td>
+                                <td>4.3%</td>
+                                <td>1,700 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Pomme de noix cajou</strong></td>
+                                <td>1800 kcal/kg</td>
+                                <td>4.0%</td>
+                                <td>1,100 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Remoulage de blé</strong></td>
+                                <td>2450 kcal/kg</td>
+                                <td>16.5%</td>
+                                <td>1,500 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Triticale</strong></td>
+                                <td>3250 kcal/kg</td>
+                                <td>11.5%</td>
+                                <td>2,300 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Seigle</strong></td>
+                                <td>3170 kcal/kg</td>
+                                <td>9.8%</td>
+                                <td>2,400 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Drêche de maïs (DDGS)</strong></td>
+                                <td>3050 kcal/kg</td>
+                                <td>27.5%</td>
+                                <td>2,200 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Pulpe de betterave déshydratée</strong></td>
+                                <td>2520 kcal/kg</td>
+                                <td>9.5%</td>
+                                <td>1,900 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Lactosérum en poudre</strong></td>
+                                <td>3400 kcal/kg</td>
+                                <td>12.5%</td>
+                                <td>4,500 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Maïs extrudé</strong></td>
+                                <td>3550 kcal/kg</td>
+                                <td>8.8%</td>
+                                <td>2,600 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Blé dur</strong></td>
+                                <td>3350 kcal/kg</td>
+                                <td>14.4%</td>
+                                <td>2,900 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Flocons d'avoine</strong></td>
+                                <td>3100 kcal/kg</td>
+                                <td>9.4%</td>
+                                <td>3,200 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Gruau d'avoine</strong></td>
+                                <td>3450 kcal/kg</td>
+                                <td>11.0%</td>
+                                <td>3,500 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Riz cargo</strong></td>
+                                <td>3350 kcal/kg</td>
+                                <td>9.2%</td>
+                                <td>2,100 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Brisure de riz</strong></td>
+                                <td>3450 kcal/kg</td>
+                                <td>8.1%</td>
+                                <td>2,000 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Son de sorgho</strong></td>
+                                <td>2400 kcal/kg</td>
+                                <td>10.5%</td>
+                                <td>1,300 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Farine de manioc séchée</strong></td>
+                                <td>3200 kcal/kg</td>
+                                <td>2.5%</td>
+                                <td>1,500 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Huile de palme</strong></td>
+                                <td>8200 kcal/kg</td>
+                                <td>0.0%</td>
+                                <td>5,800 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Graisse animale (saindoux)</strong></td>
+                                <td>8500 kcal/kg</td>
+                                <td>0.0%</td>
+                                <td>6,500 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Maïs concassé</strong></td>
+                                <td>3380 kcal/kg</td>
+                                <td>8.5%</td>
+                                <td>2,200 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Drêche de riz</strong></td>
+                                <td>2300 kcal/kg</td>
+                                <td>14.5%</td>
+                                <td>1,100 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Amidon de maïs</strong></td>
+                                <td>3600 kcal/kg</td>
+                                <td>0.5%</td>
+                                <td>3,000 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Fonio blanc</strong></td>
+                                <td>3400 kcal/kg</td>
+                                <td>8.7%</td>
+                                <td>2,800 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Farine de biscuit</strong></td>
+                                <td>3850 kcal/kg</td>
+                                <td>10.5%</td>
+                                <td>3,500 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Setaria sphacelata (herbe fourragère)</strong></td>
+                                <td>2000 kcal/kg</td>
+                                <td>9.0%</td>
+                                <td>600 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tourteau d'arachide</strong></td>
+                                <td>3640 kcal/kg</td>
+                                <td>49.0%</td>
+                                <td>4,200 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tourteau d'anacarde</strong></td>
+                                <td>3000 kcal/kg</td>
+                                <td>30.0%</td>
+                                <td>3,100 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Arachide graine torréfiée</strong></td>
+                                <td>3400 kcal/kg</td>
+                                <td>40.7%</td>
+                                <td>5,000 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Lait en poudre écrémé</strong></td>
+                                <td>3990 kcal/kg</td>
+                                <td>34.1%</td>
+                                <td>8,000 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Pois d'angole</strong></td>
+                                <td>3300 kcal/kg</td>
+                                <td>20.0%</td>
+                                <td>2,900 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Coprah</strong></td>
+                                <td>2490 kcal/kg</td>
+                                <td>22.0%</td>
+                                <td>2,200 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Farine de plume hydrolysée</strong></td>
+                                <td>4040 kcal/kg</td>
+                                <td>80.0%</td>
+                                <td>4,500 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Leucaena</strong></td>
+                                <td>2252 kcal/kg</td>
+                                <td>25.0%</td>
+                                <td>1,500 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Feuilles de niébé</strong></td>
+                                <td>2500 kcal/kg</td>
+                                <td>25.0%</td>
+                                <td>1,600 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Moringa</strong></td>
+                                <td>2500 kcal/kg</td>
+                                <td>28.0%</td>
+                                <td>1,800 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Niébé</strong></td>
+                                <td>3400 kcal/kg</td>
+                                <td>22.4%</td>
+                                <td>3,200 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tourteau de palmiste</strong></td>
+                                <td>2385 kcal/kg</td>
+                                <td>17.2%</td>
+                                <td>1,900 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Graines de soja cuites</strong></td>
+                                <td>4100 kcal/kg</td>
+                                <td>36.0%</td>
+                                <td>4,800 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tourteau de soja</strong></td>
+                                <td>3320 kcal/kg</td>
+                                <td>44.0%</td>
+                                <td>3,500 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Farine de poissons</strong></td>
+                                <td>3750 kcal/kg</td>
+                                <td>65.2%</td>
+                                <td>7,500 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Soja graine torréfiée</strong></td>
+                                <td>4900 kcal/kg</td>
+                                <td>37.5%</td>
+                                <td>4,600 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Graine de coton</strong></td>
+                                <td>4500 kcal/kg</td>
+                                <td>23.4%</td>
+                                <td>3,300 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tourteau de coton</strong></td>
+                                <td>2580 kcal/kg</td>
+                                <td>40.7%</td>
+                                <td>3,100 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Graine de citrouille</strong></td>
+                                <td>5800 kcal/kg</td>
+                                <td>30.0%</td>
+                                <td>6,000 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Œuf de poule séché</strong></td>
+                                <td>5850 kcal/kg</td>
+                                <td>46.0%</td>
+                                <td>9,000 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Levure de bière sèche</strong></td>
+                                <td>3620 kcal/kg</td>
+                                <td>44.0%</td>
+                                <td>5,200 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Hareng sec</strong></td>
+                                <td>3060 kcal/kg</td>
+                                <td>78.9%</td>
+                                <td>8,500 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tourteau de colza</strong></td>
+                                <td>3000 kcal/kg</td>
+                                <td>35.9%</td>
+                                <td>2,900 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tourteau soja 46</strong></td>
+                                <td>3200 kcal/kg</td>
+                                <td>46.5%</td>
+                                <td>3,650 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tourteau de tournesol</strong></td>
+                                <td>3020 kcal/kg</td>
+                                <td>33.7%</td>
+                                <td>2,800 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Drêche de bière</strong></td>
+                                <td>2800 kcal/kg</td>
+                                <td>26.0%</td>
+                                <td>1,500 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>L-Lysine HCl 78,8%</strong></td>
+                                <td>4780 kcal/kg</td>
+                                <td>94.4%</td>
+                                <td>12,000 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>DL-Méthionine 99%</strong></td>
+                                <td>5640 kcal/kg</td>
+                                <td>58.4%</td>
+                                <td>15,000 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Lentille</strong></td>
+                                <td>3410 kcal/kg</td>
+                                <td>23.4%</td>
+                                <td>3,800 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tourteau de cacao</strong></td>
+                                <td>2200 kcal/kg</td>
+                                <td>24.3%</td>
+                                <td>1,900 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Drêche artisanal</strong></td>
+                                <td>2300 kcal/kg</td>
+                                <td>22.5%</td>
+                                <td>1,200 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Feuilles de papaye</strong></td>
+                                <td>2200 kcal/kg</td>
+                                <td>18.0%</td>
+                                <td>1,000 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Farine de sang</strong></td>
+                                <td>4000 kcal/kg</td>
+                                <td>88.0%</td>
+                                <td>6,000 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Farine de poissons 70</strong></td>
+                                <td>3800 kcal/kg</td>
+                                <td>71.3%</td>
+                                <td>8,000 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Contenu rumen</strong></td>
+                                <td>1500 kcal/kg</td>
+                                <td>15.0%</td>
+                                <td>500 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tourteau de soja 48</strong></td>
+                                <td>3280 kcal/kg</td>
+                                <td>48.5%</td>
+                                <td>3,800 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Pois fourrager</strong></td>
+                                <td>3200 kcal/kg</td>
+                                <td>22.5%</td>
+                                <td>3,100 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Féverole</strong></td>
+                                <td>3150 kcal/kg</td>
+                                <td>27.5%</td>
+                                <td>3,000 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Lupin blanc</strong></td>
+                                <td>3400 kcal/kg</td>
+                                <td>35.0%</td>
+                                <td>3,600 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Gluten de maïs</strong></td>
+                                <td>3700 kcal/kg</td>
+                                <td>62.0%</td>
+                                <td>5,500 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Concentré protéique de soja (SPC)</strong></td>
+                                <td>3450 kcal/kg</td>
+                                <td>65.0%</td>
+                                <td>7,000 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tourteau de lin</strong></td>
+                                <td>2900 kcal/kg</td>
+                                <td>34.0%</td>
+                                <td>3,200 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>L-Thréonine 98%</strong></td>
+                                <td>3400 kcal/kg</td>
+                                <td>73.0%</td>
+                                <td>16,000 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>L-Tryptophane 98%</strong></td>
+                                <td>5100 kcal/kg</td>
+                                <td>84.0%</td>
+                                <td>25,000 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>L-Valine</strong></td>
+                                <td>5500 kcal/kg</td>
+                                <td>77.0%</td>
+                                <td>22,000 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Farine de viande et os</strong></td>
+                                <td>2900 kcal/kg</td>
+                                <td>52.0%</td>
+                                <td>4,800 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Concentré protéique de pomme de terre</strong></td>
+                                <td>3100 kcal/kg</td>
+                                <td>78.0%</td>
+                                <td>9,000 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Gluten de blé (vital)</strong></td>
+                                <td>4250 kcal/kg</td>
+                                <td>80.0%</td>
+                                <td>8,500 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tourteau de sésame</strong></td>
+                                <td>3000 kcal/kg</td>
+                                <td>42.0%</td>
+                                <td>3,400 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tourteau de coprah</strong></td>
+                                <td>2650 kcal/kg</td>
+                                <td>22.0%</td>
+                                <td>2,300 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>L-Isoleucine</strong></td>
+                                <td>5200 kcal/kg</td>
+                                <td>79.0%</td>
+                                <td>20,000 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Farine de larves BSF</strong></td>
+                                <td>3200 kcal/kg</td>
+                                <td>42.0%</td>
+                                <td>6,000 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Soja graine extrudée</strong></td>
+                                <td>3650 kcal/kg</td>
+                                <td>37.0%</td>
+                                <td>4,900 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Pois chiche</strong></td>
+                                <td>3100 kcal/kg</td>
+                                <td>20.0%</td>
+                                <td>3,500 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Lentille rouge</strong></td>
+                                <td>3050 kcal/kg</td>
+                                <td>25.0%</td>
+                                <td>3,900 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Lupin bleu</strong></td>
+                                <td>3200 kcal/kg</td>
+                                <td>32.0%</td>
+                                <td>3,500 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tourteau de karité</strong></td>
+                                <td>2400 kcal/kg</td>
+                                <td>8.0%</td>
+                                <td>1,500 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Farine de chenilles</strong></td>
+                                <td>3100 kcal/kg</td>
+                                <td>55.0%</td>
+                                <td>8,000 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Farine de sauterelles</strong></td>
+                                <td>3300 kcal/kg</td>
+                                <td>62.0%</td>
+                                <td>9,500 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Spiruline sèche</strong></td>
+                                <td>2800 kcal/kg</td>
+                                <td>65.0%</td>
+                                <td>15,000 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Farine de vers de terre</strong></td>
+                                <td>2900 kcal/kg</td>
+                                <td>60.0%</td>
+                                <td>8,500 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Azolla (fougère aquatique séchée)</strong></td>
+                                <td>1800 kcal/kg</td>
+                                <td>23.0%</td>
+                                <td>2,000 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Farine de néré (Parkia biglobosa)</strong></td>
+                                <td>2800 kcal/kg</td>
+                                <td>17.5%</td>
+                                <td>2,500 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Coquilles huître</strong></td>
+                                <td>- kcal/kg</td>
+                                <td>0%</td>
+                                <td>1,000 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Farine d'os</strong></td>
+                                <td>- kcal/kg</td>
+                                <td>0%</td>
+                                <td>2,500 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Sulfate de cuivre</strong></td>
+                                <td>- kcal/kg</td>
+                                <td>0%</td>
+                                <td>8,000 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Oxyde de zinc</strong></td>
+                                <td>- kcal/kg</td>
+                                <td>0%</td>
+                                <td>9,000 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Bicarbonate de sodium</strong></td>
+                                <td>- kcal/kg</td>
+                                <td>0%</td>
+                                <td>3,500 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Carbonate de calcium</strong></td>
+                                <td>- kcal/kg</td>
+                                <td>0%</td>
+                                <td>1,200 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Sel iodé</strong></td>
+                                <td>- kcal/kg</td>
+                                <td>0%</td>
+                                <td>1,500 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Sel ordinaire</strong></td>
+                                <td>- kcal/kg</td>
+                                <td>0%</td>
+                                <td>1,200 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Phosphore</strong></td>
+                                <td>- kcal/kg</td>
+                                <td>0%</td>
+                                <td>5,000 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Coquilles d'œuf de poule</strong></td>
+                                <td>- kcal/kg</td>
+                                <td>0%</td>
+                                <td>800 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Phosphate monocalcique</strong></td>
+                                <td>- kcal/kg</td>
+                                <td>0%</td>
+                                <td>6,000 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Calcaire broyé</strong></td>
+                                <td>- kcal/kg</td>
+                                <td>0%</td>
+                                <td>1,000 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Phosphate tricalcique</strong></td>
+                                <td>- kcal/kg</td>
+                                <td>0%</td>
+                                <td>5,500 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Oxyde de magnésium</strong></td>
+                                <td>- kcal/kg</td>
+                                <td>0%</td>
+                                <td>7,000 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Phosphate bicalcique 18%</strong></td>
+                                <td>- kcal/kg</td>
+                                <td>0%</td>
+                                <td>5,800 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>MARIDAV démarrage</strong></td>
+                                <td>1400 kcal/kg</td>
+                                <td>23.5%</td>
+                                <td>6,500 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Hybrid feed swine concentré</strong></td>
+                                <td>2300 kcal/kg</td>
+                                <td>20.0%</td>
+                                <td>7,000 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Nutristar porcelet 2,5</strong></td>
+                                <td>2000 kcal/kg</td>
+                                <td>22.0%</td>
+                                <td>8,000 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Belgocam 10%</strong></td>
+                                <td>2218 kcal/kg</td>
+                                <td>40.0%</td>
+                                <td>8,500 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Premix croissance Nutrika 1,5%</strong></td>
+                                <td>1800 kcal/kg</td>
+                                <td>15.0%</td>
+                                <td>7,500 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Premix truie gestante Nutrika 2,5%</strong></td>
+                                <td>1500 kcal/kg</td>
+                                <td>13.6%</td>
+                                <td>7,500 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Démarrage 2,5%</strong></td>
+                                <td>2200 kcal/kg</td>
+                                <td>16.6%</td>
+                                <td>7,800 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Premix truie allaitante Nutrika 2,5%</strong></td>
+                                <td>2000 kcal/kg</td>
+                                <td>16.7%</td>
+                                <td>7,800 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>MARIDAV Croissance</strong></td>
+                                <td>1520 kcal/kg</td>
+                                <td>27.3%</td>
+                                <td>6,800 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Premix finition Nutrika</strong></td>
+                                <td>1500 kcal/kg</td>
+                                <td>14.0%</td>
+                                <td>7,200 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Afitex croissance finition</strong></td>
+                                <td>1700 kcal/kg</td>
+                                <td>30.0%</td>
+                                <td>7,000 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Premix 1% Cocc Add Feed</strong></td>
+                                <td>2300 kcal/kg</td>
+                                <td>30.0%</td>
+                                <td>12,000 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>IVOGRAIN Démarrage</strong></td>
+                                <td>2519 kcal/kg</td>
+                                <td>19.42%</td>
+                                <td>6,000 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>IVOGRAIN Croissance</strong></td>
+                                <td>2349 kcal/kg</td>
+                                <td>15.5%</td>
+                                <td>5,500 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>FATPIG CONCENTRATE 35%</strong></td>
+                                <td>2779 kcal/kg</td>
+                                <td>29.6%</td>
+                                <td>8,500 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>VITAFAF Porcelet 5%</strong></td>
+                                <td>3191 kcal/kg</td>
+                                <td>22.1%</td>
+                                <td>9,000 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>VITAFAF Porc Croissance 1,5%</strong></td>
+                                <td>5472 kcal/kg</td>
+                                <td>41.2%</td>
+                                <td>9,500 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>VITAFAF Truie Gestante 1,5%</strong></td>
+                                <td>4800 kcal/kg</td>
+                                <td>44.7%</td>
+                                <td>9,200 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Koudijs Pig Concentrate 5%</strong></td>
+                                <td>2751 kcal/kg</td>
+                                <td>12.32%</td>
+                                <td>8,800 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>AMV VITALAC 2,5% Porcelet</strong></td>
+                                <td>2800 kcal/kg</td>
+                                <td>29.0%</td>
+                                <td>9,500 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>AMV VITALAC 2% Truie Allaitante</strong></td>
+                                <td>2600 kcal/kg</td>
+                                <td>40.0%</td>
+                                <td>9,800 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>VITAFAF Truie Gestante 2%</strong></td>
+                                <td>7443 kcal/kg</td>
+                                <td>59.3%</td>
+                                <td>9,300 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>VITAFAF Truie Allaitante 1,5%</strong></td>
+                                <td>3360 kcal/kg</td>
+                                <td>24.5%</td>
+                                <td>9,600 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>VITAFAF Truie Allaitante 2%</strong></td>
+                                <td>4426 kcal/kg</td>
+                                <td>27.0%</td>
+                                <td>9,700 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>VITAFAF Porc Croissance 2%</strong></td>
+                                <td>5880 kcal/kg</td>
+                                <td>46.0%</td>
+                                <td>9,400 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>VITAFAF Porc Finition 1,5%</strong></td>
+                                <td>3011 kcal/kg</td>
+                                <td>30.9%</td>
+                                <td>9,000 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>VITAFAF Porc Finition 2%</strong></td>
+                                <td>2867 kcal/kg</td>
+                                <td>29.3%</td>
+                                <td>9,100 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>VITAFAF Cochette Repro 1,5%</strong></td>
+                                <td>3572 kcal/kg</td>
+                                <td>16.1%</td>
+                                <td>9,200 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>PROVIMI Prémix Porc 2,7% (Modern Farmers)</strong></td>
+                                <td>2200 kcal/kg</td>
+                                <td>18.0%</td>
+                                <td>10,500 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Prémix Porcelet 4% (Xinxiang New Realm — 15-30 kg)</strong></td>
+                                <td>2000 kcal/kg</td>
+                                <td>22.0%</td>
+                                <td>11,000 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>MIX SCIENCE Prémix 2.5%</strong></td>
+                                <td>- kcal/kg</td>
+                                <td>16.0%</td>
+                                <td>11,500 Ar / kg</td>
+                            </tr>
+                            <tr>
+                                <td><strong>CHAMPRIX Prémix Porc 2% (P2100)</strong></td>
+                                <td>- kcal/kg</td>
+                                <td>0%</td>
+                                <td>12,000 Ar / kg</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
