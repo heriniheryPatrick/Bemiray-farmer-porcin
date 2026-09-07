@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Graphique de croissance porcine
+    // Graphique d'évolution de la croissance porcine
     const ctx = document.getElementById('porcineChart').getContext('2d');
     const porcineChart = new Chart(ctx, {
         type: 'line',
@@ -34,24 +34,26 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Gestion du formulaire d'enregistrement
+    // Formulaire d'enregistrement dynamique
     const form = document.getElementById('recordForm');
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const date = document.getElementById('date').value;
-        const lot = document.getElementById('lot').value;
-        const weight = document.getElementById('weight').value;
+    if(form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const date = document.getElementById('date').value;
+            const lot = document.getElementById('lot').value;
+            const weight = document.getElementById('weight').value;
 
-        if(date && lot && weight) {
-            alert(`Pesée enregistrée avec succès !\nDate : ${date}\nLot : ${lot}\nPoids moyen : ${weight} kg`);
-            form.reset();
-        }
-    });
+            if(date && lot && weight) {
+                alert(`Pesée enregistrée avec succès !\nDate : ${date}\nLot : ${lot}\nPoids moyen : ${weight} kg`);
+                form.reset();
+                document.getElementById('date').value = new Date().toISOString().split('T')[0];
+            }
+        });
+    }
 
-    // Date du jour par défaut dans le formulaire
-    const today = new Date().toISOString().split('T')[0];
+    // Date du jour par défaut
     const dateInput = document.getElementById('date');
     if(dateInput) {
-        dateInput.value = today;
+        dateInput.value = new Date().toISOString().split('T')[0];
     }
 });
