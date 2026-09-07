@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BeMiray Farmer - Authentification & Session Sécurisée</title>
+    <title>BeMiray Farmer - Authentification & Espace Administrateur</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -14,7 +14,7 @@
             <div style="display: flex; align-items: center; gap: 8px; width: 100%;">
                 <span style="background: rgba(255,255,255,0.2); padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap;">BeMiray Info</span>
                 <marquee behavior="scroll" direction="left" scrollamount="5" style="width: 100%;">
-                    🚨 Plateforme sécurisée BeMiray Farmer (Ambohitraina, Ilafy) &bull; Test d'accès de 15 jours actif &bull; Code de sécurité à 6 chiffres &bull;
+                    🚨 Plateforme sécurisée BeMiray Farmer (Ambohitraina, Ilafy, Antananarivo) &bull; Mode Administrateur & Essai 15 jours disponibles &bull;
                 </marquee>
             </div>
         </div>
@@ -40,14 +40,17 @@
             <!-- Formulaire de Connexion -->
             <form id="loginFormContainer" onsubmit="handleLoginSubmit(event)">
                 <div class="form-group" style="margin-bottom: 15px;">
-                    <label style="font-weight: 600; font-size: 0.85rem; color: #334155; margin-bottom: 5px; display: block;">Adresse Email ou Téléphone :</label>
-                    <input type="text" id="loginIdentifier" placeholder="Entrez votre email ou n° de téléphone" required style="width: 100%; padding: 10px 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem;">
+                    <label style="font-weight: 600; font-size: 0.85rem; color: #334155; margin-bottom: 5px; display: block;">Identifiant / Email :</label>
+                    <input type="text" id="loginIdentifier" placeholder="admin@bemiray.mg ou email" required style="width: 100%; padding: 10px 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem;">
                 </div>
                 <div class="form-group" style="margin-bottom: 20px;">
                     <label style="font-weight: 600; font-size: 0.85rem; color: #334155; margin-bottom: 5px; display: block;">Mot de passe :</label>
                     <input type="password" id="loginPassword" placeholder="••••••••" required style="width: 100%; padding: 10px 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem;">
                 </div>
                 <button type="submit" class="btn" style="width: 100%; padding: 12px; font-size: 0.95rem; background: #166534; border-radius: 8px; color: white; font-weight: 600; border: none; cursor: pointer;">Se connecter &rarr;</button>
+                <div style="margin-top: 12px; font-size: 0.75rem; color: #64748b; text-align: center;">
+                    💡 <strong>Accès Admin direct :</strong> admin@bemiray.mg / admin2026
+                </div>
             </form>
 
             <!-- Formulaire d'Inscription / Création de compte -->
@@ -102,7 +105,7 @@
         </div>
     </section>
 
-    <!-- HEADER PROFESSIONNEL DE LA SESSION DÉDIÉE (Caché tant que non authentifié) -->
+    <!-- HEADER PROFESSIONNEL DE LA SESSION DÉDIÉE -->
     <header class="app-header" id="appHeader" style="display: none; background: #ffffff; border-bottom: 1px solid #e2e8f0; padding: 15px 0; margin-bottom: 30px;">
         <div class="container header-container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
             <div class="brand" style="display: flex; align-items: center; gap: 15px;">
@@ -116,11 +119,11 @@
             </div>
             
             <div class="header-right-panel" style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
-                <div class="header-badge" id="trialBadge" style="background: #ecfdf5; color: #065f46; padding: 8px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; border: 1px solid #10b981;">
-                    ⏳ Essai : <span id="trialDaysDisplay">15</span> jours restants
+                <div class="header-badge" id="trialBadgeContainer" style="background: #ecfdf5; color: #065f46; padding: 8px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; border: 1px solid #10b981;">
+                    ⏳ <span id="trialBadgeText">Essai : <span id="trialDaysDisplay">15</span> jours restants</span>
                 </div>
                 <div class="header-badge" style="background: #f1f5f9; padding: 8px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: 500; display: flex; align-items: center; gap: 8px; border: 1px solid #e2e8f0;">
-                    <span class="status-dot" style="width: 8px; height: 8px; background-color: #10b981; border-radius: 50%;"></span> <span id="userSessionDisplay">Propriétaire</span>
+                    <span class="status-dot" style="width: 8px; height: 8px; background-color: #10b981; border-radius: 50%;"></span> <span id="userSessionDisplay">Utilisateur</span>
                 </div>
                 <button onclick="handleLogout()" class="btn-secondary" style="padding: 6px 12px; font-size: 0.8rem; cursor: pointer; border-radius: 6px; border: 1px solid #cbd5e1; background: #f8fafc;">Déconnexion</button>
             </div>
@@ -128,16 +131,16 @@
     </header>
 
     <main class="container">
-        <!-- VUE ACCUEIL : TABLEAU DE BORD PRINCIPAL (Session dédiée) -->
+        <!-- VUE ACCUEIL : TABLEAU DE BORD PRINCIPAL -->
         <section id="homeView" class="view-section" style="display: none;">
             <div class="welcome-banner">
                 <div class="banner-text">
-                    <h2>Espace Dédié - Tableau de Bord</h2>
-                    <p>Bienvenue sur votre session sécurisée BeMiray Farmer. Gérez vos modules d'élevage en toute sérénité.</p>
+                    <h2>Tableau de Bord - BeMiray Farmer</h2>
+                    <p>Bienvenue sur votre session sécurisée (Ambohitraina, Ilafy). Gérez vos modules d'élevage en toute sérénité.</p>
                 </div>
                 <div class="quick-stats-row">
                     <div class="mini-stat">
-                        <span>Effectif</span>
+                        <span>Effectif Global</span>
                         <strong>120 Têtes</strong>
                     </div>
                     <div class="mini-stat">
@@ -354,6 +357,7 @@
 
     <script>
         let currentAuthIdentifier = "";
+        let isAdminSession = false;
 
         function switchAuthMode(mode) {
             const loginBtn = document.getElementById('tabLoginBtn');
@@ -382,21 +386,36 @@
 
         function handleLoginSubmit(event) {
             event.preventDefault();
-            const identifier = document.getElementById('loginIdentifier').value;
+            const identifier = document.getElementById('loginIdentifier').value.trim().toLowerCase();
             const pass = document.getElementById('loginPassword').value;
             
+            // COMPTE ADMINISTRATEUR INTÉGRÉ
+            if (identifier === "admin@bemiray.mg" || identifier === "admin") {
+                if (pass === "admin2026") {
+                    currentAuthIdentifier = "Administrateur Principal";
+                    isAdminSession = true;
+                    grantAdminAccess();
+                    return;
+                } else {
+                    showAuthError("Mot de passe incorrect pour le compte Administrateur.");
+                    return;
+                }
+            }
+
             if (pass.length < 4) {
                 showAuthError("Mot de passe trop court.");
                 return;
             }
+
             currentAuthIdentifier = identifier;
+            isAdminSession = false;
             triggerOtpStep("Connexion au compte : " + identifier);
         }
 
         function handleRegisterSubmit(event) {
             event.preventDefault();
-            const email = document.getElementById('regEmail').value;
-            const phone = document.getElementById('regPhone').value;
+            const email = document.getElementById('regEmail').value.trim().toLowerCase();
+            const phone = document.getElementById('regPhone').value.trim();
             const pass = document.getElementById('regPassword').value;
             const confirmPass = document.getElementById('regConfirmPassword').value;
             const channel = document.querySelector('input[name="otpChannel"]:checked').value;
@@ -410,10 +429,15 @@
                 return;
             }
 
-            // Initialiser ou réinitialiser la période d'essai de 15 jours à l'inscription
-            localStorage.setItem('bemiray_trial_start', new Date().getTime());
-
             currentAuthIdentifier = (channel === 'sms') ? phone : email;
+            isAdminSession = false;
+
+            let userTrials = JSON.parse(localStorage.getItem('bemiray_users_trials') || '{}');
+            if (!userTrials[currentAuthIdentifier]) {
+                userTrials[currentAuthIdentifier] = new Date().getTime();
+                localStorage.setItem('bemiray_users_trials', JSON.stringify(userTrials));
+            }
+
             triggerOtpStep(`Code à 6 chiffres envoyé par ${channel.toUpperCase()} vers ${currentAuthIdentifier}`);
         }
 
@@ -434,30 +458,50 @@
             event.preventDefault();
             const otp = document.getElementById('otpInput').value;
 
-            // Code OTP de validation à 6 chiffres (par défaut : 847291 ou 123456)
             if (otp === "847291" || otp === "123456") {
-                // Vérification de la période d'essai de 15 jours
-                if (!checkTrialAccess()) {
-                    return; // Stoppe la connexion si l'essai est expiré
+                if (!isAdminSession && !checkTrialAccessForUser(currentAuthIdentifier)) {
+                    return;
                 }
-
-                document.getElementById('otpView').style.display = 'none';
-                document.getElementById('appHeader').style.display = 'block';
-                document.getElementById('homeView').style.display = 'block';
-                document.getElementById('userSessionDisplay').innerText = currentAuthIdentifier || "Propriétaire";
+                grantUserAccess();
             } else {
                 document.getElementById('otpError').style.display = 'block';
             }
         }
 
-        function checkTrialAccess() {
-            let trialStart = localStorage.getItem('bemiray_trial_start');
+        function grantAdminAccess() {
+            document.getElementById('authView').style.display = 'none';
+            document.getElementById('otpView').style.display = 'none';
+            document.getElementById('appHeader').style.display = 'block';
+            document.getElementById('homeView').style.display = 'block';
+            document.getElementById('userSessionDisplay').innerText = "Admin (BeMiray)";
+            
+            // Correction : Masque le compteur d'essai et affiche explicitement la licence illimitée pour l'admin
+            const trialBadgeContainer = document.getElementById('trialBadgeContainer');
+            if(trialBadgeContainer) {
+                trialBadgeContainer.style.background = '#f0fdf4';
+                trialBadgeContainer.style.borderColor = '#16a34a';
+                trialBadgeContainer.innerHTML = '✨ Licence : <strong style="color: #166534;">Illimitée (Admin)</strong>';
+            }
+        }
+
+        function grantUserAccess() {
+            document.getElementById('otpView').style.display = 'none';
+            document.getElementById('appHeader').style.display = 'block';
+            document.getElementById('homeView').style.display = 'block';
+            document.getElementById('userSessionDisplay').innerText = currentAuthIdentifier || "Utilisateur";
+            
+            checkTrialAccessForUser(currentAuthIdentifier);
+        }
+
+        function checkTrialAccessForUser(identifier) {
+            let userTrials = JSON.parse(localStorage.getItem('bemiray_users_trials') || '{}');
+            let trialStart = userTrials[identifier];
             const trialDurationDays = 15;
 
             if (!trialStart) {
-                // Si aucune date n'existe (première connexion directe), on initialise l'essai aujourd'hui
                 trialStart = new Date().getTime();
-                localStorage.setItem('bemiray_trial_start', trialStart);
+                userTrials[identifier] = trialStart;
+                localStorage.setItem('bemiray_users_trials', JSON.stringify(userTrials));
             }
 
             const now = new Date().getTime();
@@ -465,14 +509,13 @@
             const daysRemaining = Math.ceil(trialDurationDays - elapsedDays);
 
             if (elapsedDays > trialDurationDays) {
-                alert("❌ Votre période d'essai gratuite de 15 jours a expiré.\nVeuillez contacter l'administrateur de BeMiray Farmer (Ambohitraina, Ilafy) pour activer votre licence complète.");
+                alert("❌ Votre période d'essai gratuite de 15 jours pour ce compte a expiré.\nVeuillez contacter l'administrateur de BeMiray Farmer (Ambohitraina, Ilafy) pour activer votre licence.");
                 handleLogout();
                 return false;
             } else {
-                // Mettre à jour l'affichage des jours restants dans le badge
-                const badgeDisplay = document.getElementById('trialDaysDisplay');
-                if (badgeDisplay) {
-                    badgeDisplay.innerText = daysRemaining > 0 ? daysRemaining : 1;
+                const badgeText = document.getElementById('trialBadgeText');
+                if (badgeText) {
+                    badgeText.innerHTML = `⏳ Essai : <span id="trialDaysDisplay">${daysRemaining > 0 ? daysRemaining : 1}</span> jours restants`;
                 }
                 return true;
             }
@@ -485,6 +528,8 @@
         }
 
         function handleLogout() {
+            isAdminSession = false;
+            currentAuthIdentifier = "";
             document.getElementById('appHeader').style.display = 'none';
             document.getElementById('homeView').style.display = 'none';
             document.getElementById('formulationView').style.display = 'none';
