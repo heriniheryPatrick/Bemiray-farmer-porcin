@@ -44,13 +44,13 @@
         .auth-switch a { color: var(--primary); text-decoration: none; font-weight: 600; cursor: pointer; }
         .auth-switch a:hover { text-decoration: underline; }
 
-        /* --- HEADER --- */
+        /* --- HEADER CORRIGÉ --- */
         #appHeader { display: none; background: #fff; border-bottom: 1px solid var(--border); padding: 16px 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 1px 3px rgba(0,0,0,0.02); }
         .header-flex { display: flex; justify-content: space-between; align-items: center; }
-        .brand-box { display: flex; align-items: center; gap: 12px; }
-        .brand-icon { width: 42px; height: 42px; background: var(--primary-light); color: var(--primary); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; border: 1px solid #bbf7d0; }
-        .brand-title h3 { font-size: 1.05rem; font-weight: 700; color: var(--text-main); }
-        .brand-title p { font-size: 0.75rem; color: var(--text-muted); font-weight: 500; }
+        .brand-box { display: flex; align-items: center; gap: 14px; }
+        .brand-icon { width: 48px; height: 48px; background: var(--primary-light); color: var(--primary); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; border: 1px solid #bbf7d0; flex-shrink: 0; }
+        .brand-title h3 { font-size: 1.15rem; font-weight: 700; color: var(--text-main); line-height: 1.2; }
+        .brand-title p { font-size: 0.8rem; color: var(--text-muted); font-weight: 500; margin-top: 2px; }
 
         /* --- VUES --- */
         .view-section { display: none; padding: 32px 0; }
@@ -123,7 +123,7 @@
                 <button type="submit" class="btn" id="authSubmitBtn">Se connecter</button>
             </form>
 
-            <!-- ÉTAPE 2 : FORMULAIRE DE VÉRIFICATION DU CODE À 6 CHIFFRES (Masqué par défaut) -->
+            <!-- ÉTAPE 2 : FORMULAIRE DE VÉRIFICATION DU CODE À 6 CHIFFRES -->
             <form id="verifyCodeForm" style="display: none;" onsubmit="handleVerifySubmit(event)">
                 <div style="background: var(--primary-light); padding: 12px; border-radius: 8px; margin-bottom: 15px; border: 1px solid #bbf7d0; font-size: 0.85rem; color: var(--primary-dark);">
                     Un jeton à 6 chiffres a été envoyé par courriel à <strong id="sentToEmail"></strong>. (Simulé: vérifiez la boîte de dialogue/console).
@@ -144,14 +144,14 @@
         </div>
     </div>
 
-    <!-- EN-TÊTE APPLICATION -->
+    <!-- EN-TÊTE APPLICATION AVEC LOGO RESTAURÉ -->
     <header id="appHeader">
         <div class="container header-flex">
             <div class="brand-box">
                 <div class="brand-icon">🌱</div>
                 <div class="brand-title">
-                    <h3 id="appHeaderTitle">FARM BeMiray</h3>
-                    <p id="loggedUserDisplay">Ilafy, Antananarivo</p>
+                    <h3 id="appHeaderTitle">BeMiray Farmer</h3>
+                    <p id="loggedUserDisplay">Ambohitraina, Ilafy, Antananarivo</p>
                 </div>
             </div>
             <button onclick="logout()" class="btn-secondary">Déconnexion</button>
@@ -416,7 +416,7 @@
             { name: "Sel / Coquille d'huître", pb: 0.0, energy: 0, price: 1000, type: "Minéraux (Ca/Sel)" }
         ];
 
-        let currentAuthMode = 'login'; // 'login' ou 'register'
+        let currentAuthMode = 'login';
         let pendingEmail = '';
         let generatedCode = '';
 
@@ -455,7 +455,6 @@
             const err = document.getElementById('err');
             err.style.display = 'none';
 
-            // ADMIN UNIQUE (Accès illimité direct)
             if (email === "admin@bemiray.mg" || email === "admin") {
                 if (pass === "admin2026") {
                     loginSuccess("Administrateur (P. Raharinirina) - Illimité", true);
@@ -468,11 +467,9 @@
             }
 
             if (currentAuthMode === 'register') {
-                // Création d'un nouveau compte utilisateur avec jeton 6 chiffres
                 pendingEmail = email;
                 generatedCode = Math.floor(100000 + Math.random() * 900000).toString();
                 
-                // Simulation d'envoi d'e-mail (Affichage de sécurité dans la console et alerte pour test local)
                 console.log(`[EMAIL SIMULÉ À ${email}] Votre jeton BeMiray à 6 chiffres est : ${generatedCode}`);
                 alert(`[SIMULATION COURRIEL] Un jeton à 6 chiffres a été généré pour ${email}.\nVotre jeton de validation est : ${generatedCode}`);
 
@@ -480,11 +477,9 @@
                 document.getElementById('verifyCodeForm').style.display = 'block';
                 document.getElementById('sentToEmail').innerText = email;
             } else {
-                // Connexion utilisateur standard
                 let users = JSON.parse(localStorage.getItem('bemiray_users') || '{}');
                 if (users[email]) {
                     if (users[email].password === pass) {
-                        // Vérifier la période d'essai de 15 jours
                         let createdDate = new Date(users[email].created);
                         let now = new Date();
                         let diffDays = Math.floor((now - createdDate) / (1000 * 60 * 60 * 24));
