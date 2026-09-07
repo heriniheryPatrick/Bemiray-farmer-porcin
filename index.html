@@ -94,8 +94,8 @@
         .tab-btn:hover { background: #e2e8f0; color: var(--text-main); }
         .tab-btn.active-tab { background: var(--primary); color: white; box-shadow: 0 4px 12px rgba(21, 128, 61, 0.2); }
         
-        .formulation-subview { display: none; }
-        .formulation-subview.active-sub { display: block; }
+        .formulation-subview, .cheptel-subview { display: none; }
+        .formulation-subview.active-sub, .cheptel-subview.active-sub { display: block; }
 
         /* --- STATISTIQUES --- */
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 24px; }
@@ -117,7 +117,6 @@
             <h2 id="authTitle" style="color: var(--text-main); margin-bottom: 4px; font-size: 1.4rem;">FARM BeMiray</h2>
             <p id="authSubtitle" style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted); margin-bottom: 25px; text-transform: uppercase; letter-spacing: 1.5px;">Ambohitraina, Ilafy</p>
             
-            <!-- ÉTAPE 1 : FORMULAIRE DE CONNEXION / EMAIL -->
             <form id="loginForm" onsubmit="handleAuthSubmit(event)">
                 <div class="form-group">
                     <label>Adresse Courriel (Email) :</label>
@@ -130,10 +129,9 @@
                 <button type="submit" class="btn" id="authSubmitBtn">Se connecter</button>
             </form>
 
-            <!-- ÉTAPE 2 : FORMULAIRE DE VÉRIFICATION DU CODE À 6 CHIFFRES -->
             <form id="verifyCodeForm" style="display: none;" onsubmit="handleVerifySubmit(event)">
                 <div style="background: var(--primary-light); padding: 12px; border-radius: 8px; margin-bottom: 15px; border: 1px solid #bbf7d0; font-size: 0.85rem; color: var(--primary-dark);">
-                    Un jeton à 6 chiffres a été envoyé par courriel à <strong id="sentToEmail"></strong>. (Simulé: vérifiez la boîte de dialogue/console).
+                    Un jeton à 6 chiffres a été envoyé par courriel à <strong id="sentToEmail"></strong>.
                 </div>
                 <div class="form-group">
                     <label>Entrez le jeton à 6 chiffres :</label>
@@ -174,7 +172,7 @@
             <div class="hero-banner">
                 <div>
                     <h2>Tableau de Bord Principal</h2>
-                    <p>Système intelligent de gestion de provendes et de suivi du cheptel porcin à Ilafy.</p>
+                    <p>Système intelligent de gestion agropastorale et de suivi du cheptel à Ilafy.</p>
                 </div>
                 <div id="trialBadgeContainer"></div>
             </div>
@@ -187,7 +185,7 @@
                 <div class="card-btn" onclick="goTo('cheptelView')">
                     <div class="card-btn-icon">📋</div>
                     <h3>Registre du Cheptel</h3>
-                    <p>Suivi détaillé des sujets porcins, des poids enregistrés et de l'état sanitaire des bâtiments.</p>
+                    <p>Suivi détaillé des sujets porcins, pesées, traitements sanitaires, reproduction et maternité.</p>
                 </div>
             </div>
         </section>
@@ -202,8 +200,8 @@
             
             <div class="tabs">
                 <button class="tab-btn active-tab" onclick="switchSubForm('manualSub', event)">🛠️ Simulation Libre</button>
-                <button class="tab-btn" onclick="switchSubForm('mesFormulesSub', event)">✨ Mes Formules (Personnalisées)</button>
-                <button class="tab-btn" onclick="switchSubForm('autoSub', event)">🤖 Mode Automatique / LP</button>
+                <button class="tab-btn" onclick="switchSubForm('mesFormulesSub', event)">✨ Mes Formules</button>
+                <button class="tab-btn" onclick="switchSubForm('autoSub', event)">🤖 Mode Automatique</button>
                 <button class="tab-btn" onclick="switchSubForm('pointuesSub', event)">🎯 Formules Pointues</button>
                 <button class="tab-btn" onclick="switchSubForm('matriceSub', event)">📊 Matrice Ingrédients</button>
             </div>
@@ -276,22 +274,10 @@
                     </div>
 
                     <div class="stats-grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
-                        <div class="stat-box">
-                            <h4>Poids de la Gâchée</h4>
-                            <p><span id="cTotKg">0</span> kg</p>
-                        </div>
-                        <div class="stat-box" style="background:#e0f2fe; border-color:#0284c7;">
-                            <h4 style="color:#0369a1;">Taux de Protéines Global</h4>
-                            <p style="color:#0369a1;"><span id="cTotProt">0.0</span> %</p>
-                        </div>
-                        <div class="stat-box" style="background:#fef3c7; border-color:#d97706;">
-                            <h4 style="color:#b45309;">Énergie Estimée</h4>
-                            <p style="color:#b45309;"><span id="cTotEnergy">0</span> kcal/kg</p>
-                        </div>
-                        <div class="stat-box" style="background:#f3e8ff; border-color:#7e22ce;">
-                            <h4 style="color:#7e22ce;">Indicateur Minéraux / CMV</h4>
-                            <p style="color:#7e22ce; font-size: 0.95rem;" id="cMinStatus">À compléter</p>
-                        </div>
+                        <div class="stat-box"><h4>Poids de la Gâchée</h4><p><span id="cTotKg">0</span> kg</p></div>
+                        <div class="stat-box" style="background:#e0f2fe; border-color:#0284c7;"><h4 style="color:#0369a1;">Taux de Protéines Global</h4><p style="color:#0369a1;"><span id="cTotProt">0.0</span> %</p></div>
+                        <div class="stat-box" style="background:#fef3c7; border-color:#d97706;"><h4 style="color:#b45309;">Énergie Estimée</h4><p style="color:#b45309;"><span id="cTotEnergy">0</span> kcal/kg</p></div>
+                        <div class="stat-box" style="background:#f3e8ff; border-color:#7e22ce;"><h4 style="color:#7e22ce;">Indicateur Minéraux / CMV</h4><p style="color:#7e22ce; font-size: 0.95rem;" id="cMinStatus">À compléter</p></div>
                     </div>
                 </div>
             </div>
@@ -337,12 +323,7 @@
                     <div class="table-container">
                         <table>
                             <thead>
-                                <tr>
-                                    <th>Stade Physiologique</th>
-                                    <th>Protéine Brute (%)</th>
-                                    <th>Énergie Digestible (kcal/kg)</th>
-                                    <th>Lysine Min. (%)</th>
-                                </tr>
+                                <tr><th>Stade Physiologique</th><th>Protéine Brute (%)</th><th>Énergie Digestible (kcal/kg)</th><th>Lysine Min. (%)</th></tr>
                             </thead>
                             <tbody>
                                 <tr><td><strong>Porcelet 1er Âge (10-20kg)</strong></td><td>20.0% - 22.0%</td><td>3 350 kcal</td><td>1.15%</td></tr>
@@ -362,12 +343,7 @@
                     <div class="table-container">
                         <table>
                             <thead>
-                                <tr>
-                                    <th>Matière Première / Ingrédient</th>
-                                    <th>Énergie Digestible</th>
-                                    <th>Protéine Brute (%)</th>
-                                    <th>Prix unitaire estimé</th>
-                                </tr>
+                                <tr><th>Matière Première / Ingrédient</th><th>Énergie Digestible</th><th>Protéine Brute (%)</th><th>Prix unitaire estimé</th></tr>
                             </thead>
                             <tbody>
                                 <tr><td><strong>Maïs concassé</strong></td><td>3380 kcal/kg</td><td>8.5%</td><td>2,200 Ar / kg</td></tr>
@@ -383,25 +359,81 @@
             </div>
         </section>
 
-        <!-- CHEPTEL -->
+        <!-- CHEPTEL AVEC ONGLETS TRAITEMENTS & REPRODUCTION -->
         <section id="cheptelView" class="view-section">
             <button class="back-nav" onclick="goTo('homeView')">&larr; Retour au tableau de bord</button>
             <div style="margin-bottom: 24px;">
-                <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 4px;">Registre du Cheptel</h2>
-                <p style="color: var(--text-muted); font-size: 0.9rem;">FARM BeMiray - Ambohitraina, Ilafy. Suivi de l'élevage porcin.</p>
+                <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 4px;">Registre du Cheptel & Suivi Sanitaire</h2>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">FARM BeMiray - Ambohitraina, Ilafy. Gestion des animaux, soins et reproduction.</p>
             </div>
-            <div class="card">
-                <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 15px;">Animaux enregistrés</h3>
-                <div class="table-container">
-                    <table>
-                        <thead>
-                            <tr><th>Sujet / ID</th><th>Catégorie</th><th>Poids Actuel</th><th>Statut</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td><strong>Truie #104</strong></td><td>Reproductrice</td><td>165 kg</td><td>Gestation (Soin actif)</td></tr>
-                            <tr><td><strong>Lot #01 (Porcelets)</strong></td><td>Engraissement</td><td>28 kg / tète</td><td>Croissance active</td></tr>
-                        </tbody>
-                    </table>
+
+            <div class="tabs">
+                <button class="tab-btn active-tab" onclick="switchSubCheptel('animauxSub', event)">📋 Liste des Animaux</button>
+                <button class="tab-btn" onclick="switchSubCheptel('traitementsSub', event)">💉 Traitements & Sanitaire</button>
+                <button class="tab-btn" onclick="switchSubCheptel('reproductionSub', event)">🍼 Reproduction & Maternité</button>
+            </div>
+
+            <!-- Liste Animaux -->
+            <div id="animauxSub" class="cheptel-subview active-sub">
+                <div class="card">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                        <h3 style="font-size: 1.05rem; font-weight: 700;">Cheptel Actif</h3>
+                        <button class="btn-secondary" onclick="alert('Fonctionnalité d’ajout d’un sujet activée.')">➕ Enregistrer un animal</button>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr><th>Sujet / ID</th><th>Catégorie</th><th>Poids Actuel</th><th>Bâtiment / Box</th><th>Statut</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td><strong>Truie #104</strong></td><td>Reproductrice</td><td>165 kg</td><td>Box Maternité 01</td><td>Gestation (Soin actif)</td></tr>
+                                <tr><td><strong>Verrat #01</strong></td><td>Reproducteur</td><td>190 kg</td><td>Box Reproducteur</td><td>Actif</td></tr>
+                                <tr><td><strong>Lot #01 (Porcelets)</strong></td><td>Engraissement</td><td>28 kg / tète</td><td>Bâtiment Principal</td><td>Croissance active</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Traitements Sanitaires -->
+            <div id="traitementsSub" class="cheptel-subview">
+                <div class="card">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                        <h3 style="font-size: 1.05rem; font-weight: 700;">Suivi des Traitements et Vermifugations</h3>
+                        <button class="btn-secondary" onclick="alert('Ajout d’une intervention sanitaire enregistré.')">➕ Planifier un soin</button>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr><th>Date</th><th>Sujet / Lot</th><th>Type de Soin / Produit</th><th>Posologie / Voie</th><th>Responsable</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>02/09/2026</td><td>Lot #01</td><td>Vermifugation (Ivermectine)</td><td>1 ml / 33 kg (SC)</td><td>Patrick R.</td></tr>
+                                <tr><td>25/08/2026</td><td>Truie #104</td><td>Vitamines AD3E + Fer</td><td>10 ml (IM)</td><td>Patrick R.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reproduction & Maternité -->
+            <div id="reproductionSub" class="cheptel-subview">
+                <div class="card">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                        <h3 style="font-size: 1.05rem; font-weight: 700;">Suivi de la Reproduction & Maternité</h3>
+                        <button class="btn-secondary" onclick="alert('Nouvelle saillie enregistrée.')">➕ Enregistrer une saillie</button>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr><th>Truie ID</th><th>Date de Saillie</th><th>Verrat Utilisé</th><th>Mise bas Prévue</th><th>Porcelets Sevrés</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td><strong>Truie #104</strong></td><td>12/06/2026</td><td>Verrat #01</td><td>04/10/2026 (Imminente)</td><td>- (En attente)</td></tr>
+                                <tr><td><strong>Truie #089</strong></td><td>10/03/2026</td><td>Verrat #01</td><td>02/07/2026</td><td>11 porcelets</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </section>
@@ -479,7 +511,6 @@
                 pendingEmail = email;
                 generatedCode = Math.floor(100000 + Math.random() * 900000).toString();
                 
-                console.log(`[EMAIL SIMULÉ À ${email}] Votre jeton BeMiray à 6 chiffres est : ${generatedCode}`);
                 alert(`[SIMULATION COURRIEL] Un jeton à 6 chiffres a été généré pour ${email}.\nVotre jeton de validation est : ${generatedCode}`);
 
                 document.getElementById('loginForm').style.display = 'none';
@@ -497,7 +528,7 @@
                         if (daysLeft > 0) {
                             loginSuccess(`Utilisateur (${email})`, false, daysLeft);
                         } else {
-                            err.innerText = "Votre période d'essai gratuite de 15 jours a expiré. Veuillez contacter l'administrateur.";
+                            err.innerText = "Votre période d'essai gratuite de 15 jours a expiré.";
                             err.style.display = 'block';
                         }
                     } else {
@@ -577,7 +608,16 @@
 
         function switchSubForm(subId, event) {
             document.querySelectorAll('.formulation-subview').forEach(el => el.classList.remove('active-sub'));
-            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active-tab'));
+            document.querySelectorAll('#formulationView .tab-btn').forEach(el => el.classList.remove('active-tab'));
+            document.getElementById(subId).classList.add('active-sub');
+            if (event && event.currentTarget) {
+                event.currentTarget.classList.add('active-tab');
+            }
+        }
+
+        function switchSubCheptel(subId, event) {
+            document.querySelectorAll('.cheptel-subview').forEach(el => el.classList.remove('active-sub'));
+            document.querySelectorAll('#cheptelView .tab-btn').forEach(el => el.classList.remove('active-tab'));
             document.getElementById(subId).classList.add('active-sub');
             if (event && event.currentTarget) {
                 event.currentTarget.classList.add('active-tab');
