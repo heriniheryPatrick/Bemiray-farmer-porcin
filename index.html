@@ -3,563 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BeMiray Farmer - Authentification & Espace Administrateur</title>
-    <link rel="stylesheet" href="style.css">
+    <title>BeMiray Farmer - Ambohitraina Ilafy</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        body { background-color: #f8fafc; color: #1e293b; min-height: 100vh; display: flex; flex-direction: column; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; width: 100%; }
+        
+        /* AUTH SECTION */
+        #authView { display: flex; justify-content: center; align-items: center; min-height: 100vh; background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); }
+        .auth-card { background: #ffffff; padding: 40px 30px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); width: 100%; max-width: 420px; text-align: center; }
+        .form-group { margin-bottom: 16px; text-align: left; }
+        .form-group label { display: block; font-weight: 600; font-size: 0.85rem; color: #334155; margin-bottom: 6px; }
+        .form-group input { width: 100%; padding: 11px 14px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem; outline: none; transition: border-color 0.2s; }
+        .form-group input:focus { border-color: #166534; box-shadow: 0 0 0 3px rgba(22, 101, 52, 0.1); }
+        .btn-main { width: 100%; padding: 12px; background: #166534; color: #fff; border: none; border-radius: 8px; font-weight: 600; font-size: 0.95rem; cursor: pointer; transition: background 0.2s; }
+        .btn-main:hover { background: #14532d; }
+
+        /* APP HEADER */
+        #appHeader { display: none; background: #ffffff; border-bottom: 1px solid #e2e8f0; padding: 15px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .header-flex { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
+        .admin-licence-badge { background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; padding: 8px 16px; border-radius: 20px; font-weight: 700; font-size: 0.85rem; display: flex; align-items: center; gap: 6px; }
+        
+        /* DASHBOARD */
+        #homeView { display: none; padding: 30px 0; flex: 1; }
+        .welcome-box { background: linear-gradient(135deg, #166534 0%, #14532d 100%); color: white; padding: 30px; border-radius: 16px; margin-bottom: 30px; box-shadow: 0 4px 12px rgba(22,101,52,0.15); }
+        .welcome-box h2 { font-size: 1.8rem; margin-bottom: 8px; }
+        .welcome-box p { opacity: 0.9; font-size: 0.95rem; }
+        
+        .grid-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+        .card-mod { background: white; border-radius: 12px; padding: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.04); border: 1px solid #e2e8f0; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+        .card-mod:hover { transform: translateY(-3px); box-shadow: 0 10px 15px rgba(0,0,0,0.08); border-color: #166534; }
+        .card-mod h3 { color: #0f172a; margin-bottom: 10px; font-size: 1.1rem; }
+        .card-mod p { color: #64748b; font-size: 0.85rem; line-height: 1.4; }
+
+        footer { text-align: center; padding: 20px; font-size: 0.8rem; color: #64748b; border-top: 1px solid #e2e8f0; background: #ffffff; }
+    </style>
 </head>
 <body>
-    <!-- BANDEAU D'ALERTE DÉFILANT PLEIN ÉCRAN -->
-    <div class="top-ticker-bar" style="background: linear-gradient(90deg, #065f46 0%, #059669 100%); color: #ffffff; padding: 8px 0; font-size: 0.85rem; font-weight: 600; width: 100%; box-shadow: 0 2px 4px rgba(0,0,0,0.1); position: relative; z-index: 1000;">
-        <div class="container" style="display: flex; align-items: center; justify-content: space-between;">
-            <div style="display: flex; align-items: center; gap: 8px; width: 100%;">
-                <span style="background: rgba(255,255,255,0.2); padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap;">BeMiray Info</span>
-                <marquee behavior="scroll" direction="left" scrollamount="5" style="width: 100%;">
-                    🚨 Plateforme sécurisée BeMiray Farmer (Ambohitraina, Ilafy, Antananarivo) &bull; Mode Administrateur & Essai 15 jours disponibles &bull;
-                </marquee>
-            </div>
-        </div>
-    </div>
 
-    <!-- ÉTAPE 1 : FORMULAIRE DE CONNEXION / CRÉATION DE COMPTE -->
-    <section id="authView" class="auth-wrapper" style="display: flex; justify-content: center; align-items: center; min-height: 80vh; padding: 20px;">
-        <div class="card auth-card" style="max-width: 450px; width: 100%; padding: 40px 30px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); border-radius: 16px; background: #ffffff;">
-            <div style="text-align: center;">
-                <div class="brand-logo-container" style="width: 85px !important; height: 85px !important; margin: 0 auto 15px auto; border-radius: 12px; overflow: hidden; display: flex; align-items: center; justify-content: center; background: #ffffff; border: 1px solid #cbd5e1;">
-                    <img src="logo-bemiray.jpg" alt="Logo BeMiray Farmer" class="real-logo-img" style="width: 100%; height: 100%; object-fit: contain;">
+    <!-- ÉTAPE : CONNEXION -->
+    <section id="authView">
+        <div class="auth-card">
+            <h1 style="font-size: 1.5rem; color: #0f172a; margin-bottom: 5px;">BeMiray Farmer</h1>
+            <p style="font-size: 0.75rem; font-weight: 700; color: #166534; letter-spacing: 0.5px; margin-bottom: 25px;">AMBOHITRAINA, ILAFY • ANTANANARIVO</p>
+            
+            <form onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label>Identifiant Admin :</label>
+                    <input type="text" id="userInput" value="admin@bemiray.mg" required>
                 </div>
-                <h1 style="font-size: 1.5rem; color: #0f172a; margin-bottom: 2px;">BeMiray Farmer</h1>
-                <p style="font-weight: 700; color: #166534; font-size: 0.8rem; letter-spacing: 0.5px; margin-bottom: 20px;">AMBOHITRAINA, ILAFY • ANTANANARIVO</p>
-            </div>
-
-            <!-- Onglets Bascule Connexion / Inscription -->
-            <div class="auth-tabs" style="display: flex; margin-bottom: 25px; border-bottom: 2px solid #e2e8f0;">
-                <button type="button" id="tabLoginBtn" onclick="switchAuthMode('login')" style="flex: 1; padding: 10px; background: none; border: none; font-weight: 600; font-size: 0.9rem; color: #166534; border-bottom: 2px solid #166534; cursor: pointer;">Connexion</button>
-                <button type="button" id="tabRegisterBtn" onclick="switchAuthMode('register')" style="flex: 1; padding: 10px; background: none; border: none; font-weight: 600; font-size: 0.9rem; color: #64748b; cursor: pointer;">Créer un compte</button>
-            </div>
-
-            <!-- Formulaire de Connexion -->
-            <form id="loginFormContainer" onsubmit="handleLoginSubmit(event)">
-                <div class="form-group" style="margin-bottom: 15px;">
-                    <label style="font-weight: 600; font-size: 0.85rem; color: #334155; margin-bottom: 5px; display: block;">Identifiant / Email :</label>
-                    <input type="text" id="loginIdentifier" placeholder="admin@bemiray.mg ou email" required style="width: 100%; padding: 10px 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem;">
+                <div class="form-group">
+                    <label>Mot de passe :</label>
+                    <input type="password" id="passInput" value="admin2026" required>
                 </div>
-                <div class="form-group" style="margin-bottom: 20px;">
-                    <label style="font-weight: 600; font-size: 0.85rem; color: #334155; margin-bottom: 5px; display: block;">Mot de passe :</label>
-                    <input type="password" id="loginPassword" placeholder="••••••••" required style="width: 100%; padding: 10px 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem;">
-                </div>
-                <button type="submit" class="btn" style="width: 100%; padding: 12px; font-size: 0.95rem; background: #166534; border-radius: 8px; color: white; font-weight: 600; border: none; cursor: pointer;">Se connecter &rarr;</button>
-                <div style="margin-top: 12px; font-size: 0.75rem; color: #64748b; text-align: center;">
-                    💡 <strong>Accès Admin direct :</strong> admin@bemiray.mg / admin2026
-                </div>
+                <button type="submit" class="btn-main">Se connecter à l'espace Admin &rarr;</button>
             </form>
-
-            <!-- Formulaire d'Inscription / Création de compte -->
-            <form id="registerFormContainer" onsubmit="handleRegisterSubmit(event)" style="display: none;">
-                <div class="form-group" style="margin-bottom: 12px;">
-                    <label style="font-weight: 600; font-size: 0.85rem; color: #334155; margin-bottom: 4px; display: block;">Adresse Email :</label>
-                    <input type="email" id="regEmail" placeholder="votre.email@domaine.com" required style="width: 100%; padding: 9px 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.85rem;">
-                </div>
-                <div class="form-group" style="margin-bottom: 12px;">
-                    <label style="font-weight: 600; font-size: 0.85rem; color: #334155; margin-bottom: 4px; display: block;">N° de Téléphone :</label>
-                    <input type="tel" id="regPhone" placeholder="+261 34 00 000 00" required style="width: 100%; padding: 9px 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.85rem;">
-                </div>
-                <div class="form-group" style="margin-bottom: 12px;">
-                    <label style="font-weight: 600; font-size: 0.85rem; color: #334155; margin-bottom: 4px; display: block;">Créer un mot de passe :</label>
-                    <input type="password" id="regPassword" placeholder="Minimum 6 caractères" required style="width: 100%; padding: 9px 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.85rem;">
-                </div>
-                <div class="form-group" style="margin-bottom: 12px;">
-                    <label style="font-weight: 600; font-size: 0.85rem; color: #334155; margin-bottom: 4px; display: block;">Confirmer le mot de passe :</label>
-                    <input type="password" id="regConfirmPassword" placeholder="Répétez le mot de passe" required style="width: 100%; padding: 9px 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.85rem;">
-                </div>
-                <div class="form-group" style="margin-bottom: 18px;">
-                    <label style="font-weight: 600; font-size: 0.85rem; color: #334155; margin-bottom: 6px; display: block;">Méthode d'envoi du code à 6 chiffres :</label>
-                    <div style="display: flex; gap: 15px; font-size: 0.9rem;">
-                        <label style="display: flex; align-items: center; gap: 5px; cursor: pointer;"><input type="radio" name="otpChannel" value="sms" checked> Par SMS</label>
-                        <label style="display: flex; align-items: center; gap: 5px; cursor: pointer;"><input type="radio" name="otpChannel" value="email"> Par Email</label>
-                    </div>
-                </div>
-                <button type="submit" class="btn" style="width: 100%; padding: 11px; font-size: 0.95rem; background: #166534; border-radius: 8px; color: white; font-weight: 600; border: none; cursor: pointer;">S'inscrire et démarrer l'essai (15 jours) &rarr;</button>
-            </form>
-
-            <p id="authMessage" style="color: #dc2626; font-size: 0.8rem; margin-top: 15px; text-align: center; display: none;"></p>
+            <p id="errorMsg" style="color: #dc2626; font-size: 0.8rem; margin-top: 15px; display: none;"></p>
         </div>
     </section>
 
-    <!-- ÉTAPE 2 : VÉRIFICATION DU CODE REÇU (6 CHIFFRES) -->
-    <section id="otpView" class="auth-wrapper" style="display: none; justify-content: center; align-items: center; min-height: 80vh; padding: 20px;">
-        <div class="card auth-card" style="max-width: 420px; width: 100%; padding: 40px 30px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.08); border-radius: 16px; background: #ffffff;">
-            <div class="brand-logo-container" style="width: 75px !important; height: 75px !important; margin: 0 auto 15px auto; border-radius: 12px; overflow: hidden; display: flex; align-items: center; justify-content: center; background: #ffffff; border: 1px solid #cbd5e1;">
-                <img src="logo-bemiray.jpg" alt="Logo BeMiray Farmer" class="real-logo-img" style="width: 100%; height: 100%; object-fit: contain;">
+    <!-- HEADER ADMIN -->
+    <header id="appHeader">
+        <div class="container header-flex">
+            <div>
+                <h1 style="font-size: 1.4rem; color: #0f172a;">BeMiray Farmer</h1>
+                <p style="font-size: 0.75rem; color: #166534; font-weight: 700;">Ambohitraina, Ilafy, Antananarivo</p>
             </div>
-            <h2 style="font-size: 1.3rem; color: #0f172a; margin-bottom: 10px;">Vérification de sécurité</h2>
-            <p id="otpSubtitle" style="font-size: 0.85rem; color: #475569; margin-bottom: 25px;">Un code de vérification à 6 chiffres a été envoyé.</p>
-            
-            <form onsubmit="handleOtpVerify(event)">
-                <div class="form-group" style="margin-bottom: 20px;">
-                    <input type="text" id="otpInput" placeholder="847291" maxlength="6" required style="width: 220px; padding: 12px; font-size: 1.3rem; text-align: center; letter-spacing: 5px; border: 1px solid #cbd5e1; border-radius: 8px; margin: 0 auto; display: block;">
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <div class="admin-licence-badge">
+                    ✨ Licence : <span>Illimitée (Admin)</span>
                 </div>
-                <button type="submit" class="btn" style="width: 100%; padding: 12px; font-size: 0.95rem; background: #166534; border-radius: 8px; color: white; font-weight: 600; border: none; cursor: pointer; margin-bottom: 15px;">Valider le code &rarr;</button>
-            </form>
-            <button type="button" onclick="backToAuth()" style="background: none; border: none; color: #166534; font-size: 0.85rem; font-weight: 600; cursor: pointer;">&larr; Retour à l'identification</button>
-            <p id="otpError" style="color: #dc2626; font-size: 0.8rem; margin-top: 15px; display: none;">Code incorrect (Code démo : 847291).</p>
-        </div>
-    </section>
-
-    <!-- HEADER PROFESSIONNEL DE LA SESSION DÉDIÉE -->
-    <header class="app-header" id="appHeader" style="display: none; background: #ffffff; border-bottom: 1px solid #e2e8f0; padding: 15px 0; margin-bottom: 30px;">
-        <div class="container header-container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
-            <div class="brand" style="display: flex; align-items: center; gap: 15px;">
-                <div class="brand-logo-container" style="width: 85px !important; height: 85px !important; min-width: 85px; border-radius: 10px; overflow: hidden; display: flex; align-items: center; justify-content: center; background: #ffffff; border: 1px solid #cbd5e1;">
-                    <img src="logo-bemiray.jpg" alt="Logo BeMiray Farmer" class="real-logo-img" style="width: 100%; height: 100%; object-fit: contain;">
-                </div>
-                <div>
-                    <h1 style="font-size: 1.6rem; color: #0f172a; margin-bottom: 2px;">BeMiray Farmer</h1>
-                    <p class="brand-tagline" style="font-weight: 700; color: #166534; letter-spacing: 0.5px; font-size: 0.85rem;">AMBOHITRAINA, ILAFY • ANTANANARIVO</p>
-                </div>
-            </div>
-            
-            <div class="header-right-panel" style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
-                <div class="header-badge" id="trialBadgeContainer" style="background: #ecfdf5; color: #065f46; padding: 8px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; border: 1px solid #10b981;">
-                    ⏳ <span id="trialBadgeText">Essai : <span id="trialDaysDisplay">15</span> jours restants</span>
-                </div>
-                <div class="header-badge" style="background: #f1f5f9; padding: 8px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: 500; display: flex; align-items: center; gap: 8px; border: 1px solid #e2e8f0;">
-                    <span class="status-dot" style="width: 8px; height: 8px; background-color: #10b981; border-radius: 50%;"></span> <span id="userSessionDisplay">Utilisateur</span>
-                </div>
-                <button onclick="handleLogout()" class="btn-secondary" style="padding: 6px 12px; font-size: 0.8rem; cursor: pointer; border-radius: 6px; border: 1px solid #cbd5e1; background: #f8fafc;">Déconnexion</button>
+                <button onclick="handleLogout()" style="padding: 6px 12px; font-size: 0.8rem; background: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 6px; cursor: pointer; font-weight: 600;">Déconnexion</button>
             </div>
         </div>
     </header>
 
+    <!-- TABLEAU DE BORD -->
     <main class="container">
-        <!-- VUE ACCUEIL : TABLEAU DE BORD PRINCIPAL -->
-        <section id="homeView" class="view-section" style="display: none;">
-            <div class="welcome-banner">
-                <div class="banner-text">
-                    <h2>Tableau de Bord - BeMiray Farmer</h2>
-                    <p>Bienvenue sur votre session sécurisée (Ambohitraina, Ilafy). Gérez vos modules d'élevage en toute sérénité.</p>
-                </div>
-                <div class="quick-stats-row">
-                    <div class="mini-stat">
-                        <span>Effectif Global</span>
-                        <strong>120 Têtes</strong>
-                    </div>
-                    <div class="mini-stat">
-                        <span>Truies Gestantes</span>
-                        <strong class="accent">12</strong>
-                    </div>
-                </div>
+        <section id="homeView">
+            <div class="welcome-box">
+                <h2>Tableau de Bord Administrateur</h2>
+                <p>Bienvenue sur votre plateforme de gestion agropastorale sécurisée.</p>
             </div>
-
-            <div class="modules-grid">
-                <!-- Module 1 : Formulation -->
-                <div class="module-card" onclick="switchView('formulationView')">
-                    <div class="module-img-container">
-                        <img src="https://images.unsplash.com/photo-1586771107445-d3ca888129ff?w=600&auto=format&fit=crop&q=80" alt="Provende">
-                        <span class="module-tag">Nutrition</span>
-                    </div>
-                    <div class="module-body">
-                        <h3>🧮 Formulation des Provendes</h3>
-                        <p>Simulateur d'aliments personnalisé (Maïs, Soja, Son, Minéraux) sur base 100 kg et calcul instantané du coût de revient.</p>
-                        <span class="module-link">Ouvrir le simulateur &rarr;</span>
-                    </div>
+            <div class="grid-cards">
+                <div class="card-mod">
+                    <h3>🧮 Formulation des Provendes</h3>
+                    <p>Simulateur d'aliments personnalisé (Maïs, Soja, Minéraux) et calcul du coût de revient au kilo.</p>
                 </div>
-
-                <!-- Module 2 : Cheptel -->
-                <div class="module-card" onclick="switchView('cheptelView')">
-                    <div class="module-img-container">
-                        <img src="https://images.unsplash.com/photo-1516467508483-a7212febe31a?w=600&auto=format&fit=crop&q=80" alt="Porcs">
-                        <span class="module-tag">Cheptel</span>
-                    </div>
-                    <div class="module-body">
-                        <h3>📋 Mes Porcs & Cheptel</h3>
-                        <p>Registre complet de vos sujets, ajout de nouveaux porcs, suivi des catégories, poids et enclos par bâtiment.</p>
-                        <span class="module-link">Gérer le cheptel &rarr;</span>
-                    </div>
+                <div class="card-mod">
+                    <h3>📋 Registre du Cheptel</h3>
+                    <p>Suivi complet de vos porcs, catégories, poids et répartition par bâtiment.</p>
                 </div>
-
-                <!-- Module 3 : Sanitaire -->
-                <div class="module-card" onclick="switchView('sanitaireView')">
-                    <div class="module-img-container">
-                        <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&auto=format&fit=crop&q=80" alt="Santé">
-                        <span class="module-tag">Santé</span>
-                    </div>
-                    <div class="module-body">
-                        <h3>💉 Suivi Sanitaire & Traitements</h3>
-                        <p>Historique des vaccinations (Peste porcine), vermifugations et interventions vétérinaires par lot ou sujet.</p>
-                        <span class="module-link">Voir le registre sanitaire &rarr;</span>
-                    </div>
+                <div class="card-mod">
+                    <h3>💉 Suivi Sanitaire</h3>
+                    <p>Historique des vaccinations, vermifugations et interventions vétérinaires.</p>
                 </div>
-
-                <!-- Module 4 : Reproduction -->
-                <div class="module-card" onclick="switchView('reproView')">
-                    <div class="module-img-container">
-                        <img src="https://images.unsplash.com/photo-1534567153574-2b12153a87f0?w=600&auto=format&fit=crop&q=80" alt="Reproduction">
-                        <span class="module-tag">Reproduction</span>
-                    </div>
-                    <div class="module-body">
-                        <h3>🤰 Reproduction & Maternité</h3>
-                        <p>Suivi des saillies, des dates de gestation prévues, des mises bas et des porcelets sevrés.</p>
-                        <span class="module-link">Consulter la maternité &rarr;</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- VUE 1 : FORMULATION -->
-        <section id="formulationView" class="view-section" style="display: none;">
-            <div class="nav-back-bar">
-                <button class="btn-back" onclick="switchView('homeView')">&larr; Retour à l'accueil</button>
-                <h2>🧮 Simulateur de Formulation Personnalisée (Base 100 kg)</h2>
-            </div>
-            
-            <div class="card formulation-section">
-                <div class="section-header-flex">
-                    <p class="section-desc">Modifiez les quantités, les prix et les taux nutritionnels selon vos stocks locaux.</p>
-                    <button id="addIngBtn" class="btn-secondary">+ Ajouter un ingrédient</button>
-                </div>
-                
-                <div class="formulation-grid">
-                    <div class="ingredients-container">
-                        <div class="table-responsive">
-                            <table class="formulation-table">
-                               <thead>
-                                    <tr>
-                                        <th>Ingrédient</th>
-                                        <th>Quantité (kg)</th>
-                                        <th>Prix (Ar/kg)</th>
-                                        <th>Prot. (%)</th>
-                                        <th>Calc. (%)</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="ingredientsTableBody"></tbody>
-                            </table>
-                        </div>
-                        <div class="total-check" id="totalKgAlert">Total : 100 kg ✅</div>
-                    </div>
-
-                    <div class="formulation-results">
-                        <h3>Bilan Nutritionnel & Économique</h3>
-                        <div class="result-box">
-                            <div class="res-item"><span>Poids Total :</span><strong id="resMatiereSeche">100 kg</strong></div>
-                            <div class="res-item"><span>Protéines Brutes :</span><strong id="resProteines">-- %</strong></div>
-                            <div class="res-item"><span>Taux de Calcium :</span><strong id="resCalcium">-- %</strong></div>
-                            <div class="res-item"><span>Coût total du mélange :</span><strong id="resCost">0 Ar</strong></div>
-                            <div class="res-item highlight"><span>Coût de revient / kg :</span><strong id="resCostPerKg">0 Ar / kg</strong></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- VUE 2 : MES PORCS -->
-        <section id="cheptelView" class="view-section" style="display: none;">
-            <div class="nav-back-bar">
-                <button class="btn-back" onclick="switchView('homeView')">&larr; Retour à l'accueil</button>
-                <h2>📋 Registre des Porcs (Mes Porcs)</h2>
-            </div>
-            <div class="card">
-                <div class="table-responsive">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>ID / Numéro</th>
-                                <th>Catégorie</th>
-                                <th>Sexe</th>
-                                <th>Poids Actuel</th>
-                                <th>Bâtiment / Enclos</th>
-                                <th>Statut</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>Truie #104</strong></td>
-                                <td>Truie reproductrice</td>
-                                <td>Femelle</td>
-                                <td>165 kg</td>
-                                <td>Maternité E01</td>
-                                <td><span class="badge-status success">Actif / Allaitement</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
-
-        <!-- VUE 3 : SANITAIRE -->
-        <section id="sanitaireView" class="view-section" style="display: none;">
-            <div class="nav-back-bar">
-                <button class="btn-back" onclick="switchView('homeView')">&larr; Retour à l'accueil</button>
-                <h2>💉 Registre Sanitaire & Traitements</h2>
-            </div>
-            <div class="card">
-                <div class="table-responsive">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Lot / Sujet</th>
-                                <th>Traitement / Vaccin</th>
-                                <th>Produit / Dosage</th>
-                                <th>Responsable</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>01/03/2026</td>
-                                <td>Post-Sevrage Lot A</td>
-                                <td>Vaccination Peste Porcine</td>
-                                <td>Pestiffa (2ml / sujet)</td>
-                                <td>Équipe BeMiray</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
-
-        <!-- VUE 4 : REPRODUCTION -->
-        <section id="reproView" class="view-section" style="display: none;">
-            <div class="nav-back-bar">
-                <button class="btn-back" onclick="switchView('homeView')">&larr; Retour à l'accueil</button>
-                <h2>🤰 Suivi Reproduction & Maternité</h2>
-            </div>
-            <div class="card">
-                <div class="table-responsive">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>ID Truie</th>
-                                <th>Date de Saillie</th>
-                                <th>Verrat</th>
-                                <th>Mise Bas Estimée</th>
-                                <th>État</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>Truie #112</strong></td>
-                                <td>10/01/2026</td>
-                                <td>Verrat Large White #02</td>
-                                <td><strong>03/05/2026</strong></td>
-                                <td><span class="badge-status warning">Gestation (Jour 85)</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="card-mod">
+                    <h3>🤰 Maternité & Reproduction</h3>
+                    <p>Suivi des saillies, dates de gestation prévues et mises bas.</p>
                 </div>
             </div>
         </section>
     </main>
 
     <footer>
-        <p>&copy; 2026 BeMiray Farmer - Lot AMB 65 Bis Ambohitraina, Ilafy, Antananarivo, Madagascar. Tous droits réservés.</p>
+        <p>&copy; 2026 BeMiray Farmer - Ambohitraina, Ilafy, Antananarivo, Madagascar.</p>
     </footer>
 
     <script>
-        let currentAuthIdentifier = "";
-        let isAdminSession = false;
+        function handleLogin(e) {
+            e.preventDefault();
+            const u = document.getElementById('userInput').value.trim();
+            const p = document.getElementById('passInput').value;
 
-        function switchAuthMode(mode) {
-            const loginBtn = document.getElementById('tabLoginBtn');
-            const regBtn = document.getElementById('tabRegisterBtn');
-            const loginForm = document.getElementById('loginFormContainer');
-            const regForm = document.getElementById('registerFormContainer');
-            const msg = document.getElementById('authMessage');
-            msg.style.display = 'none';
-
-            if (mode === 'login') {
-                loginBtn.style.color = '#166534';
-                loginBtn.style.borderBottom = '2px solid #166534';
-                regBtn.style.color = '#64748b';
-                regBtn.style.borderBottom = 'none';
-                loginForm.style.display = 'block';
-                regForm.style.display = 'none';
+            if ((u === "admin@bemiray.mg" || u === "admin") && p === "admin2026") {
+                document.getElementById('authView').style.display = 'none';
+                document.getElementById('appHeader').style.display = 'block';
+                document.getElementById('homeView').style.display = 'block';
             } else {
-                regBtn.style.color = '#166534';
-                regBtn.style.borderBottom = '2px solid #166534';
-                loginBtn.style.color = '#64748b';
-                loginBtn.style.borderBottom = 'none';
-                regForm.style.display = 'block';
-                loginForm.style.display = 'none';
+                const err = document.getElementById('errorMsg');
+                err.innerText = "Identifiants incorrects. Utilisez admin@bemiray.mg / admin2026";
+                err.style.display = 'block';
             }
-        }
-
-        function handleLoginSubmit(event) {
-            event.preventDefault();
-            const identifier = document.getElementById('loginIdentifier').value.trim().toLowerCase();
-            const pass = document.getElementById('loginPassword').value;
-            
-            // COMPTE ADMINISTRATEUR INTÉGRÉ
-            if (identifier === "admin@bemiray.mg" || identifier === "admin") {
-                if (pass === "admin2026") {
-                    currentAuthIdentifier = "Administrateur Principal";
-                    isAdminSession = true;
-                    grantAdminAccess();
-                    return;
-                } else {
-                    showAuthError("Mot de passe incorrect pour le compte Administrateur.");
-                    return;
-                }
-            }
-
-            if (pass.length < 4) {
-                showAuthError("Mot de passe trop court.");
-                return;
-            }
-
-            currentAuthIdentifier = identifier;
-            isAdminSession = false;
-            triggerOtpStep("Connexion au compte : " + identifier);
-        }
-
-        function handleRegisterSubmit(event) {
-            event.preventDefault();
-            const email = document.getElementById('regEmail').value.trim().toLowerCase();
-            const phone = document.getElementById('regPhone').value.trim();
-            const pass = document.getElementById('regPassword').value;
-            const confirmPass = document.getElementById('regConfirmPassword').value;
-            const channel = document.querySelector('input[name="otpChannel"]:checked').value;
-
-            if (pass !== confirmPass) {
-                showAuthError("Les mots de passe ne correspondent pas.");
-                return;
-            }
-            if (pass.length < 6) {
-                showAuthError("Le mot de passe doit contenir au moins 6 caractères.");
-                return;
-            }
-
-            currentAuthIdentifier = (channel === 'sms') ? phone : email;
-            isAdminSession = false;
-
-            let userTrials = JSON.parse(localStorage.getItem('bemiray_users_trials') || '{}');
-            if (!userTrials[currentAuthIdentifier]) {
-                userTrials[currentAuthIdentifier] = new Date().getTime();
-                localStorage.setItem('bemiray_users_trials', JSON.stringify(userTrials));
-            }
-
-            triggerOtpStep(`Code à 6 chiffres envoyé par ${channel.toUpperCase()} vers ${currentAuthIdentifier}`);
-        }
-
-        function triggerOtpStep(subtitleText) {
-            document.getElementById('authView').style.display = 'none';
-            document.getElementById('otpView').style.display = 'flex';
-            document.getElementById('otpSubtitle').innerText = subtitleText + " (Code de démonstration : 847291)";
-            document.getElementById('otpInput').value = "";
-            document.getElementById('otpError').style.display = 'none';
-        }
-
-        function backToAuth() {
-            document.getElementById('otpView').style.display = 'none';
-            document.getElementById('authView').style.display = 'flex';
-        }
-
-        function handleOtpVerify(event) {
-            event.preventDefault();
-            const otp = document.getElementById('otpInput').value;
-
-            if (otp === "847291" || otp === "123456") {
-                if (!isAdminSession && !checkTrialAccessForUser(currentAuthIdentifier)) {
-                    return;
-                }
-                grantUserAccess();
-            } else {
-                document.getElementById('otpError').style.display = 'block';
-            }
-        }
-
-        function grantAdminAccess() {
-            document.getElementById('authView').style.display = 'none';
-            document.getElementById('otpView').style.display = 'none';
-            document.getElementById('appHeader').style.display = 'block';
-            document.getElementById('homeView').style.display = 'block';
-            document.getElementById('userSessionDisplay').innerText = "Admin (BeMiray)";
-            
-            // BLINDAGE ABSOLU DU BADGE ADMIN
-            const trialBadgeContainer = document.getElementById('trialBadgeContainer');
-            if(trialBadgeContainer) {
-                trialBadgeContainer.style.background = '#f0fdf4';
-                trialBadgeContainer.style.borderColor = '#16a34a';
-                trialBadgeContainer.style.color = '#166534';
-                trialBadgeContainer.innerHTML = '✨ Licence : <strong style="color: #166534;">Illimitée (Admin)</strong>';
-            }
-        }
-
-        function grantUserAccess() {
-            document.getElementById('otpView').style.display = 'none';
-            document.getElementById('appHeader').style.display = 'block';
-            document.getElementById('homeView').style.display = 'block';
-            document.getElementById('userSessionDisplay').innerText = currentAuthIdentifier || "Utilisateur";
-            
-            checkTrialAccessForUser(currentAuthIdentifier);
-        }
-
-        function checkTrialAccessForUser(identifier) {
-            if (isAdminSession) return true;
-
-            let userTrials = JSON.parse(localStorage.getItem('bemiray_users_trials') || '{}');
-            let trialStart = userTrials[identifier];
-            const trialDurationDays = 15;
-
-            if (!trialStart) {
-                trialStart = new Date().getTime();
-                userTrials[identifier] = trialStart;
-                localStorage.setItem('bemiray_users_trials', JSON.stringify(userTrials));
-            }
-
-            const now = new Date().getTime();
-            const elapsedDays = (now - parseInt(trialStart)) / (1000 * 60 * 60 * 24);
-            const daysRemaining = Math.ceil(trialDurationDays - elapsedDays);
-
-            if (elapsedDays > trialDurationDays) {
-                alert("❌ Votre période d'essai gratuite de 15 jours pour ce compte a expiré.\nVeuillez contacter l'administrateur de BeMiray Farmer (Ambohitraina, Ilafy) pour activer votre licence.");
-                handleLogout();
-                return false;
-            } else {
-                const badgeText = document.getElementById('trialBadgeText');
-                if (badgeText) {
-                    badgeText.innerHTML = `⏳ Essai : <span id="trialDaysDisplay">${daysRemaining > 0 ? daysRemaining : 1}</span> jours restants`;
-                }
-                return true;
-            }
-        }
-
-        function showAuthError(text) {
-            const msg = document.getElementById('authMessage');
-            msg.innerText = text;
-            msg.style.display = 'block';
         }
 
         function handleLogout() {
-            isAdminSession = false;
-            currentAuthIdentifier = "";
             document.getElementById('appHeader').style.display = 'none';
             document.getElementById('homeView').style.display = 'none';
-            document.getElementById('formulationView').style.display = 'none';
-            document.getElementById('cheptelView').style.display = 'none';
-            document.getElementById('sanitaireView').style.display = 'none';
-            document.getElementById('reproView').style.display = 'none';
             document.getElementById('authView').style.display = 'flex';
-            document.getElementById('loginPassword').value = '';
-            document.getElementById('regPassword').value = '';
-            document.getElementById('regConfirmPassword').value = '';
-            
-            const trialBadgeContainer = document.getElementById('trialBadgeContainer');
-            if(trialBadgeContainer) {
-                trialBadgeContainer.style.background = '#ecfdf5';
-                trialBadgeContainer.style.borderColor = '#10b981';
-                trialBadgeContainer.style.color = '#065f46';
-                trialBadgeContainer.innerHTML = '⏳ <span id="trialBadgeText">Essai : <span id="trialDaysDisplay">15</span> jours restants</span>';
-            }
-        }
-
-        function switchView(viewId) {
-            const views = ['homeView', 'formulationView', 'cheptelView', 'sanitaireView', 'reproView'];
-            views.forEach(v => {
-                const el = document.getElementById(v);
-                if (el) el.style.display = (v === viewId) ? 'block' : 'none';
-            });
-            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     </script>
 </body>
