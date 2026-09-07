@@ -4,149 +4,423 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BeMiray Farmer - Ambohitraina Ilafy</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
         body { background-color: #f8fafc; color: #1e293b; min-height: 100vh; display: flex; flex-direction: column; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; width: 100%; }
+        .container { max-width: 1250px; margin: 0 auto; padding: 0 20px; width: 100%; }
         
-        /* AUTH SECTION */
-        #authView { display: flex; justify-content: center; align-items: center; min-height: 100vh; background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); }
-        .auth-card { background: #ffffff; padding: 40px 30px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); width: 100%; max-width: 420px; text-align: center; }
-        .form-group { margin-bottom: 16px; text-align: left; }
-        .form-group label { display: block; font-weight: 600; font-size: 0.85rem; color: #334155; margin-bottom: 6px; }
-        .form-group input { width: 100%; padding: 11px 14px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.9rem; outline: none; transition: border-color 0.2s; }
-        .form-group input:focus { border-color: #166534; box-shadow: 0 0 0 3px rgba(22, 101, 52, 0.1); }
-        .btn-main { width: 100%; padding: 12px; background: #166534; color: #fff; border: none; border-radius: 8px; font-weight: 600; font-size: 0.95rem; cursor: pointer; transition: background 0.2s; }
-        .btn-main:hover { background: #14532d; }
+        #authView { display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #f0fdf4; }
+        .auth-card { background: #fff; padding: 40px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); width: 100%; max-width: 400px; text-align: center; }
+        .form-group { margin-bottom: 15px; text-align: left; }
+        .form-group label { display: block; font-weight: bold; font-size: 0.85rem; margin-bottom: 5px; }
+        .form-group input, .form-group select { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.9rem; outline: none; }
+        .btn { width: 100%; padding: 12px; background: #166534; color: #fff; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; }
+        .btn:hover { background: #14532d; }
+        .btn-secondary { background: #0284c7; width: auto; padding: 8px 15px; font-size: 0.85rem; border-radius: 6px; color: #fff; border: none; cursor: pointer; margin-bottom: 15px; }
+        .btn-secondary:hover { background: #0369a1; }
+        .btn-danger { background: #ef4444; color: white; border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer; font-size: 0.8rem; }
+        .btn-danger:hover { background: #dc2626; }
 
-        /* APP HEADER */
-        #appHeader { display: none; background: #ffffff; border-bottom: 1px solid #e2e8f0; padding: 15px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-        .header-flex { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
-        .admin-licence-badge { background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; padding: 8px 16px; border-radius: 20px; font-weight: 700; font-size: 0.85rem; display: flex; align-items: center; gap: 6px; }
-        
-        /* DASHBOARD */
-        #homeView { display: none; padding: 30px 0; flex: 1; }
-        .welcome-box { background: linear-gradient(135deg, #166534 0%, #14532d 100%); color: white; padding: 30px; border-radius: 16px; margin-bottom: 30px; box-shadow: 0 4px 12px rgba(22,101,52,0.15); }
-        .welcome-box h2 { font-size: 1.8rem; margin-bottom: 8px; }
-        .welcome-box p { opacity: 0.9; font-size: 0.95rem; }
-        
-        .grid-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
-        .card-mod { background: white; border-radius: 12px; padding: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.04); border: 1px solid #e2e8f0; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
-        .card-mod:hover { transform: translateY(-3px); box-shadow: 0 10px 15px rgba(0,0,0,0.08); border-color: #166534; }
-        .card-mod h3 { color: #0f172a; margin-bottom: 10px; font-size: 1.1rem; }
-        .card-mod p { color: #64748b; font-size: 0.85rem; line-height: 1.4; }
+        #appHeader { display: none; background: #fff; border-bottom: 1px solid #e2e8f0; padding: 15px 0; }
+        .header-flex { display: flex; justify-content: space-between; align-items: center; }
 
-        footer { text-align: center; padding: 20px; font-size: 0.8rem; color: #64748b; border-top: 1px solid #e2e8f0; background: #ffffff; }
+        .view-section { display: none; padding: 30px 0; }
+        .view-section.active { display: block; }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px; }
+        .card-btn { background: #fff; border: 2px solid #e2e8f0; border-radius: 10px; padding: 25px; cursor: pointer; text-align: left; transition: 0.2s; }
+        .card-btn:hover { border-color: #166534; background: #fdfdfd; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(0,0,0,0.05); }
+        .card-btn h3 { color: #0f172a; margin-bottom: 8px; }
+        .card-btn p { color: #64748b; font-size: 0.85rem; }
+        
+        .back-btn { background: #e2e8f0; border: none; padding: 8px 14px; border-radius: 6px; font-weight: bold; cursor: pointer; margin-bottom: 20px; }
+        .back-btn:hover { background: #cbd5e1; }
+        
+        .card { background: #fff; border-radius: 10px; padding: 25px; border: 1px solid #e2e8f0; box-shadow: 0 2px 4px rgba(0,0,0,0.02); margin-bottom: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; background: #fff; border-radius: 8px; overflow: hidden; }
+        th, td { padding: 10px 12px; border-bottom: 1px solid #e2e8f0; text-align: left; font-size: 0.85rem; }
+        th { background: #f8fafc; font-weight: 600; color: #334155; }
+        
+        .tabs { display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; flex-wrap: wrap; }
+        .tab-btn { background: none; border: none; font-weight: bold; color: #64748b; cursor: pointer; padding: 8px 16px; border-radius: 6px; }
+        .tab-btn.active-tab { background: #166534; color: white; }
+        
+        .formulation-subview { display: none; }
+        .formulation-subview.active-sub { display: block; }
+        
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px; }
+        .stat-box { background: #f0fdf4; border: 1px solid #bbf7d0; padding: 15px; border-radius: 8px; text-align: center; }
+        .stat-box h4 { font-size: 0.8rem; color: #166534; margin-bottom: 5px; }
+        .stat-box p { font-size: 1.2rem; font-weight: bold; color: #0f172a; }
+
+        footer { text-align: center; padding: 20px; font-size: 0.8rem; color: #64748b; margin-top: auto; border-top: 1px solid #e2e8f0; background: #fff; }
     </style>
 </head>
 <body>
 
-    <!-- ÉTAPE : CONNEXION -->
-    <section id="authView">
+    <div id="authView">
         <div class="auth-card">
-            <h1 style="font-size: 1.5rem; color: #0f172a; margin-bottom: 5px;">BeMiray Farmer</h1>
-            <p style="font-size: 0.75rem; font-weight: 700; color: #166534; letter-spacing: 0.5px; margin-bottom: 25px;">AMBOHITRAINA, ILAFY • ANTANANARIVO</p>
-            
-            <form onsubmit="handleLogin(event)">
+            <h2 style="color: #166534; margin-bottom: 5px;">BeMiray Farmer</h2>
+            <p style="font-size: 0.75rem; font-weight: bold; margin-bottom: 20px;">AMBOHITRAINA, ILAFY</p>
+            <form id="loginForm">
                 <div class="form-group">
-                    <label>Identifiant Admin :</label>
-                    <input type="text" id="userInput" value="admin@bemiray.mg" required>
+                    <label>Identifiant :</label>
+                    <input type="text" id="user" value="admin@bemiray.mg" required>
                 </div>
                 <div class="form-group">
                     <label>Mot de passe :</label>
-                    <input type="password" id="passInput" value="admin2026" required>
+                    <input type="password" id="pass" value="admin2026" required>
                 </div>
-                <button type="submit" class="btn-main">Se connecter à l'espace Admin &rarr;</button>
+                <button type="submit" class="btn">Se connecter</button>
             </form>
-            <p id="errorMsg" style="color: #dc2626; font-size: 0.8rem; margin-top: 15px; display: none;"></p>
+            <p id="err" style="color: red; font-size: 0.8rem; margin-top: 10px; display: none;">Identifiants incorrects</p>
         </div>
-    </section>
+    </div>
 
-    <!-- HEADER ADMIN -->
     <header id="appHeader">
         <div class="container header-flex">
             <div>
-                <h1 style="font-size: 1.4rem; color: #0f172a;">BeMiray Farmer</h1>
-                <p style="font-size: 0.75rem; color: #166534; font-weight: 700;">Ambohitraina, Ilafy, Antananarivo</p>
+                <h3>BeMiray Farmer</h3>
+                <p style="font-size: 0.75rem; color: #166534; font-weight: bold;">Espace Administrateur - Ilafy</p>
             </div>
-            <div style="display: flex; align-items: center; gap: 15px;">
-                <div class="admin-licence-badge">
-                    ✨ Licence : <span>Illimitée (Admin)</span>
-                </div>
-                <button onclick="handleLogout()" style="padding: 6px 12px; font-size: 0.8rem; background: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 6px; cursor: pointer; font-weight: 600;">Déconnexion</button>
-            </div>
+            <button onclick="logout()" class="back-btn" style="margin:0;">Déconnexion</button>
         </div>
     </header>
 
-    <!-- TABLEAU DE BORD -->
-    <main class="container">
-        <section id="homeView">
-            <div class="welcome-box">
-                <h2>Tableau de Bord Administrateur</h2>
-                <p>Bienvenue sur votre plateforme de gestion agropastorale sécurisée.</p>
+    <main class="container" style="flex: 1;">
+        
+        <section id="homeView" class="view-section">
+            <div style="background: #166534; color: white; padding: 25px; border-radius: 10px;">
+                <h2>Tableau de Bord</h2>
+                <p>Cliquez sur l'un des modules ci-dessous pour accéder aux données :</p>
             </div>
-            <div class="grid-cards">
-                <div class="card-mod">
+            <div class="grid">
+                <div class="card-btn" onclick="goTo('formulationView')">
                     <h3>🧮 Formulation des Provendes</h3>
-                    <p>Simulateur d'aliments personnalisé (Maïs, Soja, Minéraux) et calcul du coût de revient au kilo.</p>
+                    <p>Module expert (Modes Manuel avec Ajout libre, LP Automatique et Formules Pointues).</p>
                 </div>
-                <div class="card-mod">
+                <div class="card-btn" onclick="goTo('cheptelView')">
                     <h3>📋 Registre du Cheptel</h3>
-                    <p>Suivi complet de vos porcs, catégories, poids et répartition par bâtiment.</p>
-                </div>
-                <div class="card-mod">
-                    <h3>💉 Suivi Sanitaire</h3>
-                    <p>Historique des vaccinations, vermifugations et interventions vétérinaires.</p>
-                </div>
-                <div class="card-mod">
-                    <h3>🤰 Maternité & Reproduction</h3>
-                    <p>Suivi des saillies, dates de gestation prévues et mises bas.</p>
+                    <p>Suivi des porcs, poids et répartition des bâtiments à Ilafy.</p>
                 </div>
             </div>
         </section>
+
+        <section id="formulationView" class="view-section">
+            <button class="back-btn" onclick="goTo('homeView')">&larr; Retour</button>
+            <h2>🧮 Centre de Formulation & Nutrition (Style Afaporc)</h2>
+            <p style="color: #64748b; font-size: 0.9rem; margin-bottom: 20px;">Ajoutez manuellement vos ingrédients, ajustez les quantités et simulez les coûts en temps réel.</p>
+            
+            <div class="tabs">
+                <button class="tab-btn active-tab" onclick="switchSubForm('manualSub', event)">🛠️ Formulation Manuelle & Ajout</button>
+                <button class="tab-btn" onclick="switchSubForm('autoSub', event)">🤖 Mode Automatique / LP</button>
+                <button class="tab-btn" onclick="switchSubForm('pointuesSub', event)">🎯 Formules Pointues (Cibles)</button>
+                <button class="tab-btn" onclick="switchSubForm('matriceSub', event)">📊 Matrice des Ingrédients</button>
+            </div>
+
+            <div id="manualSub" class="formulation-subview active-sub">
+                <div class="card">
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 15px;">
+                        <h3>Composition d'un lot personnalisé (Ajout de provendes libre)</h3>
+                        <button class="btn-secondary" onclick="addManualRow()">➕ Ajouter un ingrédient</button>
+                    </div>
+                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Ingrédient / Matière Première</th>
+                                <th>Quantité (kg)</th>
+                                <th>Prix unitaire (Ar/kg)</th>
+                                <th>Coût partiel (Ar)</th>
+                                <th>Protéine Brute (%)</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="manualTableBody">
+                            <tr>
+                                <td><input type="text" value="Maïs concassé" class="m-name" style="width:100%; padding:6px; border:1px solid #cbd5e1; border-radius:4px;"></td>
+                                <td><input type="number" value="60" oninput="recalcManual()" class="m-qty" style="width:80px; padding:6px; border:1px solid #cbd5e1; border-radius:4px;"></td>
+                                <td><input type="number" value="2200" oninput="recalcManual()" class="m-price" style="width:90px; padding:6px; border:1px solid #cbd5e1; border-radius:4px;"></td>
+                                <td class="m-cost">132 000 Ar</td>
+                                <td><input type="number" step="0.1" value="9.0" oninput="recalcManual()" class="m-pb" style="width:70px; padding:6px; border:1px solid #cbd5e1; border-radius:4px;"></td>
+                                <td><button class="btn-danger" onclick="removeRow(this)">Supprimer</button></td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" value="Tourteau de soja" class="m-name" style="width:100%; padding:6px; border:1px solid #cbd5e1; border-radius:4px;"></td>
+                                <td><input type="number" value="25" oninput="recalcManual()" class="m-qty" style="width:80px; padding:6px; border:1px solid #cbd5e1; border-radius:4px;"></td>
+                                <td><input type="number" value="3500" oninput="recalcManual()" class="m-price" style="width:90px; padding:6px; border:1px solid #cbd5e1; border-radius:4px;"></td>
+                                <td class="m-cost">87 500 Ar</td>
+                                <td><input type="number" step="0.1" value="44.0" oninput="recalcManual()" class="m-pb" style="width:70px; padding:6px; border:1px solid #cbd5e1; border-radius:4px;"></td>
+                                <td><button class="btn-danger" onclick="removeRow(this)">Supprimer</button></td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" value="Son de riz" class="m-name" style="width:100%; padding:6px; border:1px solid #cbd5e1; border-radius:4px;"></td>
+                                <td><input type="number" value="12" oninput="recalcManual()" class="m-qty" style="width:80px; padding:6px; border:1px solid #cbd5e1; border-radius:4px;"></td>
+                                <td><input type="number" value="1200" oninput="recalcManual()" class="m-price" style="width:90px; padding:6px; border:1px solid #cbd5e1; border-radius:4px;"></td>
+                                <td class="m-cost">14 400 Ar</td>
+                                <td><input type="number" step="0.1" value="12.0" oninput="recalcManual()" class="m-pb" style="width:70px; padding:6px; border:1px solid #cbd5e1; border-radius:4px;"></td>
+                                <td><button class="btn-danger" onclick="removeRow(this)">Supprimer</button></td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" value="Prémix / CMV" class="m-name" style="width:100%; padding:6px; border:1px solid #cbd5e1; border-radius:4px;"></td>
+                                <td><input type="number" value="3" oninput="recalcManual()" class="m-qty" style="width:80px; padding:6px; border:1px solid #cbd5e1; border-radius:4px;"></td>
+                                <td><input type="number" value="6000" oninput="recalcManual()" class="m-price" style="width:90px; padding:6px; border:1px solid #cbd5e1; border-radius:4px;"></td>
+                                <td class="m-cost">18 000 Ar</td>
+                                <td><input type="number" step="0.1" value="0.0" oninput="recalcManual()" class="m-pb" style="width:70px; padding:6px; border:1px solid #cbd5e1; border-radius:4px;"></td>
+                                <td><button class="btn-danger" onclick="removeRow(this)">Supprimer</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="stats-grid">
+                        <div class="stat-box">
+                            <h4>Poids Total</h4>
+                            <p><span id="mTotKg">100</span> kg</p>
+                        </div>
+                        <div class="stat-box">
+                            <h4>Coût Total du Lot</h4>
+                            <p><span id="mTotPrice">251 900</span> Ar</p>
+                        </div>
+                        <div class="stat-box" style="background:#e6f4ea; border-color:#166534;">
+                            <h4>Coût de Revient</h4>
+                            <p style="color:#166534;"><span id="mCostPerKg">2 519</span> Ar/kg</p>
+                        </div>
+                        <div class="stat-box">
+                            <h4>Protéine Brute Moy.</h4>
+                            <p><span id="mTotProt">17.8</span> %</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="autoSub" class="formulation-subview">
+                <div class="card">
+                    <h3>Simulation d'Optimisation Automatique</h3>
+                    <div style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap; margin-bottom: 20px;">
+                        <div class="form-group" style="flex: 1; min-width: 250px; margin-bottom:0;">
+                            <label>Stade / Objectif d'alimentation :</label>
+                            <select id="autoProfile" onchange="runLP()" style="padding:10px;">
+                                <option value="starter">Porcelet Premier Âge (10 - 25 kg)</option>
+                                <option value="growth" selected>Porc en Croissance (25 - 60 kg)</option>
+                                <option value="finishing">Porc à l'Engraissement / Finition (60 - 100 kg)</option>
+                                <option value="sow">Truie Allaitante / Gestante</option>
+                            </select>
+                        </div>
+                        <button class="btn" style="width: auto; padding: 10px 20px; margin-top: 22px;" onclick="runLP()">Lancer l'optimisation</button>
+                    </div>
+
+                    <div id="lpOutput" style="background: #f8fafc; border: 1px solid #cbd5e1; padding: 20px; border-radius: 8px;">
+                        <h4 style="color: #166534; margin-bottom: 10px;">Ration Optimisée :</h4>
+                        <ul id="lpIngredientsList" style="margin-left: 20px; margin-bottom: 15px; font-size: 0.9rem; line-height: 1.6;">
+                            <li>Maïs concassé : <strong>62.0 kg</strong></li>
+                            <li>Tourteau de soja : <strong>23.5 kg</strong></li>
+                            <li>Son de riz : <strong>11.5 kg</strong></li>
+                            <li>Prémix / CMV : <strong>3.0 kg</strong></li>
+                        </ul>
+                        <div style="display: flex; gap: 20px; font-size: 0.9rem; border-top: 1px solid #cbd5e1; padding-top: 10px; flex-wrap: wrap;">
+                            <span>Prix estimé : <strong style="color:#166534;" id="lpPrice">2 410 Ar / kg</strong></span>
+                            <span>Protéines : <strong id="lpProt">16.5%</strong></span>
+                            <span>Énergie : <strong id="lpEnergy">3 220 kcal/kg</strong></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="pointuesSub" class="formulation-subview">
+                <div class="card">
+                    <h3>Bibliothèque des Formules Pointues & Standards Techniques</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Stade Physiologique</th>
+                                <th>Protéine Brute (%)</th>
+                                <th>Énergie Digestible (kcal/kg)</th>
+                                <th>Lysine Min. (%)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><strong>Porcelet 1er Âge (10-20kg)</strong></td><td>20.0% - 22.0%</td><td>3 350 kcal</td><td>1.15%</td></tr>
+                            <tr><td><strong>Porc Croissance (20-50kg)</strong></td><td>16.5% - 18.0%</td><td>3 250 kcal</td><td>0.95%</td></tr>
+                            <tr><td><strong>Porc Finition (50-100kg)</strong></td><td>14.0% - 15.5%</td><td>3 150 kcal</td><td>0.75%</td></tr>
+                            <tr><td><strong>Truie Allaitante</strong></td><td>16.0% - 17.5%</td><td>3 250 kcal</td><td>0.85%</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="matriceSub" class="formulation-subview">
+                <div class="card">
+                    <h3>Valeurs de la Matrice des Matières Premières (Stock Ilafy)</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Matière Première</th>
+                                <th>Matière Sèche (%)</th>
+                                <th>Protéine Brute (%)</th>
+                                <th>Prix unitaire actuel</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><strong>Maïs concassé</strong></td><td>86%</td><td>9.0%</td><td>2 200 Ar / kg</td></tr>
+                            <tr><td><strong>Tourteau de Soja</strong></td><td>88%</td><td>44.0%</td><td>3 500 Ar / kg</td></tr>
+                            <tr><td><strong>Son de Riz</strong></td><td>90%</td><td>12.0%</td><td>1 200 Ar / kg</td></tr>
+                            <tr><td><strong>Prémix / CMV Porc</strong></td><td>95%</td><td>0.0%</td><td>6 000 Ar / kg</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section id="cheptelView" class="view-section">
+            <button class="back-btn" onclick="goTo('homeView')">&larr; Retour</button>
+            <h2>📋 Registre du Cheptel (FARM BeMiray - Ilafy)</h2>
+            <p style="color: #64748b; font-size: 0.9rem; margin-bottom: 20px;">Suivi de l'élevage porcin et des lots en cours.</p>
+            <div class="card">
+                <h3>Animaux enregistrés</h3>
+                <table>
+                    <thead>
+                        <tr><th>Sujet / ID</th><th>Catégorie</th><th>Poids Actuel</th><th>Statut</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><strong>Truie #104</strong></td><td>Reproductrice</td><td>165 kg</td><td>Gestation (Soin actif)</td></tr>
+                        <tr><td><strong>Lot #01 (Porcelets)</strong></td><td>Engraissement</td><td>28 kg / tète</td><td>Croissance active</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
     </main>
 
     <footer>
-        <p>&copy; 2026 BeMiray Farmer - Ambohitraina, Ilafy, Antananarivo, Madagascar.</p>
+        <p>&copy; 2026 BeMiray Farmer - Ambohitraina, Ilafy, Antananarivo</p>
     </footer>
 
     <script>
-        function handleLogin(e) {
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            const u = document.getElementById('userInput').value.trim();
-            const p = document.getElementById('passInput').value;
-
+            const u = document.getElementById('user').value.trim();
+            const p = document.getElementById('pass').value;
+            
             if ((u === "admin@bemiray.mg" || u === "admin") && p === "admin2026") {
                 document.getElementById('authView').style.display = 'none';
                 document.getElementById('appHeader').style.display = 'block';
-                document.getElementById('homeView').style.display = 'block';
+                goTo('homeView');
             } else {
-                const err = document.getElementById('errorMsg');
-                err.innerText = "Identifiants incorrects. Utilisez admin@bemiray.mg / admin2026";
-                err.style.display = 'block';
+                document.getElementById('err').style.display = 'block';
+            }
+        });
+
+        function goTo(viewId) {
+            document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+            const target = document.getElementById(viewId);
+            if (target) {
+                target.classList.add('active');
+            }
+            window.scrollTo(0, 0);
+        }
+
+        function logout() {
+            document.getElementById('appHeader').style.display = 'none';
+            document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+            document.getElementById('authView').style.display = 'flex';
+        }
+
+        function switchSubForm(subId, event) {
+            document.querySelectorAll('.formulation-subview').forEach(el => el.classList.remove('active-sub'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active-tab'));
+            document.getElementById(subId).classList.add('active-sub');
+            if (event && event.currentTarget) {
+                event.currentTarget.classList.add('active-tab');
             }
         }
 
-        function handleLogout() {
-            document.getElementById('appHeader').style.display = 'none';
-            document.getElementById('homeView').style.display = 'none';
-            document.getElementById('authView').style.display = 'flex';
+        function addManualRow() {
+            const tbody = document.getElementById('manualTableBody');
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td><input type="text" value="Nouvel ingrédient" class="m-name" style="width:100%; padding:6px; border:1px solid #cbd5e1; border-radius:4px;"></td>
+                <td><input type="number" value="10" oninput="recalcManual()" class="m-qty" style="width:80px; padding:6px; border:1px solid #cbd5e1; border-radius:4px;"></td>
+                <td><input type="number" value="2000" oninput="recalcManual()" class="m-price" style="width:90px; padding:6px; border:1px solid #cbd5e1; border-radius:4px;"></td>
+                <td class="m-cost">20 000 Ar</td>
+                <td><input type="number" step="0.1" value="10.0" oninput="recalcManual()" class="m-pb" style="width:70px; padding:6px; border:1px solid #cbd5e1; border-radius:4px;"></td>
+                <td><button class="btn-danger" onclick="removeRow(this)">Supprimer</button></td>
+            `;
+            tbody.appendChild(newRow);
+            recalcManual();
         }
-    </script>
-    <script>
-        // Script d'extermination radicale de tout badge "Essai" persistant
-        window.addEventListener('DOMContentLoaded', () => {
-            setInterval(() => {
-                document.querySelectorAll('*').forEach(el => {
-                    if (el.children.length === 0 && el.innerText && (el.innerText.includes('Essai') || el.innerText.includes('jours restants'))) {
-                        // Si on trouve le texte, on efface le conteneur du badge
-                        let badge = el.closest('#trialBadgeContainer') || el.closest('.header-badge') || el;
-                        badge.style.display = 'none';
-                    }
-                });
-            }, 100);
-        });
+
+        function removeRow(btn) {
+            const row = btn.closest('tr');
+            row.remove();
+            recalcManual();
+        }
+
+        function recalcManual() {
+            const rows = document.querySelectorAll('#manualTableBody tr');
+            
+            let totalKg = 0;
+            let totalCost = 0;
+            let totalProtSum = 0;
+
+            rows.forEach(row => {
+                const qtyInput = row.querySelector('.m-qty');
+                const priceInput = row.querySelector('.m-price');
+                const pbInput = row.querySelector('.m-pb');
+                const costCell = row.querySelector('.m-cost');
+
+                let q = parseFloat(qtyInput ? qtyInput.value : 0) || 0;
+                let p = parseFloat(priceInput ? priceInput.value : 0) || 0;
+                let pb = parseFloat(pbInput ? pbInput.value : 0) || 0;
+
+                let c = q * p;
+                if (costCell) {
+                    costCell.innerText = c.toLocaleString('fr-FR') + " Ar";
+                }
+                
+                totalKg += q;
+                totalCost += c;
+                totalProtSum += (q * pb);
+            });
+
+            document.getElementById('mTotKg').innerText = totalKg.toFixed(1);
+            document.getElementById('mTotPrice').innerText = totalCost.toLocaleString('fr-FR');
+            
+            let costPerKg = totalKg > 0 ? Math.round(totalCost / totalKg) : 0;
+            document.getElementById('mCostPerKg').innerText = costPerKg.toLocaleString('fr-FR');
+
+            let avgProt = totalKg > 0 ? (totalProtSum / totalKg).toFixed(1) : 0;
+            document.getElementById('mTotProt').innerText = avgProt;
+        }
+
+        function runLP() {
+            const profile = document.getElementById('autoProfile').value;
+            const list = document.getElementById('lpIngredientsList');
+            const price = document.getElementById('lpPrice');
+            const prot = document.getElementById('lpProt');
+            const energy = document.getElementById('lpEnergy');
+
+            if (profile === 'starter') {
+                list.innerHTML = `<li>Maïs concassé : <strong>55.0 kg</strong></li><li>Tourteau de soja : <strong>32.0 kg</strong></li><li>Son de riz : <strong>9.0 kg</strong></li><li>Prémix / CMV : <strong>4.0 kg</strong></li>`;
+                price.innerText = "2 620 Ar / kg";
+                prot.innerText = "20.5%";
+                energy.innerText = "3 300 kcal/kg";
+            } else if (profile === 'growth') {
+                list.innerHTML = `<li>Maïs concassé : <strong>62.0 kg</strong></li><li>Tourteau de soja : <strong>23.5 kg</strong></li><li>Son de riz : <strong>11.5 kg</strong></li><li>Prémix / CMV : <strong>3.0 kg</strong></li>`;
+                price.innerText = "2 410 Ar / kg";
+                prot.innerText = "16.5%";
+                energy.innerText = "3 220 kcal/kg";
+            } else if (profile === 'finishing') {
+                list.innerHTML = `<li>Maïs concassé : <strong>68.0 kg</strong></li><li>Tourteau de soja : <strong>16.5 kg</strong></li><li>Son de riz : <strong>12.5 kg</strong></li><li>Prémix / CMV : <strong>3.0 kg</strong></li>`;
+                price.innerText = "2 290 Ar / kg";
+                prot.innerText = "14.2%";
+                energy.innerText = "3 180 kcal/kg";
+            } else {
+                list.innerHTML = `<li>Maïs concassé : <strong>58.0 kg</strong></li><li>Tourteau de soja : <strong>20.0 kg</strong></li><li>Son de riz : <strong>19.0 kg</strong></li><li>Prémix / CMV : <strong>3.0 kg</strong></li>`;
+                price.innerText = "2 350 Ar / kg";
+                prot.innerText = "15.8%";
+                energy.innerText = "3 200 kcal/kg";
+            }
+        }
     </script>
 </body>
 </html>
