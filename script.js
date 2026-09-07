@@ -22,18 +22,19 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Simulateur de formulation
+    // Simulateur de provende & calculs nutritionnels (Protides, Calcium, Coûts)
     function calculateFormulation() {
         const qMais = parseFloat(document.getElementById('q_mais').value) || 0;
         const qSon = parseFloat(document.getElementById('q_son').value) || 0;
         const qSoja = parseFloat(document.getElementById('q_soja').value) || 0;
-        const qLfl = parseFloat(document.getElementById('q_lfl').value) || 0;
+        const qCalcium = parseFloat(document.getElementById('q_calcium').value) || 0;
+        const qPremix = parseFloat(document.getElementById('q_premix').value) || 0;
 
-        const totalKg = qMais + qSon + qSoja + qLfl;
+        const totalKg = qMais + qSon + qSoja + qCalcium + qPremix;
         const alertDiv = document.getElementById('totalKgAlert');
         
         if (totalKg === 100) {
-            alertDiv.textContent = `Total : ${totalKg} kg ✅ (Équilibré)`;
+            alertDiv.textContent = `Total : ${totalKg} kg ✅ (Mélange validé)`;
             alertDiv.style.background = '#e8f5e9';
             alertDiv.style.color = '#1b5e20';
         } else {
@@ -42,9 +43,27 @@ document.addEventListener('DOMContentLoaded', function() {
             alertDiv.style.color = '#c62828';
         }
 
-        const totalCost = (qMais * 1400) + (qSon * 700) + (qSoja * 2800) + (qLfl * 4500);
+        // Teneurs nutritionnelles moyennes estimées par ingrédient (%) :
+        // Maïs : ~9% protéines, ~0.02% calcium
+        // Son de riz : ~12% protéines, ~0.08% calcium
+        // Tourteau de soja : ~44% protéines, ~0.3% calcium
+        // Coquille d'huître : ~0% protéines, ~38% calcium
+        // Prémix : ~10% protéines, ~15% calcium/minéraux
+        const protTotal = (qMais * 0.09) + (qSon * 0.12) + (qSoja * 0.44) + (qCalcium * 0.0) + (qPremix * 0.10);
+        const calcTotal = (qMais * 0.0002) + (qSon * 0.0008) + (qSoja * 0.003) + (qCalcium * 0.38) + (qPremix * 0.15);
+
+        // Prix unitaires indicatifs à Madagascar (Ar / kg)
+        const pMais = 1400;
+        const pSon = 700;
+        const pSoja = 2800;
+        const pCalcium = 600;
+        const pPremix = 6500;
+
+        const totalCost = (qMais * pMais) + (qSon * pSon) + (qSoja * pSoja) + (qCalcium * pCalcium) + (qPremix * pPremix);
         const costPerKg = totalKg > 0 ? totalCost / totalKg : 0;
 
+        document.getElementById('resProteines').textContent = protTotal.toFixed(1) + ' %';
+        document.getElementById('resCalcium').textContent = calcTotal.toFixed(2) + ' %';
         document.getElementById('resCost').textContent = totalCost.toLocaleString('fr-FR') + ' Ar';
         document.getElementById('resCostPerKg').textContent = Math.round(costPerKg).toLocaleString('fr-FR') + ' Ar / kg';
         
