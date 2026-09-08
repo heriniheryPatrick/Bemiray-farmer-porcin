@@ -24,45 +24,54 @@
         body { background-color: var(--bg-body); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; }
         .container { max-width: 1300px; margin: 0 auto; padding: 0 24px; width: 100%; }
 
-        /* --- AUTHENTIFICATION --- */
+        /* --- AUTHENTIFICATION & MODAUX --- */
         #authView { display: flex; justify-content: center; align-items: center; min-height: 100vh; background: linear-gradient(135deg, #f0fdf4 0%, #e0f2fe 100%); }
-        .auth-card { background: var(--card-bg); padding: 48px 40px; border-radius: 20px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.05); width: 100%; max-width: 440px; text-align: center; border: 1px solid var(--border); }
-        .logo-badge { width: 64px; height: 64px; background: var(--primary-light); color: var(--primary); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; margin: 0 auto 20px auto; border: 1px solid #bbf7d0; }
+        .auth-card { background: var(--card-bg); padding: 40px 32px; border-radius: 20px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.05); width: 100%; max-width: 440px; text-align: center; border: 1px solid var(--border); }
+        
+        .logo-container { width: 110px; height: 110px; margin: 0 auto 16px auto; border-radius: 50%; overflow: hidden; border: 3px solid var(--primary); box-shadow: 0 4px 12px rgba(21, 128, 61, 0.2); background: #fff; display: flex; align-items: center; justify-content: center; }
+        .logo-container img { width: 100%; height: 100%; object-fit: cover; }
+
         .form-group { margin-bottom: 20px; text-align: left; }
         .form-group label { display: block; font-weight: 600; font-size: 0.85rem; margin-bottom: 8px; color: var(--text-main); }
         .form-group input, .form-group select { width: 100%; padding: 12px 16px; border: 1px solid var(--border); border-radius: var(--radius); font-size: 0.95rem; outline: none; background: #fff; transition: all 0.2s; }
         .form-group input:focus, .form-group select:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(21, 128, 61, 0.1); }
         
-        .btn { width: 100%; padding: 14px; background: var(--primary); color: #fff; border: none; border-radius: var(--radius); font-weight: 600; cursor: pointer; transition: background 0.2s; font-size: 0.95rem; }
+        .btn { width: 100%; padding: 14px; background: var(--primary); color: #fff; border: none; border-radius: var(--radius); font-weight: 600; cursor: pointer; transition: background 0.2s; font-size: 0.95rem; margin-top: 5px; }
         .btn:hover { background: var(--primary-dark); }
         .btn-secondary { background: #f1f5f9; color: var(--text-main); border: 1px solid var(--border); padding: 10px 18px; font-size: 0.85rem; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.2s; }
         .btn-secondary:hover { background: #e2e8f0; }
         .btn-danger { background: #fee2e2; color: #dc2626; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 0.8rem; font-weight: 600; transition: background 0.2s; }
         .btn-danger:hover { background: #fecaca; }
 
-        /* --- HEADER --- */
-        #appHeader { display: none; background: #fff; border-bottom: 1px solid var(--border); padding: 16px 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 1px 3px rgba(0,0,0,0.02); }
+        .auth-switch { margin-top: 15px; font-size: 0.85rem; color: var(--text-muted); }
+        .auth-switch a { color: var(--primary); text-decoration: none; font-weight: 600; cursor: pointer; }
+        .auth-switch a:hover { text-decoration: underline; }
+
+        /* --- EN-TÊTE APPLICATION --- */
+        #appHeader { display: none; background: #fff; border-bottom: 1px solid var(--border); padding: 12px 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 1px 3px rgba(0,0,0,0.02); }
         .header-flex { display: flex; justify-content: space-between; align-items: center; }
-        .brand-box { display: flex; align-items: center; gap: 12px; }
-        .brand-icon { width: 42px; height: 42px; background: var(--primary-light); color: var(--primary); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; border: 1px solid #bbf7d0; }
-        .brand-title h3 { font-size: 1.05rem; font-weight: 700; color: var(--text-main); }
-        .brand-title p { font-size: 0.75rem; color: var(--text-muted); font-weight: 500; }
+        .brand-box { display: flex; align-items: center; gap: 14px; }
+        .brand-logo { width: 50px; height: 50px; border-radius: 50%; overflow: hidden; border: 2px solid var(--primary); flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+        .brand-logo img { width: 100%; height: 100%; object-fit: cover; }
+        .brand-title h3 { font-size: 1.15rem; font-weight: 700; color: var(--text-main); line-height: 1.2; }
+        .brand-title p { font-size: 0.8rem; color: var(--text-muted); font-weight: 500; margin-top: 2px; }
 
         /* --- VUES --- */
         .view-section { display: none; padding: 32px 0; }
         .view-section.active { display: block; }
 
         /* --- ACCUEIL CARDS --- */
-        .hero-banner { background: linear-gradient(135deg, #166534 0%, #15803d 100%); color: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 25px rgba(22, 101, 52, 0.15); margin-bottom: 30px; }
+        .hero-banner { background: linear-gradient(135deg, #166534 0%, #15803d 100%); color: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 25px rgba(22, 101, 52, 0.15); margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
         .hero-banner h2 { font-size: 1.8rem; font-weight: 700; margin-bottom: 8px; }
         .hero-banner p { opacity: 0.9; font-size: 1rem; }
+        .badge-trial { background: rgba(255, 255, 255, 0.2); padding: 8px 14px; border-radius: 8px; font-size: 0.85rem; font-weight: 600; border: 1px solid rgba(255,255,255,0.3); }
 
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
-        .card-btn { background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; padding: 32px; cursor: pointer; text-align: left; transition: all 0.25s ease; box-shadow: var(--shadow); }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+        .card-btn { background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; padding: 28px; cursor: pointer; text-align: left; transition: all 0.25s ease; box-shadow: var(--shadow); }
         .card-btn:hover { border-color: var(--primary); transform: translateY(-4px); box-shadow: 0 12px 20px -3px rgba(0,0,0,0.06); }
-        .card-btn-icon { width: 48px; height: 48px; background: var(--primary-light); color: var(--primary); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; margin-bottom: 20px; }
-        .card-btn h3 { color: var(--text-main); margin-bottom: 8px; font-size: 1.2rem; font-weight: 700; }
-        .card-btn p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.5; }
+        .card-btn-icon { width: 48px; height: 48px; background: var(--primary-light); color: var(--primary); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; margin-bottom: 16px; }
+        .card-btn h3 { color: var(--text-main); margin-bottom: 8px; font-size: 1.1rem; font-weight: 700; }
+        .card-btn p { color: var(--text-muted); font-size: 0.85rem; line-height: 1.5; }
 
         /* --- NAVIGATION INTERNE --- */
         .back-nav { display: inline-flex; align-items: center; gap: 8px; background: #fff; color: var(--text-main); border: 1px solid var(--border); padding: 8px 16px; border-radius: 8px; font-weight: 600; cursor: pointer; margin-bottom: 24px; transition: all 0.2s; font-size: 0.85rem; }
@@ -98,28 +107,44 @@
 </head>
 <body>
 
-    <!-- CONNEXION -->
+    <!-- CONNEXION / INSCRIPTION -->
     <div id="authView">
         <div class="auth-card">
-            <div class="logo-badge">🌱</div>
-            <h2 style="color: var(--text-main); margin-bottom: 4px; font-size: 1.4rem;">FARM BeMiray</h2>
-            <p style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted); margin-bottom: 30px; text-transform: uppercase; letter-spacing: 1.5px;">Ambohitraina, Ilafy</p>
-            <form id="loginForm">
+            <div class="logo-container">
+                <img src="logo-bemiray.jpg" alt="Logo BeMiray Farmer" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100'><rect width='100' height='100' fill='%2315803d'/><text x='50%' y='50%' fill='white' font-size='20' font-family='sans-serif' text-anchor='middle' dominant-baseline='central'>BM</text></svg>';">
+            </div>
+            <h2 id="authTitle" style="color: var(--text-main); margin-bottom: 4px; font-size: 1.4rem;">FARM BeMiray</h2>
+            <p id="authSubtitle" style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted); margin-bottom: 25px; text-transform: uppercase; letter-spacing: 1.5px;">Ambohitraina, Ilafy</p>
+            
+            <form id="loginForm" onsubmit="handleAuthSubmit(event)">
                 <div class="form-group">
-                    <label>Profil d'accès :</label>
-                    <select id="userProfileSelect">
-                        <option value="admin@bemiray.mg">Administrateur / Gérant (P. Raharinirina)</option>
-                        <option value="technicien@bemiray.mg">Technicien / Responsable Élevage</option>
-                        <option value="magasin@bemiray.mg">Magasinier / Gestion Stocks</option>
-                    </select>
+                    <label>Adresse Courriel (Email) :</label>
+                    <input type="email" id="userEmail" placeholder="votre.email@domaine.mg" required>
                 </div>
                 <div class="form-group">
-                    <label>Mot de passe :</label>
-                    <input type="password" id="pass" value="admin2026" required>
+                    <label id="passLabel">Mot de passe ou Code :</label>
+                    <input type="password" id="pass" placeholder="Entrez le mot de passe" required>
                 </div>
-                <button type="submit" class="btn">Accéder au système</button>
+                <button type="submit" class="btn" id="authSubmitBtn">Se connecter</button>
             </form>
-            <p id="err" style="color: #dc2626; font-size: 0.85rem; margin-top: 15px; display: none; font-weight: 500;">Mot de passe incorrect (Utiliser: admin2026)</p>
+
+            <form id="verifyCodeForm" style="display: none;" onsubmit="handleVerifySubmit(event)">
+                <div style="background: var(--primary-light); padding: 12px; border-radius: 8px; margin-bottom: 15px; border: 1px solid #bbf7d0; font-size: 0.85rem; color: var(--primary-dark);">
+                    Un jeton à 6 chiffres a été envoyé par courriel à <strong id="sentToEmail"></strong>.
+                </div>
+                <div class="form-group">
+                    <label>Entrez le jeton à 6 chiffres :</label>
+                    <input type="text" id="sixDigitCode" placeholder="Ex: 482910" maxlength="6" style="text-align: center; font-size: 1.2rem; letter-spacing: 4px;" required>
+                </div>
+                <button type="submit" class="btn">Valider le compte</button>
+                <button type="button" class="btn-secondary" style="width: 100%; margin-top: 8px;" onclick="backToLogin()">Annuler / Revenir</button>
+            </form>
+
+            <p id="err" style="color: #dc2626; font-size: 0.85rem; margin-top: 15px; display: none; font-weight: 500;"></p>
+
+            <div class="auth-switch" id="switchContainer">
+                Nouveau compte ? <a onclick="toggleMode('register')">S'inscrire (Essai gratuit 15 jours)</a>
+            </div>
         </div>
     </div>
 
@@ -127,10 +152,12 @@
     <header id="appHeader">
         <div class="container header-flex">
             <div class="brand-box">
-                <div class="brand-icon">🌱</div>
+                <div class="brand-logo">
+                    <img src="logo-bemiray.jpg" alt="Logo BeMiray Farmer" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='50' height='50'><rect width='50' height='50' fill='%2315803d'/><text x='50%' y='50%' fill='white' font-size='14' font-family='sans-serif' text-anchor='middle' dominant-baseline='central'>BM</text></svg>';">
+                </div>
                 <div class="brand-title">
-                    <h3>FARM BeMiray</h3>
-                    <p id="loggedUserDisplay">Ilafy, Antananarivo</p>
+                    <h3 id="appHeaderTitle">BeMiray Farmer</h3>
+                    <p id="loggedUserDisplay">Ambohitraina, Ilafy, Antananarivo</p>
                 </div>
             </div>
             <button onclick="logout()" class="btn-secondary">Déconnexion</button>
@@ -139,38 +166,51 @@
 
     <main class="container" style="flex: 1;">
         
-        <!-- ACCUEIL -->
+        <!-- ACCUEIL : 4 MODULES PRINCIPAUX -->
         <section id="homeView" class="view-section">
             <div class="hero-banner">
-                <h2>Tableau de Bord Principal</h2>
-                <p>Système intelligent de gestion de provendes et de suivi du cheptel porcin à Ilafy.</p>
+                <div>
+                    <h2>Tableau de Bord Principal</h2>
+                    <p>Système intelligent de gestion agropastorale et de suivi du cheptel à Ilafy.</p>
+                </div>
+                <div id="trialBadgeContainer"></div>
             </div>
             <div class="grid">
                 <div class="card-btn" onclick="goTo('formulationView')">
                     <div class="card-btn-icon">🧮</div>
                     <h3>Formulation des Provendes</h3>
-                    <p>Gestion experte, listes déroulantes d'ingrédients, formules personnalisées et analyse nutritionnelle en temps réel.</p>
+                    <p>Gestion experte, listes déroulantes d'ingrédients, formules personnalisées et analyse nutritionnelle.</p>
                 </div>
                 <div class="card-btn" onclick="goTo('cheptelView')">
                     <div class="card-btn-icon">📋</div>
-                    <h3>Registre du Cheptel</h3>
-                    <p>Suivi détaillé des sujets porcins, des poids enregistrés et de l'état sanitaire des bâtiments.</p>
+                    <h3>Registre de Cheptel</h3>
+                    <p>Suivi détaillé des sujets porcins, catégories, poids actuels et emplacements des box.</p>
+                </div>
+                <div class="card-btn" onclick="goTo('traitementView')">
+                    <div class="card-btn-icon">💉</div>
+                    <h3>Traitements & Sanitaire</h3>
+                    <p>Suivi rigoureux des vermifugations, soins, vaccinations, posologies et historique des interventions.</p>
+                </div>
+                <div class="card-btn" onclick="goTo('reproductionView')">
+                    <div class="card-btn-icon">🍼</div>
+                    <h3>Reproduction & Maternité</h3>
+                    <p>Gestion des saillies, choix des verrats, prévisions de mises bas et suivi des portées sevrées.</p>
                 </div>
             </div>
         </section>
 
-        <!-- FORMULATION -->
+        <!-- 1. FORMULATION DES PROVENDES -->
         <section id="formulationView" class="view-section">
             <button class="back-nav" onclick="goTo('homeView')">&larr; Retour au tableau de bord</button>
             <div style="margin-bottom: 24px;">
-                <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 4px;">Centre de Formulation & Nutrition</h2>
+                <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 4px;">Formulation des Provendes</h2>
                 <p style="color: var(--text-muted); font-size: 0.9rem;">Optimisez vos mélanges, suivez les protéines et contrôlez les coûts de production.</p>
             </div>
             
             <div class="tabs">
                 <button class="tab-btn active-tab" onclick="switchSubForm('manualSub', event)">🛠️ Simulation Libre</button>
-                <button class="tab-btn" onclick="switchSubForm('mesFormulesSub', event)">✨ Mes Formules (Personnalisées)</button>
-                <button class="tab-btn" onclick="switchSubForm('autoSub', event)">🤖 Mode Automatique / LP</button>
+                <button class="tab-btn" onclick="switchSubForm('mesFormulesSub', event)">✨ Mes Formules</button>
+                <button class="tab-btn" onclick="switchSubForm('autoSub', event)">🤖 Mode Automatique</button>
                 <button class="tab-btn" onclick="switchSubForm('pointuesSub', event)">🎯 Formules Pointues</button>
                 <button class="tab-btn" onclick="switchSubForm('matriceSub', event)">📊 Matrice Ingrédients</button>
             </div>
@@ -243,22 +283,10 @@
                     </div>
 
                     <div class="stats-grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
-                        <div class="stat-box">
-                            <h4>Poids de la Gâchée</h4>
-                            <p><span id="cTotKg">0</span> kg</p>
-                        </div>
-                        <div class="stat-box" style="background:#e0f2fe; border-color:#0284c7;">
-                            <h4 style="color:#0369a1;">Taux de Protéines Global</h4>
-                            <p style="color:#0369a1;"><span id="cTotProt">0.0</span> %</p>
-                        </div>
-                        <div class="stat-box" style="background:#fef3c7; border-color:#d97706;">
-                            <h4 style="color:#b45309;">Énergie Estimée</h4>
-                            <p style="color:#b45309;"><span id="cTotEnergy">0</span> kcal/kg</p>
-                        </div>
-                        <div class="stat-box" style="background:#f3e8ff; border-color:#7e22ce;">
-                            <h4 style="color:#7e22ce;">Indicateur Minéraux / CMV</h4>
-                            <p style="color:#7e22ce; font-size: 0.95rem;" id="cMinStatus">À compléter</p>
-                        </div>
+                        <div class="stat-box"><h4>Poids de la Gâchée</h4><p><span id="cTotKg">0</span> kg</p></div>
+                        <div class="stat-box" style="background:#e0f2fe; border-color:#0284c7;"><h4 style="color:#0369a1;">Taux de Protéines Global</h4><p style="color:#0369a1;"><span id="cTotProt">0.0</span> %</p></div>
+                        <div class="stat-box" style="background:#fef3c7; border-color:#d97706;"><h4 style="color:#b45309;">Énergie Estimée</h4><p style="color:#b45309;"><span id="cTotEnergy">0</span> kcal/kg</p></div>
+                        <div class="stat-box" style="background:#f3e8ff; border-color:#7e22ce;"><h4 style="color:#7e22ce;">Indicateur Minéraux / CMV</h4><p style="color:#7e22ce; font-size: 0.95rem;" id="cMinStatus">À compléter</p></div>
                     </div>
                 </div>
             </div>
@@ -304,12 +332,7 @@
                     <div class="table-container">
                         <table>
                             <thead>
-                                <tr>
-                                    <th>Stade Physiologique</th>
-                                    <th>Protéine Brute (%)</th>
-                                    <th>Énergie Digestible (kcal/kg)</th>
-                                    <th>Lysine Min. (%)</th>
-                                </tr>
+                                <tr><th>Stade Physiologique</th><th>Protéine Brute (%)</th><th>Énergie Digestible (kcal/kg)</th><th>Lysine Min. (%)</th></tr>
                             </thead>
                             <tbody>
                                 <tr><td><strong>Porcelet 1er Âge (10-20kg)</strong></td><td>20.0% - 22.0%</td><td>3 350 kcal</td><td>1.15%</td></tr>
@@ -329,12 +352,7 @@
                     <div class="table-container">
                         <table>
                             <thead>
-                                <tr>
-                                    <th>Matière Première / Ingrédient</th>
-                                    <th>Énergie Digestible</th>
-                                    <th>Protéine Brute (%)</th>
-                                    <th>Prix unitaire estimé</th>
-                                </tr>
+                                <tr><th>Matière Première / Ingrédient</th><th>Énergie Digestible</th><th>Protéine Brute (%)</th><th>Prix unitaire estimé</th></tr>
                             </thead>
                             <tbody>
                                 <tr><td><strong>Maïs concassé</strong></td><td>3380 kcal/kg</td><td>8.5%</td><td>2,200 Ar / kg</td></tr>
@@ -350,23 +368,79 @@
             </div>
         </section>
 
-        <!-- CHEPTEL -->
+        <!-- 2. REGISTRE DE CHEPTEL -->
         <section id="cheptelView" class="view-section">
             <button class="back-nav" onclick="goTo('homeView')">&larr; Retour au tableau de bord</button>
             <div style="margin-bottom: 24px;">
-                <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 4px;">Registre du Cheptel</h2>
-                <p style="color: var(--text-muted); font-size: 0.9rem;">FARM BeMiray - Ambohitraina, Ilafy. Suivi de l'élevage porcin.</p>
+                <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 4px;">Registre de Cheptel</h2>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">FARM BeMiray - Ambohitraina, Ilafy. Gestion des effectifs et suivi des animaux.</p>
             </div>
             <div class="card">
-                <h3 style="font-size: 1.05rem; font-weight: 700; margin-bottom: 15px;">Animaux enregistrés</h3>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                    <h3 style="font-size: 1.05rem; font-weight: 700;">Cheptel Actif</h3>
+                    <button class="btn-secondary" onclick="alert('Fonctionnalité d’ajout d’un sujet activée.')">➕ Enregistrer un animal</button>
+                </div>
                 <div class="table-container">
                     <table>
                         <thead>
-                            <tr><th>Sujet / ID</th><th>Catégorie</th><th>Poids Actuel</th><th>Statut</th></tr>
+                            <tr><th>Sujet / ID</th><th>Catégorie</th><th>Poids Actuel</th><th>Bâtiment / Box</th><th>Statut</th></tr>
                         </thead>
                         <tbody>
-                            <tr><td><strong>Truie #104</strong></td><td>Reproductrice</td><td>165 kg</td><td>Gestation (Soin actif)</td></tr>
-                            <tr><td><strong>Lot #01 (Porcelets)</strong></td><td>Engraissement</td><td>28 kg / tète</td><td>Croissance active</td></tr>
+                            <tr><td><strong>Truie #104</strong></td><td>Reproductrice</td><td>165 kg</td><td>Box Maternité 01</td><td>Gestation (Soin actif)</td></tr>
+                            <tr><td><strong>Verrat #01</strong></td><td>Reproducteur</td><td>190 kg</td><td>Box Reproducteur</td><td>Actif</td></tr>
+                            <tr><td><strong>Lot #01 (Porcelets)</strong></td><td>Engraissement</td><td>28 kg / tète</td><td>Bâtiment Principal</td><td>Croissance active</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. TRAITEMENTS & SANITAIRE -->
+        <section id="traitementView" class="view-section">
+            <button class="back-nav" onclick="goTo('homeView')">&larr; Retour au tableau de bord</button>
+            <div style="margin-bottom: 24px;">
+                <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 4px;">Traitements & Sanitaire</h2>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">Suivi des vermifugations, soins médicaux, vaccinations et posologies.</p>
+            </div>
+            <div class="card">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                    <h3 style="font-size: 1.05rem; font-weight: 700;">Historique et Planification des Soins</h3>
+                    <button class="btn-secondary" onclick="alert('Ajout d’une intervention sanitaire enregistré.')">➕ Planifier un soin</button>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr><th>Date</th><th>Sujet / Lot</th><th>Type de Soin / Produit</th><th>Posologie / Voie</th><th>Responsable</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>02/09/2026</td><td>Lot #01</td><td>Vermifugation (Ivermectine)</td><td>1 ml / 33 kg (SC)</td><td>Patrick R.</td></tr>
+                            <tr><td>25/08/2026</td><td>Truie #104</td><td>Vitamines AD3E + Fer</td><td>10 ml (IM)</td><td>Patrick R.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. REPRODUCTION & MATERNITÉ -->
+        <section id="reproductionView" class="view-section">
+            <button class="back-nav" onclick="goTo('homeView')">&larr; Retour au tableau de bord</button>
+            <div style="margin-bottom: 24px;">
+                <h2 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 4px;">Reproduction & Maternité</h2>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">Suivi des saillies, choix des verrats et prévisions de mises bas.</p>
+            </div>
+            <div class="card">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                    <h3 style="font-size: 1.05rem; font-weight: 700;">Suivi de la Reproduction & Maternité</h3>
+                    <button class="btn-secondary" onclick="alert('Nouvelle saillie enregistrée.')">➕ Enregistrer une saillie</button>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr><th>Truie ID</th><th>Date de Saillie</th><th>Verrat Utilisé</th><th>Mise bas Prévue</th><th>Porcelets Sevrés</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><strong>Truie #104</strong></td><td>12/06/2026</td><td>Verrat #01</td><td>04/10/2026 (Imminente)</td><td>- (En attente)</td></tr>
+                            <tr><td><strong>Truie #089</strong></td><td>10/03/2026</td><td>Verrat #01</td><td>02/07/2026</td><td>11 porcelets</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -392,22 +466,135 @@
             { name: "Sel / Coquille d'huître", pb: 0.0, energy: 0, price: 1000, type: "Minéraux (Ca/Sel)" }
         ];
 
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const profileSelect = document.getElementById('userProfileSelect');
-            const selectedText = profileSelect.options[profileSelect.selectedIndex].text;
-            const p = document.getElementById('pass').value;
-            
-            if (p === "admin2026") {
-                document.getElementById('authView').style.display = 'none';
-                document.getElementById('appHeader').style.display = 'block';
-                document.getElementById('loggedUserDisplay').innerText = `Espace Connecté : ${selectedText} - Ilafy`;
-                goTo('homeView');
-                initAllTables();
+        let currentAuthMode = 'login';
+        let pendingEmail = '';
+        let generatedCode = '';
+
+        function toggleMode(mode) {
+            currentAuthMode = mode;
+            const title = document.getElementById('authTitle');
+            const sub = document.getElementById('authSubtitle');
+            const btn = document.getElementById('authSubmitBtn');
+            const passField = document.getElementById('pass');
+            const passLabel = document.getElementById('passLabel');
+            const switchC = document.getElementById('switchContainer');
+            const err = document.getElementById('err');
+            err.style.display = 'none';
+
+            if (mode === 'register') {
+                title.innerText = "Créer un Compte";
+                sub.innerText = "Essai Gratuit de 15 Jours";
+                passLabel.innerText = "Définir un mot de passe :";
+                passField.placeholder = "Votre mot de passe sécurisé";
+                btn.innerText = "Recevoir le jeton par e-mail";
+                switchC.innerHTML = `Déjà un compte ? <a onclick="toggleMode('login')">Se connecter</a>`;
             } else {
-                document.getElementById('err').style.display = 'block';
+                title.innerText = "FARM BeMiray";
+                sub.innerText = "Ambohitraina, Ilafy";
+                passLabel.innerText = "Mot de passe ou Code :";
+                passField.placeholder = "Entrez le mot de passe";
+                btn.innerText = "Se connecter";
+                switchC.innerHTML = `Nouveau compte ? <a onclick="toggleMode('register')">S'inscrire (Essai gratuit 15 jours)</a>`;
             }
-        });
+        }
+
+        function handleAuthSubmit(e) {
+            e.preventDefault();
+            const email = document.getElementById('userEmail').value.trim();
+            const pass = document.getElementById('pass').value;
+            const err = document.getElementById('err');
+            err.style.display = 'none';
+
+            if (email === "admin@bemiray.mg" || email === "admin") {
+                if (pass === "admin2026") {
+                    loginSuccess("Administrateur (P. Raharinirina) - Illimité", true);
+                    return;
+                } else {
+                    err.innerText = "Mot de passe administrateur incorrect (Utiliser: admin2026)";
+                    err.style.display = 'block';
+                    return;
+                }
+            }
+
+            if (currentAuthMode === 'register') {
+                pendingEmail = email;
+                generatedCode = Math.floor(100000 + Math.random() * 900000).toString();
+                
+                alert(`[SIMULATION COURRIEL] Un jeton à 6 chiffres a été généré pour ${email}.
+Votre jeton de validation est : ${generatedCode}`);
+
+                document.getElementById('loginForm').style.display = 'none';
+                document.getElementById('verifyCodeForm').style.display = 'block';
+                document.getElementById('sentToEmail').innerText = email;
+            } else {
+                let users = JSON.parse(localStorage.getItem('bemiray_users') || '{}');
+                if (users[email]) {
+                    if (users[email].password === pass) {
+                        let createdDate = new Date(users[email].created);
+                        let now = new Date();
+                        let diffDays = Math.floor((now - createdDate) / (1000 * 60 * 60 * 24));
+                        let daysLeft = 15 - diffDays;
+
+                        if (daysLeft > 0) {
+                            loginSuccess(`Utilisateur (${email})`, false, daysLeft);
+                        } else {
+                            err.innerText = "Votre période d'essai gratuite de 15 jours a expiré.";
+                            err.style.display = 'block';
+                        }
+                    } else {
+                        err.innerText = "Mot de passe incorrect.";
+                        err.style.display = 'block';
+                    }
+                } else {
+                    err.innerText = "Aucun compte associé à cet e-mail. Veuillez vous inscrire.";
+                    err.style.display = 'block';
+                }
+            }
+        }
+
+        function handleVerifySubmit(e) {
+            e.preventDefault();
+            const enteredCode = document.getElementById('sixDigitCode').value.trim();
+            const pass = document.getElementById('pass').value;
+            const err = document.getElementById('err');
+
+            if (enteredCode === generatedCode) {
+                let users = JSON.parse(localStorage.getItem('bemiray_users') || '{}');
+                users[pendingEmail] = {
+                    password: pass,
+                    created: new Date().toISOString()
+                };
+                localStorage.setItem('bemiray_users', JSON.stringify(users));
+                
+                alert("Compte vérifié et activé avec succès ! 15 jours d'essai activés.");
+                loginSuccess(`Utilisateur (${pendingEmail})`, false, 15);
+            } else {
+                err.innerText = "Jeton incorrect. Veuillez réessayer.";
+                err.style.display = 'block';
+            }
+        }
+
+        function backToLogin() {
+            document.getElementById('verifyCodeForm').style.display = 'none';
+            document.getElementById('loginForm').style.display = 'block';
+            document.getElementById('err').style.display = 'none';
+        }
+
+        function loginSuccess(roleText, isAdmin, daysLeft = null) {
+            document.getElementById('authView').style.display = 'none';
+            document.getElementById('appHeader').style.display = 'block';
+            document.getElementById('loggedUserDisplay').innerText = `Connecté : ${roleText} - Ilafy`;
+            
+            const trialContainer = document.getElementById('trialBadgeContainer');
+            if (isAdmin) {
+                trialContainer.innerHTML = `<div class="badge-trial">⭐ Accès Administrateur Complet</div>`;
+            } else {
+                trialContainer.innerHTML = `<div class="badge-trial">⏳ Période d'essai : ${daysLeft} jours restants</div>`;
+            }
+
+            goTo('homeView');
+            initAllTables();
+        }
 
         function goTo(viewId) {
             document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
@@ -422,11 +609,16 @@
             document.getElementById('appHeader').style.display = 'none';
             document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
             document.getElementById('authView').style.display = 'flex';
+            document.getElementById('verifyCodeForm').style.display = 'none';
+            document.getElementById('loginForm').style.display = 'block';
+            document.getElementById('pass').value = '';
+            document.getElementById('userEmail').value = '';
+            toggleMode('login');
         }
 
         function switchSubForm(subId, event) {
             document.querySelectorAll('.formulation-subview').forEach(el => el.classList.remove('active-sub'));
-            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active-tab'));
+            document.querySelectorAll('#formulationView .tab-btn').forEach(el => el.classList.remove('active-tab'));
             document.getElementById(subId).classList.add('active-sub');
             if (event && event.currentTarget) {
                 event.currentTarget.classList.add('active-tab');
