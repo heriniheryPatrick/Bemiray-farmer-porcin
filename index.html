@@ -7,7 +7,6 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans">
 
@@ -15,7 +14,6 @@
     <header class="bg-emerald-800 text-white shadow-md sticky top-0 z-50">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
             <div class="flex items-center space-x-3">
-                <img src="images/logo-bemiray.jpg" alt="Logo BeMiRAY Farmer" class="w-12 h-12 rounded-full object-cover border-2 border-emerald-300">
                 <span class="text-lg md:text-xl font-bold tracking-wide">BeMiRAY Farmer — Gestion d'Élevage</span>
             </div>
             <nav class="hidden md:flex space-x-6 text-sm font-medium">
@@ -37,7 +35,7 @@
                 <i class="fa-solid fa-bolt text-xs"></i>
             </span>
             <span>
-                <strong>BeMiRAY Farmer</strong> applique la <strong>digitalisation</strong> et modernise l'élevage porcin grâce à des outils de suivi automatisés et connectés.
+                <strong>BeMiRAY Farmer</strong> applique la <strong>digitalisation</strong> et modernise l'élevage grâce à des outils de suivi connectés et intelligents.
             </span>
         </div>
     </div>
@@ -187,6 +185,53 @@
         </div>
     </section>
 
+    <!-- SECTION SANTÉ & ALERTES (Interactive au clic) -->
+    <section id="sante" class="container mx-auto px-6 py-6 mb-16">
+        <div class="bg-white rounded-xl shadow-md p-8 border-t-4 border-rose-600">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-800"><i class="fa-solid fa-notes-medical text-rose-600 mr-2"></i> Suivi Sanitaire & Plan de Prophylaxie</h2>
+                    <p class="text-sm text-gray-500">Cliquez sur une carte pour afficher les détails ou modifier le suivi du cheptel</p>
+                </div>
+                <span class="bg-rose-100 text-rose-800 text-xs px-3 py-1.5 rounded-full font-semibold mt-2 md:mt-0">
+                    <i class="fa-solid fa-shield-halved mr-1"></i> 0 Alerte Critique
+                </span>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Carte 1 -->
+                <div onclick="gererActionSante('Vaccination PPC', 'Planifier ou valider le rappel du lot de croissance')" class="bg-gray-50 p-5 rounded-lg border border-gray-200 hover:border-emerald-500 hover:shadow-lg transition cursor-pointer group">
+                    <h3 class="font-bold text-gray-800 mb-2 group-hover:text-emerald-700 transition"><i class="fa-solid fa-syringe text-emerald-700 mr-2"></i> Prochaine Vaccination</h3>
+                    <p class="text-sm text-gray-600 mb-3">Rappel Peste Porcine Classique (PPC) prévu pour le lot de croissance.</p>
+                    <div class="text-xs font-semibold text-emerald-800 bg-emerald-50 p-2 rounded flex justify-between items-center">
+                        <span>Date cible : Dans 5 jours</span>
+                        <i class="fa-solid fa-arrow-right text-emerald-600"></i>
+                    </div>
+                </div>
+
+                <!-- Carte 2 -->
+                <div onclick="gererActionSante('Traitements en cours', 'Gérer les vitamines et la vermifugation des truies')" class="bg-gray-50 p-5 rounded-lg border border-gray-200 hover:border-blue-500 hover:shadow-lg transition cursor-pointer group">
+                    <h3 class="font-bold text-gray-800 mb-2 group-hover:text-blue-700 transition"><i class="fa-solid fa-pills text-blue-700 mr-2"></i> Traitements en cours</h3>
+                    <p class="text-sm text-gray-600 mb-3">Vitamines et vermifugation des truies gestantes en fin de gestation.</p>
+                    <div class="text-xs font-semibold text-blue-800 bg-blue-50 p-2 rounded flex justify-between items-center">
+                        <span>Statut : En cours (Lot Truies)</span>
+                        <i class="fa-solid fa-arrow-right text-blue-600"></i>
+                    </div>
+                </div>
+
+                <!-- Carte 3 -->
+                <div onclick="gererActionSante('Biosécurité', 'Vérifier les protocoles de désinfection des pédiluves')" class="bg-gray-50 p-5 rounded-lg border border-gray-200 hover:border-amber-500 hover:shadow-lg transition cursor-pointer group">
+                    <h3 class="font-bold text-gray-800 mb-2 group-hover:text-amber-700 transition"><i class="fa-solid fa-triangle-exclamation text-amber-600 mr-2"></i> Biosécurité</h3>
+                    <p class="text-sm text-gray-600 mb-3">Contrôle et désinfection des pédiluves à l'entrée de la porcherie.</p>
+                    <div class="text-xs font-semibold text-amber-800 bg-amber-50 p-2 rounded flex justify-between items-center">
+                        <span>Fréquence : Quotidienne</span>
+                        <i class="fa-solid fa-arrow-right text-amber-600"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Pied de page -->
     <footer class="bg-gray-900 text-gray-400 py-8">
         <div class="container mx-auto px-6 text-center text-sm">
@@ -194,7 +239,7 @@
         </div>
     </footer>
 
-    <!-- Script JavaScript Dynamique Intégré -->
+    <!-- Script JavaScript Intégré -->
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             console.log("BeMiRAY Farmer - Module initialisé et actif.");
@@ -236,6 +281,11 @@
                 });
             }
         });
+
+        // 3. Fonction pour gérer les clics sur les cartes de santé
+        function gererActionSante(module, description) {
+            alert("Ouverture du module de gestion : " + module + "\n\nAction : " + description);
+        }
     </script>
 </body>
 </html>
