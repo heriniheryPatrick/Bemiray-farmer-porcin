@@ -31,6 +31,18 @@
         </div>
     </header>
 
+    <!-- BANDEAU DE SURBRILLANCE : Digitalisation & Modernisation -->
+    <div class="bg-amber-50 border-b border-amber-200 text-amber-900 py-3 px-6 shadow-inner">
+        <div class="container mx-auto flex items-center justify-center space-x-3 text-center text-sm md:text-base font-medium">
+            <span class="bg-amber-500 text-white p-1.5 rounded-full flex items-center justify-center">
+                <i class="fa-solid fa-bolt text-xs"></i>
+            </span>
+            <span>
+                <strong>BeMiRAY Farmer</strong> applique la <strong>digitalisation</strong> et modernise l'élevage grâce à des outils de suivi connectés et intelligents.
+            </span>
+        </div>
+    </div>
+
     <!-- Section Hero -->
     <section class="bg-gradient-to-r from-emerald-900 to-emerald-700 text-white py-16">
         <div class="container mx-auto px-6 text-center">
@@ -214,7 +226,7 @@
             if (btnAjouter && tbody) {
                 btnAjouter.addEventListener('click', function () {
                     const idLot = prompt("Identifiant du lot ou de l'animal (ex: LOT-CROIS-03) :");
-                    if (!idLot) return; // Annulé si vide
+                    if (!idLot) return;
 
                     const phase = prompt("Phase / Stade (ex: Finition, Croissance, Gestation) :") || "Engraissement";
                     const effectif = prompt("Effectif (ex: 20 têtes) :") || "1 tête";
