@@ -1,0 +1,21 @@
+/* Style pour le conteneur de l'en-tête */
+.header-container {
+    display: flex;            /* Aligne les enfants (logo + titre) sur une ligne */
+    align-items: center;      /* Centre verticalement le logo et le titre */
+    gap: 15px;                /* Espace entre le logo et le titre */
+    padding: 10px;
+}
+
+/* Style spécifique pour le logo */
+.logo-img {
+    width: 80px;              /* Ajustez cette valeur pour la taille idéale (ex: 80px) */
+    height: auto;             /* Garde les proportions de l'image */
+    border-radius: 50%;       /* Optionnel : rend l'image parfaitement ronde si elle est carrée */
+}
+
+/* Style pour le titre */
+.header-title {
+    margin: 0;                /* Supprime les marges par défaut du h1 */
+    font-size: 24px;          /* Ajustez la taille du texte selon vos besoins */
+    color: #333;              /* Couleur du texte */
+}
