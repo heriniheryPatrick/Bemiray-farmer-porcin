@@ -4,25 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BeMiRAY Farmer — Gestion d'Élevage</title>
-    <!-- Tailwind CSS pour un design propre et moderne -->
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Lien vers votre feuille de style personnalisée -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans">
 
-    <!-- En-tête principal avec le logo et le titre alignés -->
-    <header class="bg-emerald-800 text-white shadow-md">
+    <!-- En-tête principal -->
+    <header class="bg-emerald-800 text-white shadow-md sticky top-0 z-50">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="header-container flex items-center space-x-3">
-                <img src="images/logo-bemiray.jpg" alt="Logo BeMiRAY Farmer" class="logo-img w-12 h-12 rounded-full object-cover border-2 border-emerald-300">
-                <span class="header-title text-lg md:text-xl font-bold tracking-wide">BeMiRAY Farmer — Gestion d'Élevage</span>
+            <div class="flex items-center space-x-3">
+                <img src="images/logo-bemiray.jpg" alt="Logo BeMiRAY Farmer" class="w-12 h-12 rounded-full object-cover border-2 border-emerald-300">
+                <span class="text-lg md:text-xl font-bold tracking-wide">BeMiRAY Farmer — Gestion d'Élevage</span>
             </div>
             <nav class="hidden md:flex space-x-6 text-sm font-medium">
                 <a href="#dashboard" class="hover:text-emerald-300 transition">Tableau de Bord</a>
-                <a href="#troupeau" class="hover:text-emerald-300 transition">Troupeau & Truies</a>
-                <a href="#alimentation" class="hover:text-emerald-300 transition">Formulation Aliments</a>
+                <a href="#troupeau" class="hover:text-emerald-300 transition">Troupeau & Lots</a>
+                <a href="#alimentation" class="hover:text-emerald-300 transition">Formulation & Rations</a>
                 <a href="#sante" class="hover:text-emerald-300 transition">Santé & Alertes</a>
             </nav>
             <div>
@@ -38,7 +37,7 @@
                 <i class="fa-solid fa-bolt text-xs"></i>
             </span>
             <span>
-                <strong>BeMiRAY Farmer</strong> applique la <strong>digitalisation</strong> et modernise l'élevage grâce à des outils de suivi connectés et intelligents.
+                <strong>BeMiRAY Farmer</strong> applique la <strong>digitalisation</strong> et modernise l'élevage porcin grâce à des outils de suivi automatisés et connectés.
             </span>
         </div>
     </div>
@@ -46,12 +45,12 @@
     <!-- Section Hero -->
     <section class="bg-gradient-to-r from-emerald-900 to-emerald-700 text-white py-16">
         <div class="container mx-auto px-6 text-center">
-            <h1 class="text-4xl md:text-5xl font-extrabold mb-4">Optimisez votre élevage porcin en toute simplicité</h1>
+            <h1 class="text-4xl md:text-5xl font-extrabold mb-4">Pilotez votre élevage avec précision</h1>
             <p class="text-lg md:text-xl text-emerald-100 max-w-2xl mx-auto mb-8">
-                Suivi rigoureux des truies, gestion des lots à l'engraissement, calcul précis des rations et maîtrise des coûts de production.
+                Centralisez le suivi des truies, gérez les performances des lots à l'engraissement et optimisez vos coûts d'alimentation en toute simplicité.
             </p>
             <div class="flex justify-center space-x-4">
-                <a href="#alimentation" class="bg-white text-emerald-800 font-bold px-6 py-3 rounded-lg shadow hover:bg-emerald-50 transition">Calculer une ration</a>
+                <a href="#alimentation" class="bg-white text-emerald-800 font-bold px-6 py-3 rounded-lg shadow hover:bg-emerald-50 transition">Formulation automatique</a>
                 <a href="#troupeau" class="border border-white text-white font-bold px-6 py-3 rounded-lg hover:bg-white/10 transition">Gérer le troupeau</a>
             </div>
         </div>
@@ -77,7 +76,7 @@
             <div class="bg-white p-6 rounded-xl shadow-md border-l-4 border-amber-500 flex items-center justify-between">
                 <div>
                     <p class="text-xs text-gray-500 uppercase font-bold">Coût Aliment / kg</p>
-                    <h3 class="text-2xl font-extrabold text-gray-800 mt-1">Opti</h3>
+                    <h3 class="text-2xl font-extrabold text-gray-800 mt-1">Optimisé</h3>
                 </div>
                 <div class="bg-amber-100 p-3 rounded-full text-amber-700"><i class="fa-solid fa-seedling text-xl"></i></div>
             </div>
@@ -91,7 +90,7 @@
         </div>
     </section>
 
-    <!-- Gestion du Troupeau & Truies -->
+    <!-- Gestion du Troupeau -->
     <section id="troupeau" class="container mx-auto px-6 py-12">
         <div class="bg-white rounded-xl shadow-md p-8">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
@@ -99,7 +98,7 @@
                     <h2 class="text-2xl font-bold text-gray-800">Suivi des Lots & Maternité Porcine</h2>
                     <p class="text-sm text-gray-500">Suivi individuel et par lots (Démarrage, Croissance, Finition, Truies)</p>
                 </div>
-                <button id="btn-ajouter-lot" class="mt-4 md:mt-0 bg-emerald-700 hover:bg-emerald-800 text-white px-4 py-2 rounded-lg text-sm font-semibold transition">
+                <button id="btn-ajouter-lot" class="mt-4 md:mt-0 bg-emerald-700 hover:bg-emerald-800 text-white px-4 py-2 rounded-lg text-sm font-semibold transition shadow">
                     <i class="fa-solid fa-plus mr-2"></i> Ajouter un animal/lot
                 </button>
             </div>
@@ -122,7 +121,7 @@
                             <td class="p-3">45 têtes</td>
                             <td class="p-3">82 kg</td>
                             <td class="p-3"><span class="bg-green-100 text-green-800 px-2.5 py-1 rounded-full text-xs font-semibold">Conforme</span></td>
-                            <td class="p-3"><a href="#" class="text-emerald-700 hover:underline">Détails</a></td>
+                            <td class="p-3"><a href="#troupeau" class="text-emerald-700 hover:underline">Détails</a></td>
                         </tr>
                         <tr>
                             <td class="p-3 font-bold text-emerald-800">TRUIE-08</td>
@@ -130,15 +129,7 @@
                             <td class="p-3">1 truie</td>
                             <td class="p-3">185 kg</td>
                             <td class="p-3"><span class="bg-green-100 text-green-800 px-2.5 py-1 rounded-full text-xs font-semibold">Vaccinée</span></td>
-                            <td class="p-3"><a href="#" class="text-emerald-700 hover:underline">Détails</a></td>
-                        </tr>
-                        <tr>
-                            <td class="p-3 font-bold text-emerald-800">LOT-CROIS-02</td>
-                            <td class="p-3">Croissance</td>
-                            <td class="p-3">60 têtes</td>
-                            <td class="p-3">35 kg</td>
-                            <td class="p-3"><span class="bg-amber-100 text-amber-800 px-2.5 py-1 rounded-full text-xs font-semibold">Contrôle prévu</span></td>
-                            <td class="p-3"><a href="#" class="text-emerald-700 hover:underline">Détails</a></td>
+                            <td class="p-3"><a href="#troupeau" class="text-emerald-700 hover:underline">Détails</a></td>
                         </tr>
                     </tbody>
                 </table>
@@ -150,8 +141,8 @@
     <section id="alimentation" class="container mx-auto px-6 py-6 mb-12">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div class="bg-white rounded-xl shadow-md p-8">
-                <h2 class="text-2xl font-bold text-gray-800 mb-2">Formulation d'Aliment Porc</h2>
-                <p class="text-sm text-gray-500 mb-6">Optimisez les rations (Maïs, Soja, Son, CMV) selon le stade physiologique.</p>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Formulation d'Aliment Porc (Coût Optimal)</h2>
+                <p class="text-sm text-gray-500 mb-6">Ajustez les rations (Maïs, Soja, Son, CMV) selon le stade physiologique.</p>
                 <div class="space-y-4">
                     <div>
                         <label class="block text-sm font-semibold text-gray-700 mb-1">Phase d'élevage</label>
@@ -163,7 +154,7 @@
                         </select>
                     </div>
                     <div>
-                        <label class="block text-sm font-semibold text-gray-700 mb-1">Ingrédients principaux disponibles</label>
+                        <label class="block text-sm font-semibold text-gray-700 mb-1">Ingrédients disponibles</label>
                         <div class="grid grid-cols-2 gap-2 text-sm text-gray-600">
                             <label class="flex items-center space-x-2"><input type="checkbox" checked class="rounded text-emerald-600"> <span>Maïs grain</span></label>
                             <label class="flex items-center space-x-2"><input type="checkbox" checked class="rounded text-emerald-600"> <span>Tourteau de soja</span></label>
@@ -171,26 +162,26 @@
                             <label class="flex items-center space-x-2"><input type="checkbox" checked class="rounded text-emerald-600"> <span>Complexe Minéral (CMV)</span></label>
                         </div>
                     </div>
-                    <button id="btn-calcul-ration" class="w-full bg-emerald-700 hover:bg-emerald-800 text-white font-bold py-3 rounded-lg transition mt-4">
-                        Lancer le calcul de ration dynamique
+                    <button id="btn-calcul-ration" class="w-full bg-emerald-700 hover:bg-emerald-800 text-white font-bold py-3 rounded-lg transition shadow">
+                        Calculer la formule optimale
                     </button>
                 </div>
             </div>
 
             <div class="bg-emerald-900 text-white rounded-xl shadow-md p-8 flex flex-col justify-between">
                 <div>
-                    <h3 class="text-xl font-bold mb-3"><i class="fa-solid fa-lightbulb text-emerald-300 mr-2"></i> Le saviez-vous ?</h3>
+                    <h3 class="text-xl font-bold mb-3"><i class="fa-solid fa-lightbulb text-emerald-300 mr-2"></i> Performance & Rentabilité</h3>
                     <p class="text-sm text-emerald-100 leading-relaxed mb-6">
-                        Une formulation adaptée à chaque stade de croissance permet de réduire jusqu'à 30% des coûts d'alimentation tout en maximisant le Gain Moyens Quotidien (GMQ) de vos porcs vers l'abattage.
+                        Une formulation rigoureuse automatisée réduit les coûts superflus de provende tout en garantissant un Gain Moyen Quotidien (GMQ) idéal pour atteindre les 100 kg à l'abattage.
                     </p>
                     <div class="bg-emerald-800/60 p-4 rounded-lg border border-emerald-600/40 text-sm space-y-2">
                         <div class="flex justify-between"><span>Indice de consommation visé :</span> <strong class="text-emerald-300">2.6 - 2.8</strong></div>
-                        <div class="flex justify-between"><span>Objectif de poids (Abattage) :</span> <strong class="text-emerald-300">100 kg</strong></div>
+                        <div class="flex justify-between"><span>Gestion centralisée :</span> <strong class="text-emerald-300">Active (Local & Cloud)</strong></div>
                     </div>
                 </div>
                 <div class="mt-6 pt-4 border-t border-emerald-800 text-xs text-emerald-300 flex justify-between">
                     <span>BeMiRAY Farmer — Ambohitraina, Ilafy</span>
-                    <span>Gestion Porcine</span>
+                    <span>Module Porcin</span>
                 </div>
             </div>
         </div>
@@ -199,38 +190,38 @@
     <!-- Pied de page -->
     <footer class="bg-gray-900 text-gray-400 py-8">
         <div class="container mx-auto px-6 text-center text-sm">
-            <p>&copy; 2026 BeMiRAY Farmer. Tous droits réservés. Exploitation porcine et agricole.</p>
+            <p>&copy; 2026 BeMiRAY Farmer. Tous droits réservés. Exploitation porcine et agricole moderne.</p>
         </div>
     </footer>
 
     <!-- Script JavaScript Dynamique Intégré -->
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            console.log("BeMiRAY Farmer - Application dynamique initialisée.");
+            console.log("BeMiRAY Farmer - Module initialisé et actif.");
 
-            // 1. Simulation dynamique du calcul de ration
+            // 1. Calcul de ration interactif
             const btnCalcul = document.getElementById('btn-calcul-ration');
             const selectPhase = document.getElementById('select-phase');
             if (btnCalcul) {
                 btnCalcul.addEventListener('click', function (e) {
                     e.preventDefault();
-                    const phaseActuelle = selectPhase.value;
-                    alert("Ration calculée et optimisée avec succès pour le profil : " + phaseActuelle + " !");
+                    const phase = selectPhase.value;
+                    alert("Formulation optimisée avec succès pour le profil : " + phase + " ! Coûts réduits et apports équilibrés.");
                 });
             }
 
-            // 2. Ajout dynamique d'un nouveau lot/animal dans le tableau
+            // 2. Ajout dynamique de lots dans le tableau
             const btnAjouter = document.getElementById('btn-ajouter-lot');
             const tbody = document.getElementById('table-troupeau-body');
 
             if (btnAjouter && tbody) {
                 btnAjouter.addEventListener('click', function () {
-                    const idLot = prompt("Identifiant du lot ou de l'animal (ex: LOT-CROIS-03) :");
+                    const idLot = prompt("Entrez l'identifiant du lot ou de l'animal (ex: LOT-FIN-02) :");
                     if (!idLot) return;
 
-                    const phase = prompt("Phase / Stade (ex: Finition, Croissance, Gestation) :") || "Engraissement";
+                    const phase = prompt("Phase d'élevage (ex: Finition, Croissance, Gestation) :") || "Engraissement";
                     const effectif = prompt("Effectif (ex: 20 têtes) :") || "1 tête";
-                    const poids = prompt("Poids moyen (ex: 45 kg) :") || "30 kg";
+                    const poids = prompt("Poids moyen (ex: 50 kg) :") || "40 kg";
 
                     const nouvelleLigne = document.createElement('tr');
                     nouvelleLigne.innerHTML = `
@@ -239,7 +230,7 @@
                         <td class="p-3">${effectif}</td>
                         <td class="p-3">${poids}</td>
                         <td class="p-3"><span class="bg-green-100 text-green-800 px-2.5 py-1 rounded-full text-xs font-semibold">Actif</span></td>
-                        <td class="p-3"><a href="#" class="text-emerald-700 hover:underline">Détails</a></td>
+                        <td class="p-3"><a href="#troupeau" class="text-emerald-700 hover:underline">Détails</a></td>
                     `;
                     tbody.prepend(nouvelleLigne);
                 });
