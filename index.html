@@ -87,7 +87,7 @@
                     <h2 class="text-2xl font-bold text-gray-800">Suivi des Lots & Maternité Porcine</h2>
                     <p class="text-sm text-gray-500">Suivi individuel et par lots (Démarrage, Croissance, Finition, Truies)</p>
                 </div>
-                <button class="mt-4 md:mt-0 bg-emerald-700 hover:bg-emerald-800 text-white px-4 py-2 rounded-lg text-sm font-semibold transition">
+                <button id="btn-ajouter-lot" class="mt-4 md:mt-0 bg-emerald-700 hover:bg-emerald-800 text-white px-4 py-2 rounded-lg text-sm font-semibold transition">
                     <i class="fa-solid fa-plus mr-2"></i> Ajouter un animal/lot
                 </button>
             </div>
@@ -103,7 +103,7 @@
                             <th class="p-3">Actions</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-gray-200 text-sm">
+                    <tbody id="table-troupeau-body" class="divide-y divide-gray-200 text-sm">
                         <tr>
                             <td class="p-3 font-bold text-emerald-800">LOT-FIN-01</td>
                             <td class="p-3">Finition (Engraissement)</td>
@@ -143,7 +143,7 @@
                 <div class="space-y-4">
                     <div>
                         <label class="block text-sm font-semibold text-gray-700 mb-1">Phase d'élevage</label>
-                        <select class="w-full border border-gray-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                        <select id="select-phase" class="w-full border border-gray-300 rounded-lg p-2.5 text-sm focus:ring-2 focus:ring-emerald-500 focus:outline-none">
                             <option>Porcelet Démarrage (10-25 kg)</option>
                             <option selected>Porc Croissance (25-50 kg)</option>
                             <option>Porc Finition (50-100 kg)</option>
@@ -159,8 +159,8 @@
                             <label class="flex items-center space-x-2"><input type="checkbox" checked class="rounded text-emerald-600"> <span>Complexe Minéral (CMV)</span></label>
                         </div>
                     </div>
-                    <button class="w-full bg-emerald-700 hover:bg-emerald-800 text-white font-bold py-3 rounded-lg transition mt-4">
-                        Lancer le calcul de ration
+                    <button id="btn-calcul-ration" class="w-full bg-emerald-700 hover:bg-emerald-800 text-white font-bold py-3 rounded-lg transition mt-4">
+                        Lancer le calcul de ration dynamique
                     </button>
                 </div>
             </div>
@@ -191,5 +191,48 @@
         </div>
     </footer>
 
+    <!-- Script JavaScript Dynamique Intégré -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log("BeMiRAY Farmer - Application dynamique initialisée.");
+
+            // 1. Simulation dynamique du calcul de ration
+            const btnCalcul = document.getElementById('btn-calcul-ration');
+            const selectPhase = document.getElementById('select-phase');
+            if (btnCalcul) {
+                btnCalcul.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const phaseActuelle = selectPhase.value;
+                    alert("Ration calculée et optimisée avec succès pour le profil : " + phaseActuelle + " !");
+                });
+            }
+
+            // 2. Ajout dynamique d'un nouveau lot/animal dans le tableau
+            const btnAjouter = document.getElementById('btn-ajouter-lot');
+            const tbody = document.getElementById('table-troupeau-body');
+
+            if (btnAjouter && tbody) {
+                btnAjouter.addEventListener('click', function () {
+                    const idLot = prompt("Identifiant du lot ou de l'animal (ex: LOT-CROIS-03) :");
+                    if (!idLot) return; // Annulé si vide
+
+                    const phase = prompt("Phase / Stade (ex: Finition, Croissance, Gestation) :") || "Engraissement";
+                    const effectif = prompt("Effectif (ex: 20 têtes) :") || "1 tête";
+                    const poids = prompt("Poids moyen (ex: 45 kg) :") || "30 kg";
+
+                    const nouvelleLigne = document.createElement('tr');
+                    nouvelleLigne.innerHTML = `
+                        <td class="p-3 font-bold text-emerald-800">${idLot}</td>
+                        <td class="p-3">${phase}</td>
+                        <td class="p-3">${effectif}</td>
+                        <td class="p-3">${poids}</td>
+                        <td class="p-3"><span class="bg-green-100 text-green-800 px-2.5 py-1 rounded-full text-xs font-semibold">Actif</span></td>
+                        <td class="p-3"><a href="#" class="text-emerald-700 hover:underline">Détails</a></td>
+                    `;
+                    tbody.prepend(nouvelleLigne);
+                });
+            }
+        });
+    </script>
 </body>
 </html>
