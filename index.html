@@ -7,18 +7,23 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Animation pour faire défiler le texte en surbrillance */
+        @keyframes defiler {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        .animate-marquee {
+            display: inline-block;
+            white-space: nowrap;
+            animation: defiler 22s linear infinite;
+        }
+        .marquee-container {
+            overflow: hidden;
+            width: 100%;
+        }
+    </style>
 </head>
-<!-- BANDEAU DE SURBRILLANCE : Digitalisation & Modernisation -->
-<div class="bg-amber-50 border-b border-amber-200 text-amber-900 py-3 px-6 shadow-inner my-4 rounded-lg">
-    <div class="container mx-auto flex items-center justify-center space-x-3 text-center text-sm md:text-base font-medium">
-        <span class="bg-amber-500 text-white p-1.5 rounded-full flex items-center justify-center">
-            <i class="fa-solid fa-bolt text-xs"></i>
-        </span>
-        <span>
-            <strong>BeMiRAY Farmer</strong> applique la <strong>digitalisation</strong> et modernise l'élevage grâce à des outils de suivi connectés et intelligents.
-        </span>
-    </div>
-</div>
 <body class="bg-gray-50 text-gray-800 font-sans">
 
     <!-- En-tête principal -->
@@ -41,15 +46,17 @@
         </div>
     </header>
 
-    <!-- BANDEAU DE SURBRILLANCE : Digitalisation & Modernisation -->
-    <div class="bg-amber-50 border-b border-amber-200 text-amber-900 py-3 px-6 shadow-inner">
-        <div class="container mx-auto flex items-center justify-center space-x-3 text-center text-sm md:text-base font-medium">
-            <span class="bg-amber-500 text-white p-1.5 rounded-full flex items-center justify-center">
+    <!-- BANDEAU DE SURBRILLANCE DÉFILANT & ANIMÉ -->
+    <div class="bg-amber-100 border-b border-amber-300 text-amber-900 py-3 px-4 shadow-inner marquee-container flex items-center">
+        <div class="flex items-center space-x-3 w-full">
+            <span class="bg-amber-500 text-white p-1.5 rounded-full flex items-center justify-center shrink-0 z-10 shadow">
                 <i class="fa-solid fa-bolt text-xs"></i>
             </span>
-            <span>
-                <strong>BeMiRAY Farmer</strong> applique la <strong>digitalisation</strong> et modernise l'élevage grâce à des outils de suivi connectés et intelligents.
-            </span>
+            <div class="marquee-container text-sm md:text-base font-semibold">
+                <span class="animate-marquee">
+                    🚀 <strong>BeMiRAY Farmer</strong> applique la <strong>digitalisation</strong> et modernise l'élevage grâce à des outils de suivi connectés et intelligents ! &nbsp;&nbsp;&nbsp;&nbsp;&bull;&nbsp;&nbsp;&nbsp;&nbsp; 💡 Ambohitraina, Ilafy — Antananarivo
+                </span>
+            </div>
         </div>
     </div>
 
@@ -260,7 +267,7 @@
         </div>
     </section>
 
-    <!-- Gestion du Troupeau & Formulation -->
+    <!-- Gestion du Troupeau -->
     <section id="troupeau" class="container mx-auto px-6 py-6">
         <div class="bg-white rounded-xl shadow-md p-8">
             <h2 class="text-2xl font-bold text-gray-800 mb-2">Suivi des Lots & Maternité</h2>
@@ -295,12 +302,11 @@
         </div>
     </footer>
 
-    <!-- Scripts JavaScript pour l'interactivité complète -->
+    <!-- Scripts JavaScript -->
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             chargerToutesDonnees();
 
-            // 1. Formulaire Vaccins
             document.getElementById('form-vaccin').addEventListener('submit', function (e) {
                 e.preventDefault();
                 const item = {
@@ -314,7 +320,6 @@
                 chargerToutesDonnees();
             });
 
-            // 2. Formulaire Traitements
             document.getElementById('form-traitement').addEventListener('submit', function (e) {
                 e.preventDefault();
                 const item = {
@@ -328,7 +333,6 @@
                 chargerToutesDonnees();
             });
 
-            // 3. Formulaire Biosécurité
             document.getElementById('form-bio').addEventListener('submit', function (e) {
                 e.preventDefault();
                 const item = {
@@ -342,7 +346,6 @@
             });
         });
 
-        // Gestion du Stockage Local (LocalStorage)
         function ajouterDonnee(cle, objet) {
             let liste = JSON.parse(localStorage.getItem(cle)) || [];
             liste.push(objet);
@@ -357,7 +360,6 @@
         }
 
         function chargerToutesDonnees() {
-            // Charger Vaccins
             let vaccins = JSON.parse(localStorage.getItem('bemiray_vaccins')) || [];
             const tbVac = document.getElementById('table-vaccin-body');
             const emVac = document.getElementById('empty-vaccin');
@@ -379,7 +381,6 @@
                     </tr>`;
             });
 
-            // Charger Traitements
             let traitements = JSON.parse(localStorage.getItem('bemiray_traitements')) || [];
             const tbTrait = document.getElementById('table-traitement-body');
             const emTrait = document.getElementById('empty-traitement');
@@ -401,7 +402,6 @@
                     </tr>`;
             });
 
-            // Charger Biosécurité
             let bios = JSON.parse(localStorage.getItem('bemiray_bio')) || [];
             const tbBio = document.getElementById('table-bio-body');
             const emBio = document.getElementById('empty-bio');
