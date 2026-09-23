@@ -43,7 +43,7 @@
                 </div>
             </div>
 
-            <!-- Liens de navigation interactifs (Dashboard) -->
+            <!-- Liens de navigation interactifs -->
             <nav class="p-4 space-y-1.5 text-sm font-medium">
                 <button onclick="changerSection('accueil', this)" class="nav-btn w-full flex items-center space-x-3 px-4 py-3 rounded-xl bg-emerald-600 text-white font-semibold shadow transition">
                     <i class="fa-solid fa-house w-5"></i> <span>Accueil / Dashboard</span>
@@ -78,12 +78,12 @@
             <div class="flex items-center space-x-4">
                 <img src="bemirayfarmer.jpg" alt="Logo" class="w-10 h-10 rounded-xl object-cover border border-emerald-500 shadow" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1516467508483-a7212febe31a?w=100&auto=format&fit=crop&q=60';">
                 <div>
-                    <h1 class="text-xl font-extrabold tracking-wide">BeMiRAY Farmer — Module Porcin</h1>
+                    <h1 class="text-xl font-extrabold tracking-wide">BeMiRAY Farmer — Gestion d'Élevage</h1>
                     <p class="text-xs text-emerald-200">Ambohitraina, Ilafy, Antananarivo</p>
                 </div>
             </div>
             <span class="bg-emerald-700 text-xs px-3 py-1.5 rounded-full uppercase tracking-wider font-semibold shadow">
-                Mode Connecté
+                Module Porcin
             </span>
         </header>
 
@@ -104,47 +104,54 @@
         <!-- CONTENU DES SECTIONS DYNAMIQUES -->
         <main class="p-8 space-y-8 max-w-7xl mx-auto w-full">
 
-            <!-- ACCUEIL -->
+            <!-- SECTION ACCUEIL (Identique à votre maquette verte) -->
             <div id="section-accueil" class="section-content active space-y-8">
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-                    <div class="bg-gray-950 p-6 rounded-2xl border border-gray-800 flex items-center justify-between shadow-md">
-                        <div>
-                            <p class="text-xs text-gray-400 uppercase font-bold">Truies en gestation</p>
-                            <h3 class="text-2xl font-extrabold text-white mt-1">24</h3>
-                        </div>
-                        <div class="bg-emerald-950 text-emerald-400 p-3 rounded-xl"><i class="fa-solid fa-venus text-xl"></i></div>
-                    </div>
-                    <div class="bg-gray-950 p-6 rounded-2xl border border-gray-800 flex items-center justify-between shadow-md">
-                        <div>
-                            <p class="text-xs text-gray-400 uppercase font-bold">Porcs à l'engrais</p>
-                            <h3 class="text-2xl font-extrabold text-white mt-1">156</h3>
-                        </div>
-                        <div class="bg-blue-950 text-blue-400 p-3 rounded-xl"><i class="fa-solid fa-weight-scale text-xl"></i></div>
-                    </div>
-                    <div class="bg-gray-950 p-6 rounded-2xl border border-gray-800 flex items-center justify-between shadow-md">
-                        <div>
-                            <p class="text-xs text-gray-400 uppercase font-bold">Traitements Actifs</p>
-                            <h3 id="stat-nb-traitements" class="text-2xl font-extrabold text-white mt-1">0</h3>
-                        </div>
-                        <div class="bg-indigo-950 text-indigo-400 p-3 rounded-xl"><i class="fa-solid fa-pills text-xl"></i></div>
-                    </div>
-                    <div class="bg-gray-950 p-6 rounded-2xl border border-gray-800 flex items-center justify-between shadow-md">
-                        <div>
-                            <p class="text-xs text-gray-400 uppercase font-bold">Vaccins en attente</p>
-                            <h3 id="stat-nb-vaccins" class="text-2xl font-extrabold text-white mt-1">0</h3>
-                        </div>
-                        <div class="bg-rose-950 text-rose-400 p-3 rounded-xl"><i class="fa-solid fa-syringe text-xl"></i></div>
+                <!-- Bannière Hero Verte -->
+                <div class="bg-gradient-to-r from-emerald-900 to-emerald-700 text-white rounded-2xl p-10 text-center shadow-xl">
+                    <h2 class="text-3xl md:text-4xl font-extrabold mb-3">Pilotez votre élevage avec précision</h2>
+                    <p class="text-emerald-100 max-w-2xl mx-auto mb-8 text-sm md:text-base">
+                        Centralisez le suivi sanitaire, gérez les performances des lots et optimisez vos coûts d'alimentation en toute simplicité.
+                    </p>
+                    <div class="flex justify-center space-x-4">
+                        <button onclick="changerSection('vaccins', document.querySelectorAll('.nav-btn')[2])" class="bg-white text-emerald-900 font-bold px-6 py-3 rounded-xl shadow hover:bg-emerald-50 transition text-sm">Gestion Vaccins</button>
+                        <button onclick="changerSection('traitements', document.querySelectorAll('.nav-btn')[3])" class="bg-emerald-800 text-white font-bold px-6 py-3 rounded-xl shadow hover:bg-emerald-700 transition border border-emerald-600 text-sm">Traitements & Soins</button>
                     </div>
                 </div>
-                <div class="bg-gray-950 rounded-2xl p-8 border border-gray-800 shadow-xl">
-                    <h2 class="text-xl font-bold text-white mb-2">Bienvenue sur BeMiRAY Farmer</h2>
-                    <p class="text-sm text-gray-400 leading-relaxed">
-                        Utilisez le menu latéral gauche pour naviguer entre les différentes rubriques de gestion de la ferme (Mes Porcs, Vaccinations, Traitements, Biosécurité, Formulation).
-                    </p>
+
+                <!-- Cartes Statistiques du bas -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                    <div class="bg-white text-gray-900 p-6 rounded-2xl shadow-md border-l-4 border-emerald-600 flex items-center justify-between">
+                        <div>
+                            <p class="text-xs text-gray-500 uppercase font-bold">Truies en gestation</p>
+                            <h3 class="text-2xl font-extrabold mt-1">24</h3>
+                        </div>
+                        <div class="bg-emerald-100 text-emerald-700 p-3 rounded-xl"><i class="fa-solid fa-venus text-xl"></i></div>
+                    </div>
+                    <div class="bg-white text-gray-900 p-6 rounded-2xl shadow-md border-l-4 border-blue-600 flex items-center justify-between">
+                        <div>
+                            <p class="text-xs text-gray-500 uppercase font-bold">Porcs à l'engrais</p>
+                            <h3 class="text-2xl font-extrabold mt-1">156</h3>
+                        </div>
+                        <div class="bg-blue-100 text-blue-700 p-3 rounded-xl"><i class="fa-solid fa-weight-scale text-xl"></i></div>
+                    </div>
+                    <div class="bg-white text-gray-900 p-6 rounded-2xl shadow-md border-l-4 border-indigo-600 flex items-center justify-between">
+                        <div>
+                            <p class="text-xs text-gray-500 uppercase font-bold">Traitements Actifs</p>
+                            <h3 id="stat-nb-traitements" class="text-2xl font-extrabold mt-1">0</h3>
+                        </div>
+                        <div class="bg-indigo-100 text-indigo-700 p-3 rounded-xl"><i class="fa-solid fa-pills text-xl"></i></div>
+                    </div>
+                    <div class="bg-white text-gray-900 p-6 rounded-2xl shadow-md border-l-4 border-rose-600 flex items-center justify-between">
+                        <div>
+                            <p class="text-xs text-gray-500 uppercase font-bold">Vaccinations en attente</p>
+                            <h3 id="stat-nb-vaccins" class="text-2xl font-extrabold mt-1">0</h3>
+                        </div>
+                        <div class="bg-rose-100 text-rose-700 p-3 rounded-xl"><i class="fa-solid fa-syringe text-xl"></i></div>
+                    </div>
                 </div>
             </div>
 
-            <!-- TROUPEAU -->
+            <!-- SECTION TROUPEAU -->
             <div id="section-troupeau" class="section-content bg-gray-950 rounded-2xl shadow-xl p-8 border border-gray-800">
                 <h2 class="text-xl font-bold text-white mb-4 flex items-center"><i class="fa-solid fa-paw text-emerald-400 mr-2"></i> Suivi des Lots & Maternité</h2>
                 <div class="overflow-x-auto">
@@ -169,7 +176,7 @@
                 </div>
             </div>
 
-            <!-- VACCINS -->
+            <!-- SECTION VACCINS -->
             <div id="section-vaccins" class="section-content bg-gray-950 rounded-2xl shadow-xl p-8 border border-gray-800">
                 <h2 class="text-xl font-bold text-white mb-4 flex items-center"><i class="fa-solid fa-syringe text-rose-400 mr-2"></i> Planification des Vaccinations</h2>
                 <form id="form-vaccin" class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6 items-end">
@@ -207,7 +214,7 @@
                 <div id="empty-vaccin" class="text-center py-6 text-gray-500 text-xs italic">Aucune vaccination planifiée.</div>
             </div>
 
-            <!-- TRAITEMENTS -->
+            <!-- SECTION TRAITEMENTS -->
             <div id="section-traitements" class="section-content bg-gray-950 rounded-2xl shadow-xl p-8 border border-gray-800">
                 <h2 class="text-xl font-bold text-white mb-4 flex items-center"><i class="fa-solid fa-pills text-indigo-400 mr-2"></i> Gestion des Traitements</h2>
                 <form id="form-traitement" class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6 items-end">
@@ -245,7 +252,7 @@
                 <div id="empty-traitement" class="text-center py-6 text-gray-500 text-xs italic">Aucun traitement actif enregistré.</div>
             </div>
 
-            <!-- BIOSÉCURITÉ -->
+            <!-- SECTION BIOSÉCURITÉ -->
             <div id="section-biosecurite" class="section-content bg-gray-950 rounded-2xl shadow-xl p-8 border border-gray-800">
                 <h2 class="text-xl font-bold text-white mb-4 flex items-center"><i class="fa-solid fa-shield-halved text-amber-400 mr-2"></i> Protocoles de Biosécurité</h2>
                 <p class="text-sm text-gray-400 mb-4">Suivi des pédiluves et désinfections à l'entrée de la porcherie.</p>
@@ -254,7 +261,7 @@
                 </div>
             </div>
 
-            <!-- FORMULATION -->
+            <!-- SECTION FORMULATION -->
             <div id="section-alimentation" class="section-content bg-gray-950 rounded-2xl shadow-xl p-8 border border-gray-800">
                 <h2 class="text-xl font-bold text-white mb-2 flex items-center"><i class="fa-solid fa-weight-scale text-emerald-400 mr-2"></i> Formulation des Rations</h2>
                 <p class="text-xs text-gray-400 mb-6">Optimisation des coûts de provende pour le cheptel porcin.</p>
@@ -293,8 +300,10 @@
                 btn.classList.add('text-gray-300', 'hover:bg-gray-800', 'hover:text-white');
             });
 
-            elementBouton.classList.remove('text-gray-300', 'hover:bg-gray-800', 'hover:text-white');
-            elementBouton.classList.add('bg-emerald-600', 'text-white', 'font-semibold', 'shadow');
+            if (elementBouton) {
+                elementBouton.classList.remove('text-gray-300', 'hover:bg-gray-800', 'hover:text-white');
+                elementBouton.classList.add('bg-emerald-600', 'text-white', 'font-semibold', 'shadow');
+            }
         }
 
         document.addEventListener('DOMContentLoaded', function() {
