@@ -21,6 +21,12 @@
             overflow: hidden;
             width: 100%;
         }
+        .section-content {
+            display: none;
+        }
+        .section-content.active {
+            display: block;
+        }
     </style>
 </head>
 <body class="bg-gray-900 text-gray-100 font-sans flex h-screen overflow-hidden">
@@ -35,60 +41,32 @@
                         <i class="fa-solid fa-cow"></i>
                     </div>
                     <div>
-                        <h2 class="text-sm font-bold text-white tracking-wide">Ferme de Patr...</h2>
+                        <h2 class="text-sm font-bold text-white tracking-wide">Ferme de Patrick</h2>
                         <p class="text-xs text-gray-400">Propriétaire</p>
                     </div>
                 </div>
-                <button class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
             </div>
 
             <!-- Liste des liens de navigation -->
             <nav class="p-4 space-y-1.5 text-sm font-medium">
-                <a href="#dashboard" class="flex items-center space-x-3 px-4 py-3 rounded-xl bg-emerald-600 text-white font-semibold shadow transition">
-                    <i class="fa-solid fa-house w-5"></i> <span>Accueil</span>
-                </a>
-                <a href="#formation" class="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-gray-800 hover:text-white transition">
-                    <i class="fa-solid fa-graduation-cap w-5"></i> <span>Formation vidéo</span>
-                </a>
-                <a href="#troupeau" class="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-gray-800 hover:text-white transition">
+                <button onclick="changerSection('accueil', this)" class="nav-btn w-full flex items-center space-x-3 px-4 py-3 rounded-xl bg-emerald-600 text-white font-semibold shadow transition">
+                    <i class="fa-solid fa-house w-5"></i> <span>Accueil / Dashboard</span>
+                </button>
+                <button onclick="changerSection('troupeau', this)" class="nav-btn w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-gray-800 hover:text-white transition">
                     <i class="fa-solid fa-paw w-5"></i> <span>Mes Porcs</span>
-                </a>
-                <a href="#alimentation" class="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-gray-800 hover:text-white transition">
+                </button>
+                <button onclick="changerSection('vaccins', this)" class="nav-btn w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-gray-800 hover:text-white transition">
+                    <i class="fa-solid fa-syringe w-5"></i> <span>Vaccinations</span>
+                </button>
+                <button onclick="changerSection('traitements', this)" class="nav-btn w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-gray-800 hover:text-white transition">
+                    <i class="fa-solid fa-pills w-5"></i> <span>Traitements</span>
+                </button>
+                <button onclick="changerSection('biosecurite', this)" class="nav-btn w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-gray-800 hover:text-white transition">
+                    <i class="fa-solid fa-shield-halved w-5"></i> <span>Biosécurité</span>
+                </button>
+                <button onclick="changerSection('alimentation', this)" class="nav-btn w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-gray-800 hover:text-white transition">
                     <i class="fa-solid fa-weight-scale w-5"></i> <span>Formulation</span>
-                </a>
-                <a href="#reproduction" class="flex items-center justify-between px-4 py-3 rounded-xl text-gray-300 hover:bg-gray-800 hover:text-white transition">
-                    <div class="flex items-center space-x-3">
-                        <i class="fa-solid fa-piggy-bank w-5"></i> <span>Reproduction</span>
-                    </div>
-                    <i class="fa-solid fa-chevron-right text-xs"></i>
-                </a>
-                <a href="#stocks" class="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-gray-800 hover:text-white transition">
-                    <i class="fa-solid fa-boxes-stacked w-5"></i> <span>Stocks d'aliments</span>
-                </a>
-                <a href="#traitements" class="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-gray-800 hover:text-white transition">
-                    <i class="fa-solid fa-syringe w-5"></i> <span>Traitements</span>
-                </a>
-                <a href="#salaires" class="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-gray-800 hover:text-white transition">
-                    <i class="fa-solid fa-wallet w-5"></i> <span>Salaires</span>
-                </a>
-                <a href="#finances" class="flex items-center justify-between px-4 py-3 rounded-xl text-gray-300 hover:bg-gray-800 hover:text-white transition">
-                    <div class="flex items-center space-x-3">
-                        <i class="fa-solid fa-wallet w-5"></i> <span>Finances</span>
-                    </div>
-                    <i class="fa-solid fa-chevron-right text-xs"></i>
-                </a>
-                <a href="#simulation" class="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-gray-800 hover:text-white transition">
-                    <i class="fa-solid fa-chart-line w-5"></i> <span>Simulation IA</span>
-                </a>
-                <a href="#equipe" class="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-gray-800 hover:text-white transition">
-                    <i class="fa-solid fa-users w-5"></i> <span>Gestion Équipe</span>
-                </a>
-                <a href="#notifications" class="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-gray-800 hover:text-white transition">
-                    <i class="fa-solid fa-bell w-5"></i> <span>Notifications</span>
-                </a>
-                <a href="#parametres" class="flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-gray-800 hover:text-white transition">
-                    <i class="fa-solid fa-gear w-5"></i> <span>Paramètres Ferme</span>
-                </a>
+                </button>
             </nav>
         </div>
         <div class="p-4 border-t border-gray-800 text-xs text-gray-500 text-center">
@@ -98,6 +76,22 @@
 
     <!-- ZONE DE CONTENU PRINCIPAL -->
     <div class="flex-1 flex flex-col h-screen overflow-y-auto bg-gray-900 text-gray-100">
+
+        <!-- EN-TÊTE SUPÉRIEUR AVEC LOGO (de la page précédente) -->
+        <header class="bg-emerald-900 text-white shadow-md py-4 px-8 flex justify-between items-center border-b border-emerald-800">
+            <div class="flex items-center space-x-4">
+                <div class="bg-white text-emerald-800 p-2.5 rounded-xl shadow font-bold flex items-center justify-center">
+                    <i class="fa-solid fa-piggy-bank text-xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-extrabold tracking-wide">BeMiRAY Farmer — Module Porcin</h1>
+                    <p class="text-xs text-emerald-200">Ambohitraina, Ilafy, Antananarivo</p>
+                </div>
+            </div>
+            <span class="bg-emerald-700 text-xs px-3 py-1.5 rounded-full uppercase tracking-wider font-semibold shadow">
+                Mode Connecté
+            </span>
+        </header>
 
         <!-- BANDEAU DE SURBRILLANCE DÉFILANT -->
         <div class="bg-amber-500/10 border-b border-amber-500/30 text-amber-300 py-3 px-4 marquee-container flex items-center sticky top-0 z-10 backdrop-blur">
@@ -113,62 +107,115 @@
             </div>
         </div>
 
-        <!-- En-tête supérieur du Dashboard -->
-        <header id="dashboard" class="bg-gray-950 border-b border-gray-800 py-6 px-8 flex justify-between items-center">
-            <div>
-                <h1 class="text-2xl font-extrabold text-white">Tableau de Bord — Module Porcin</h1>
-                <p class="text-xs text-gray-400 mt-1">Pilotage et gestion des activités de la ferme</p>
-            </div>
-            <div class="flex items-center space-x-3">
-                <span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs px-3 py-1.5 rounded-full font-semibold">
-                    <i class="fa-solid fa-circle-check mr-1"></i> Système en Ligne
-                </span>
-            </div>
-        </header>
-
-        <!-- Contenu des modules de la ferme -->
+        <!-- CONTENU DES SECTIONS (Géré dynamiquement au clic) -->
         <main class="p-8 space-y-8 max-w-7xl mx-auto w-full">
 
-            <!-- Statistiques rapides -->
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-                <div class="bg-gray-950 p-6 rounded-2xl border border-gray-800 flex items-center justify-between shadow-md">
-                    <div>
-                        <p class="text-xs text-gray-400 uppercase font-bold">Truies en gestation</p>
-                        <h3 class="text-2xl font-extrabold text-white mt-1">24</h3>
+            <!-- SECTION 1 : ACCUEIL / DASHBOARD -->
+            <div id="section-accueil" class="section-content active space-y-8">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                    <div class="bg-gray-950 p-6 rounded-2xl border border-gray-800 flex items-center justify-between shadow-md">
+                        <div>
+                            <p class="text-xs text-gray-400 uppercase font-bold">Truies en gestation</p>
+                            <h3 class="text-2xl font-extrabold text-white mt-1">24</h3>
+                        </div>
+                        <div class="bg-emerald-950 text-emerald-400 p-3 rounded-xl"><i class="fa-solid fa-venus text-xl"></i></div>
                     </div>
-                    <div class="bg-emerald-950 text-emerald-400 p-3 rounded-xl"><i class="fa-solid fa-venus text-xl"></i></div>
+                    <div class="bg-gray-950 p-6 rounded-2xl border border-gray-800 flex items-center justify-between shadow-md">
+                        <div>
+                            <p class="text-xs text-gray-400 uppercase font-bold">Porcs à l'engrais</p>
+                            <h3 class="text-2xl font-extrabold text-white mt-1">156</h3>
+                        </div>
+                        <div class="bg-blue-950 text-blue-400 p-3 rounded-xl"><i class="fa-solid fa-weight-scale text-xl"></i></div>
+                    </div>
+                    <div class="bg-gray-950 p-6 rounded-2xl border border-gray-800 flex items-center justify-between shadow-md">
+                        <div>
+                            <p class="text-xs text-gray-400 uppercase font-bold">Traitements Actifs</p>
+                            <h3 id="stat-nb-traitements" class="text-2xl font-extrabold text-white mt-1">0</h3>
+                        </div>
+                        <div class="bg-indigo-950 text-indigo-400 p-3 rounded-xl"><i class="fa-solid fa-pills text-xl"></i></div>
+                    </div>
+                    <div class="bg-gray-950 p-6 rounded-2xl border border-gray-800 flex items-center justify-between shadow-md">
+                        <div>
+                            <p class="text-xs text-gray-400 uppercase font-bold">Vaccins en attente</p>
+                            <h3 id="stat-nb-vaccins" class="text-2xl font-extrabold text-white mt-1">0</h3>
+                        </div>
+                        <div class="bg-rose-950 text-rose-400 p-3 rounded-xl"><i class="fa-solid fa-syringe text-xl"></i></div>
+                    </div>
                 </div>
-                <div class="bg-gray-950 p-6 rounded-2xl border border-gray-800 flex items-center justify-between shadow-md">
-                    <div>
-                        <p class="text-xs text-gray-400 uppercase font-bold">Porcs à l'engrais</p>
-                        <h3 class="text-2xl font-extrabold text-white mt-1">156</h3>
-                    </div>
-                    <div class="bg-blue-950 text-blue-400 p-3 rounded-xl"><i class="fa-solid fa-weight-scale text-xl"></i></div>
-                </div>
-                <div class="bg-gray-950 p-6 rounded-2xl border border-gray-800 flex items-center justify-between shadow-md">
-                    <div>
-                        <p class="text-xs text-gray-400 uppercase font-bold">Traitements Actifs</p>
-                        <h3 id="stat-nb-traitements" class="text-2xl font-extrabold text-white mt-1">0</h3>
-                    </div>
-                    <div class="bg-indigo-950 text-indigo-400 p-3 rounded-xl"><i class="fa-solid fa-syringe text-xl"></i></div>
-                </div>
-                <div class="bg-gray-950 p-6 rounded-2xl border border-gray-800 flex items-center justify-between shadow-md">
-                    <div>
-                        <p class="text-xs text-gray-400 uppercase font-bold">Vaccins en attente</p>
-                        <h3 id="stat-nb-vaccins" class="text-2xl font-extrabold text-white mt-1">0</h3>
-                    </div>
-                    <div class="bg-rose-950 text-rose-400 p-3 rounded-xl"><i class="fa-solid fa-bell text-xl"></i></div>
+                <div class="bg-gray-950 rounded-2xl p-8 border border-gray-800 shadow-xl">
+                    <h2 class="text-xl font-bold text-white mb-2">Bienvenue sur BeMiRAY Farmer</h2>
+                    <p class="text-sm text-gray-400 leading-relaxed">
+                        Sélectionnez une option dans le menu de gauche pour gérer les porcs, planifier les vaccinations, suivre les traitements ou configurer les rations alimentaires.
+                    </p>
                 </div>
             </div>
 
-            <!-- SECTION TRAITEMENTS (Accessible via le menu Traitements) -->
-            <section id="traitements" class="bg-gray-950 rounded-2xl shadow-xl p-8 border border-gray-800">
-                <div class="flex justify-between items-center mb-6">
-                    <div>
-                        <h2 class="text-xl font-bold text-white flex items-center"><i class="fa-solid fa-syringe text-indigo-400 mr-2"></i> Gestion des Traitements</h2>
-                        <p class="text-xs text-gray-400">Enregistrez et suivez l'administration des soins</p>
-                    </div>
+            <!-- SECTION 2 : MES PORCS / TROUPEAU -->
+            <div id="section-troupeau" class="section-content bg-gray-950 rounded-2xl shadow-xl p-8 border border-gray-800">
+                <h2 class="text-xl font-bold text-white mb-4 flex items-center"><i class="fa-solid fa-paw text-emerald-400 mr-2"></i> Suivi des Lots & Maternité</h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse text-sm">
+                        <thead>
+                            <tr class="bg-gray-900 text-gray-400 text-xs uppercase">
+                                <th class="p-3">ID / Lot</th>
+                                <th class="p-3">Phase</th>
+                                <th class="p-3">Effectif</th>
+                                <th class="p-3">Statut</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-800">
+                            <tr>
+                                <td class="p-3 font-bold text-emerald-400">LOT-FIN-01</td>
+                                <td class="p-3">Finition (Engraissement)</td>
+                                <td class="p-3">45 têtes</td>
+                                <td class="p-3"><span class="bg-emerald-950 text-emerald-400 border border-emerald-800 px-2.5 py-1 rounded-full text-xs font-semibold">Conforme</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
+            </div>
+
+            <!-- SECTION 3 : VACCINATIONS -->
+            <div id="section-vaccins" class="section-content bg-gray-950 rounded-2xl shadow-xl p-8 border border-gray-800">
+                <h2 class="text-xl font-bold text-white mb-4 flex items-center"><i class="fa-solid fa-syringe text-rose-400 mr-2"></i> Planification des Vaccinations</h2>
+                <form id="form-vaccin" class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6 items-end">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Lot / Porc</label>
+                        <input type="text" id="input-vac-lot" required placeholder="Ex: Lot Croissance" class="w-full bg-gray-900 border border-gray-700 rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-rose-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Type de Vaccin</label>
+                        <input type="text" id="input-vac-type" required placeholder="Ex: Peste Porcine Classique" class="w-full bg-gray-900 border border-gray-700 rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-rose-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Date Prévue</label>
+                        <input type="date" id="input-vac-date" required class="w-full bg-gray-900 border border-gray-700 rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-rose-500">
+                    </div>
+                    <div>
+                        <button type="submit" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-bold py-2.5 px-4 rounded-lg text-sm transition shadow">
+                            <i class="fa-solid fa-plus mr-2"></i> Ajouter Vaccin
+                        </button>
+                    </div>
+                </form>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse text-sm">
+                        <thead>
+                            <tr class="bg-gray-900 text-gray-400 text-xs uppercase">
+                                <th class="p-3">Lot</th>
+                                <th class="p-3">Vaccin</th>
+                                <th class="p-3">Date</th>
+                                <th class="p-3 text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-vaccin-body" class="divide-y divide-gray-800"></tbody>
+                    </table>
+                </div>
+                <div id="empty-vaccin" class="text-center py-6 text-gray-500 text-xs italic">Aucune vaccination planifiée.</div>
+            </div>
+
+            <!-- SECTION 4 : TRAITEMENTS -->
+            <div id="section-traitements" class="section-content bg-gray-950 rounded-2xl shadow-xl p-8 border border-gray-800">
+                <h2 class="text-xl font-bold text-white mb-4 flex items-center"><i class="fa-solid fa-pills text-indigo-400 mr-2"></i> Gestion des Traitements</h2>
                 <form id="form-traitement" class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6 items-end">
                     <div>
                         <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Lot / Animal</label>
@@ -179,12 +226,12 @@
                         <input type="text" id="input-trait-prod" required placeholder="Ex: Vitamines ADE" class="w-full bg-gray-900 border border-gray-700 rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-indigo-500">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Durée / Posologie</label>
+                        <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Durée</label>
                         <input type="text" id="input-trait-duree" required placeholder="Ex: 3 jours" class="w-full bg-gray-900 border border-gray-700 rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-indigo-500">
                     </div>
                     <div>
                         <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 px-4 rounded-lg text-sm transition shadow">
-                            <i class="fa-solid fa-plus mr-2"></i> Ajouter Traitement
+                            <i class="fa-solid fa-plus mr-2"></i> Ajouter
                         </button>
                     </div>
                 </form>
@@ -202,10 +249,19 @@
                     </table>
                 </div>
                 <div id="empty-traitement" class="text-center py-6 text-gray-500 text-xs italic">Aucun traitement actif enregistré.</div>
-            </section>
+            </div>
 
-            <!-- SECTION FORMULATION (Accessible via le menu Formulation) -->
-            <section id="alimentation" class="bg-gray-950 rounded-2xl shadow-xl p-8 border border-gray-800">
+            <!-- SECTION 5 : BIOSÉCURITÉ -->
+            <div id="section-biosecurite" class="section-content bg-gray-950 rounded-2xl shadow-xl p-8 border border-gray-800">
+                <h2 class="text-xl font-bold text-white mb-4 flex items-center"><i class="fa-solid fa-shield-halved text-amber-400 mr-2"></i> Protocoles de Biosécurité</h2>
+                <p class="text-sm text-gray-400 mb-4">Suivi des pédiluves et désinfections à l'entrée de la porcherie.</p>
+                <div class="bg-gray-900 p-4 rounded-xl border border-gray-800 text-sm text-gray-300">
+                    <p><i class="fa-solid fa-circle-check text-emerald-400 mr-2"></i> Pédiluves principaux : Désinfectant renouvelé quotidiennement.</p>
+                </div>
+            </div>
+
+            <!-- SECTION 6 : FORMULATION -->
+            <div id="section-alimentation" class="section-content bg-gray-950 rounded-2xl shadow-xl p-8 border border-gray-800">
                 <h2 class="text-xl font-bold text-white mb-2 flex items-center"><i class="fa-solid fa-weight-scale text-emerald-400 mr-2"></i> Formulation des Rations</h2>
                 <p class="text-xs text-gray-400 mb-6">Optimisation des coûts de provende pour le cheptel porcin.</p>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -225,16 +281,52 @@
                         <span class="text-xs text-emerald-400 font-semibold mt-4"><i class="fa-solid fa-circle-info mr-1"></i> Mode de calcul automatique activé</span>
                     </div>
                 </div>
-            </section>
+            </div>
 
         </main>
     </div>
 
-    <!-- Script JavaScript interactif -->
+    <!-- Script JavaScript pour basculer dynamiquement entre les sections au clic -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            chargerTraitements();
+        function changerSection(nomSection, elementBouton) {
+            // Masquer toutes les sections
+            document.querySelectorAll('.section-content').forEach(sec => {
+                sec.classList.remove('active');
+            });
 
+            // Afficher la section ciblée
+            document.getElementById('section-' + nomSection).classList.add('active');
+
+            // Retirer le style actif de tous les boutons du menu
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('bg-emerald-600', 'text-white', 'font-semibold', 'shadow');
+                btn.classList.add('text-gray-300', 'hover:bg-gray-800', 'hover:text-white');
+            });
+
+            // Appliquer le style actif au bouton cliqué
+            elementBouton.classList.remove('text-gray-300', 'hover:bg-gray-800', 'hover:text-white');
+            elementBouton.classList.add('bg-emerald-600', 'text-white', 'font-semibold', 'shadow');
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            chargerDonnees();
+
+            // Formulaire Vaccins
+            document.getElementById('form-vaccin').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const item = {
+                    lot: document.getElementById('input-vac-lot').value.trim(),
+                    type: document.getElementById('input-vac-type').value.trim(),
+                    date: document.getElementById('input-vac-date').value
+                };
+                let liste = JSON.parse(localStorage.getItem('bemiray_app_vaccins')) || [];
+                liste.push(item);
+                localStorage.setItem('bemiray_app_vaccins', JSON.stringify(liste));
+                this.reset();
+                chargerDonnees();
+            });
+
+            // Formulaire Traitements
             document.getElementById('form-traitement').addEventListener('submit', function(e) {
                 e.preventDefault();
                 const item = {
@@ -246,7 +338,7 @@
                 liste.push(item);
                 localStorage.setItem('bemiray_app_traitements', JSON.stringify(liste));
                 this.reset();
-                chargerTraitements();
+                chargerDonnees();
             });
 
             document.getElementById('btn-calcul').addEventListener('click', function() {
@@ -254,22 +346,43 @@
             });
         });
 
-        function chargerTraitements() {
-            let liste = JSON.parse(localStorage.getItem('bemiray_app_traitements')) || [];
-            const tbody = document.getElementById('table-traitement-body');
-            const empty = document.getElementById('empty-traitement');
-            document.getElementById('stat-nb-traitements').textContent = liste.length;
-            tbody.innerHTML = '';
-            empty.style.display = liste.length === 0 ? 'block' : 'none';
+        function chargerDonnees() {
+            // Vaccins
+            let vaccins = JSON.parse(localStorage.getItem('bemiray_app_vaccins')) || [];
+            const tbVac = document.getElementById('table-vaccin-body');
+            const emVac = document.getElementById('empty-vaccin');
+            document.getElementById('stat-nb-vaccins').textContent = vaccins.length;
+            tbVac.innerHTML = '';
+            emVac.style.display = vaccins.length === 0 ? 'block' : 'none';
+            vaccins.forEach((item, index) => {
+                tbVac.innerHTML += `
+                    <tr class="hover:bg-gray-900/50">
+                        <td class="p-3 font-bold text-rose-400">${item.lot}</td>
+                        <td class="p-3 text-gray-300">${item.type}</td>
+                        <td class="p-3 text-gray-300">${item.date}</td>
+                        <td class="p-3 text-center">
+                            <button onclick="supprimerDonnee('bemiray_app_vaccins', ${index})" class="text-rose-400 bg-rose-950/50 hover:bg-rose-900 px-2.5 py-1 rounded text-xs font-bold transition">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>`;
+            });
 
-            liste.forEach((item, index) => {
-                tbody.innerHTML += `
+            // Traitements
+            let traitements = JSON.parse(localStorage.getItem('bemiray_app_traitements')) || [];
+            const tbTrait = document.getElementById('table-traitement-body');
+            const emTrait = document.getElementById('empty-traitement');
+            document.getElementById('stat-nb-traitements').textContent = traitements.length;
+            tbTrait.innerHTML = '';
+            emTrait.style.display = traitements.length === 0 ? 'block' : 'none';
+            traitements.forEach((item, index) => {
+                tbTrait.innerHTML += `
                     <tr class="hover:bg-gray-900/50">
                         <td class="p-3 font-bold text-indigo-400">${item.lot}</td>
                         <td class="p-3 text-gray-300">${item.prod}</td>
                         <td class="p-3 text-gray-300">${item.duree}</td>
                         <td class="p-3 text-center">
-                            <button onclick="supprimerTraitement(${index})" class="text-rose-400 bg-rose-950/50 hover:bg-rose-900 px-2.5 py-1 rounded text-xs font-bold transition">
+                            <button onclick="supprimerDonnee('bemiray_app_traitements', ${index})" class="text-rose-400 bg-rose-950/50 hover:bg-rose-900 px-2.5 py-1 rounded text-xs font-bold transition">
                                 <i class="fa-solid fa-trash"></i>
                             </button>
                         </td>
@@ -277,11 +390,11 @@
             });
         }
 
-        function supprimerTraitement(index) {
-            let liste = JSON.parse(localStorage.getItem('bemiray_app_traitements')) || [];
+        function supprimerDonnee(cle, index) {
+            let liste = JSON.parse(localStorage.getItem(cle)) || [];
             liste.splice(index, 1);
-            localStorage.setItem('bemiray_app_traitements', JSON.stringify(liste));
-            chargerTraitements();
+            localStorage.setItem(cle, JSON.stringify(liste));
+            chargerDonnees();
         }
     </script>
 </body>
