@@ -34,20 +34,16 @@
     <!-- MENU LATÉRAL GAUCHE (SIDEBAR) -->
     <aside class="w-72 bg-gray-950 border-r border-gray-800 flex flex-col justify-between hidden md:flex z-20 shadow-xl">
         <div>
-            <!-- En-tête du menu avec le LOGO BeMiRAY Farmer -->
-            <div class="p-4 border-b border-gray-800 flex items-center justify-between">
-                <div class="flex items-center space-x-3">
-                    <div class="bg-emerald-700 text-white w-10 h-10 rounded-xl flex items-center justify-center font-bold shadow-md border border-emerald-500">
-                        <i class="fa-solid fa-piggy-bank text-lg"></i>
-                    </div>
-                    <div>
-                        <h2 class="text-sm font-bold text-white tracking-wide">BeMiRAY Farmer</h2>
-                        <p class="text-xs text-gray-400">Ambohitraina, Ilafy</p>
-                    </div>
+            <!-- En-tête avec l'image logo "bemirayfarmer.jpg" -->
+            <div class="p-4 border-b border-gray-800 flex items-center space-x-3 bg-gray-900">
+                <img src="bemirayfarmer.jpg" alt="Logo BeMiRAY Farmer" class="w-11 h-11 rounded-xl object-cover border border-emerald-500 shadow-md" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1516467508483-a7212febe31a?w=100&auto=format&fit=crop&q=60';">
+                <div>
+                    <h2 class="text-sm font-bold text-white tracking-wide">BeMiRAY Farmer</h2>
+                    <p class="text-xs text-emerald-400 font-semibold">Ambohitraina, Ilafy</p>
                 </div>
             </div>
 
-            <!-- Liens de navigation interactifs -->
+            <!-- Liens de navigation interactifs (Dashboard) -->
             <nav class="p-4 space-y-1.5 text-sm font-medium">
                 <button onclick="changerSection('accueil', this)" class="nav-btn w-full flex items-center space-x-3 px-4 py-3 rounded-xl bg-emerald-600 text-white font-semibold shadow transition">
                     <i class="fa-solid fa-house w-5"></i> <span>Accueil / Dashboard</span>
@@ -80,9 +76,7 @@
         <!-- EN-TÊTE SUPÉRIEUR AVEC LOGO -->
         <header class="bg-emerald-900 text-white shadow-md py-4 px-8 flex justify-between items-center border-b border-emerald-800">
             <div class="flex items-center space-x-4">
-                <div class="bg-white text-emerald-800 p-2.5 rounded-xl shadow font-bold flex items-center justify-center">
-                    <i class="fa-solid fa-piggy-bank text-xl"></i>
-                </div>
+                <img src="bemirayfarmer.jpg" alt="Logo" class="w-10 h-10 rounded-xl object-cover border border-emerald-500 shadow" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1516467508483-a7212febe31a?w=100&auto=format&fit=crop&q=60';">
                 <div>
                     <h1 class="text-xl font-extrabold tracking-wide">BeMiRAY Farmer — Module Porcin</h1>
                     <p class="text-xs text-emerald-200">Ambohitraina, Ilafy, Antananarivo</p>
@@ -145,7 +139,7 @@
                 <div class="bg-gray-950 rounded-2xl p-8 border border-gray-800 shadow-xl">
                     <h2 class="text-xl font-bold text-white mb-2">Bienvenue sur BeMiRAY Farmer</h2>
                     <p class="text-sm text-gray-400 leading-relaxed">
-                        Utilisez le menu de gauche pour naviguer entre les différentes rubriques de gestion de la ferme (Mes Porcs, Vaccinations, Traitements, Biosécurité, Formulation).
+                        Utilisez le menu latéral gauche pour naviguer entre les différentes rubriques de gestion de la ferme (Mes Porcs, Vaccinations, Traitements, Biosécurité, Formulation).
                     </p>
                 </div>
             </div>
