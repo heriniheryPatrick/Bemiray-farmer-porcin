@@ -8,6 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* Animation pour faire défiler le texte en surbrillance */
         @keyframes defiler {
             0% { transform: translateX(100%); }
             100% { transform: translateX(-100%); }
@@ -15,340 +16,351 @@
         .animate-marquee {
             display: inline-block;
             white-space: nowrap;
-            animation: defiler 24s linear infinite;
+            animation: defiler 22s linear infinite;
         }
         .marquee-container {
             overflow: hidden;
             width: 100%;
         }
-        .section-content {
-            display: none;
-        }
-        .section-content.active {
-            display: block;
-        }
     </style>
 </head>
-<body class="bg-gray-900 text-gray-100 font-sans flex h-screen overflow-hidden">
+<body class="bg-gray-50 text-gray-800 font-sans">
 
-    <!-- MENU LATÉRAL GAUCHE (SIDEBAR) -->
-    <aside class="w-72 bg-gray-950 border-r border-gray-800 flex flex-col justify-between hidden md:flex z-20 shadow-xl">
-        <div>
-            <!-- En-tête du menu profil -->
-            <div class="p-4 border-b border-gray-800 flex items-center justify-between">
-                <div class="flex items-center space-x-3">
-                    <div class="bg-emerald-700 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold shadow">
-                        <i class="fa-solid fa-cow"></i>
-                    </div>
-                    <div>
-                        <h2 class="text-sm font-bold text-white tracking-wide">Ferme de Patrick</h2>
-                        <p class="text-xs text-gray-400">Propriétaire</p>
-                    </div>
-                </div>
+    <!-- En-tête principal -->
+    <header class="bg-emerald-800 text-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <span class="text-lg md:text-xl font-bold tracking-wide">BeMiRAY Farmer — Gestion d'Élevage</span>
             </div>
-
-            <!-- Liste des liens de navigation -->
-            <nav class="p-4 space-y-1.5 text-sm font-medium">
-                <button onclick="changerSection('accueil', this)" class="nav-btn w-full flex items-center space-x-3 px-4 py-3 rounded-xl bg-emerald-600 text-white font-semibold shadow transition">
-                    <i class="fa-solid fa-house w-5"></i> <span>Accueil / Dashboard</span>
-                </button>
-                <button onclick="changerSection('troupeau', this)" class="nav-btn w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-gray-800 hover:text-white transition">
-                    <i class="fa-solid fa-paw w-5"></i> <span>Mes Porcs</span>
-                </button>
-                <button onclick="changerSection('vaccins', this)" class="nav-btn w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-gray-800 hover:text-white transition">
-                    <i class="fa-solid fa-syringe w-5"></i> <span>Vaccinations</span>
-                </button>
-                <button onclick="changerSection('traitements', this)" class="nav-btn w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-gray-800 hover:text-white transition">
-                    <i class="fa-solid fa-pills w-5"></i> <span>Traitements</span>
-                </button>
-                <button onclick="changerSection('biosecurite', this)" class="nav-btn w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-gray-800 hover:text-white transition">
-                    <i class="fa-solid fa-shield-halved w-5"></i> <span>Biosécurité</span>
-                </button>
-                <button onclick="changerSection('alimentation', this)" class="nav-btn w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-gray-300 hover:bg-gray-800 hover:text-white transition">
-                    <i class="fa-solid fa-weight-scale w-5"></i> <span>Formulation</span>
-                </button>
+            <nav class="hidden md:flex space-x-5 text-sm font-medium">
+                <a href="#dashboard" class="hover:text-emerald-300 transition">Tableau de Bord</a>
+                <a href="#troupeau" class="hover:text-emerald-300 transition">Troupeau</a>
+                <a href="#vaccination" class="hover:text-emerald-300 transition">Vaccins</a>
+                <a href="#traitements" class="hover:text-emerald-300 transition">Traitements</a>
+                <a href="#biosecurite" class="hover:text-emerald-300 transition">Biosécurité</a>
+                <a href="#alimentation" class="hover:text-emerald-300 transition">Alimentation</a>
             </nav>
-        </div>
-        <div class="p-4 border-t border-gray-800 text-xs text-gray-500 text-center">
-            BeMiRAY Farmer &copy; 2026
-        </div>
-    </aside>
-
-    <!-- ZONE DE CONTENU PRINCIPAL -->
-    <div class="flex-1 flex flex-col h-screen overflow-y-auto bg-gray-900 text-gray-100">
-
-        <!-- EN-TÊTE SUPÉRIEUR AVEC LOGO (de la page précédente) -->
-        <header class="bg-emerald-900 text-white shadow-md py-4 px-8 flex justify-between items-center border-b border-emerald-800">
-            <div class="flex items-center space-x-4">
-                <div class="bg-white text-emerald-800 p-2.5 rounded-xl shadow font-bold flex items-center justify-center">
-                    <i class="fa-solid fa-piggy-bank text-xl"></i>
-                </div>
-                <div>
-                    <h1 class="text-xl font-extrabold tracking-wide">BeMiRAY Farmer — Module Porcin</h1>
-                    <p class="text-xs text-emerald-200">Ambohitraina, Ilafy, Antananarivo</p>
-                </div>
+            <div>
+                <span class="bg-emerald-700 text-xs px-3 py-1 rounded-full uppercase tracking-wider font-semibold">Module Porcin</span>
             </div>
-            <span class="bg-emerald-700 text-xs px-3 py-1.5 rounded-full uppercase tracking-wider font-semibold shadow">
-                Mode Connecté
+        </div>
+    </header>
+
+    <!-- BANDEAU DE SURBRILLANCE DÉFILANT & ANIMÉ -->
+    <div class="bg-amber-100 border-b border-amber-300 text-amber-900 py-3 px-4 shadow-inner marquee-container flex items-center">
+        <div class="flex items-center space-x-3 w-full">
+            <span class="bg-amber-500 text-white p-1.5 rounded-full flex items-center justify-center shrink-0 z-10 shadow">
+                <i class="fa-solid fa-bolt text-xs"></i>
             </span>
-        </header>
-
-        <!-- BANDEAU DE SURBRILLANCE DÉFILANT -->
-        <div class="bg-amber-500/10 border-b border-amber-500/30 text-amber-300 py-3 px-4 marquee-container flex items-center sticky top-0 z-10 backdrop-blur">
-            <div class="flex items-center space-x-3 w-full">
-                <span class="bg-amber-500 text-gray-950 p-1.5 rounded-full flex items-center justify-center shrink-0 z-10 font-bold shadow">
-                    <i class="fa-solid fa-bolt text-xs"></i>
+            <div class="marquee-container text-sm md:text-base font-semibold">
+                <span class="animate-marquee">
+                    🚀 <strong>BeMiRAY Farmer</strong> applique la <strong>digitalisation</strong> et modernise l'élevage grâce à des outils de suivi connectés et intelligents ! &nbsp;&nbsp;&nbsp;&nbsp;&bull;&nbsp;&nbsp;&nbsp;&nbsp; 💡 Ambohitraina, Ilafy — Antananarivo
                 </span>
-                <div class="marquee-container text-sm font-semibold">
-                    <span class="animate-marquee">
-                        🚀 <strong>BeMiRAY Farmer</strong> applique la <strong>digitalisation</strong> et modernise l'élevage grâce à des outils de suivi connectés et intelligents ! &nbsp;&nbsp;&nbsp;&nbsp;&bull;&nbsp;&nbsp;&nbsp;&nbsp; 💡 Ambohitraina, Ilafy — Antananarivo
-                    </span>
-                </div>
             </div>
         </div>
-
-        <!-- CONTENU DES SECTIONS (Géré dynamiquement au clic) -->
-        <main class="p-8 space-y-8 max-w-7xl mx-auto w-full">
-
-            <!-- SECTION 1 : ACCUEIL / DASHBOARD -->
-            <div id="section-accueil" class="section-content active space-y-8">
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-                    <div class="bg-gray-950 p-6 rounded-2xl border border-gray-800 flex items-center justify-between shadow-md">
-                        <div>
-                            <p class="text-xs text-gray-400 uppercase font-bold">Truies en gestation</p>
-                            <h3 class="text-2xl font-extrabold text-white mt-1">24</h3>
-                        </div>
-                        <div class="bg-emerald-950 text-emerald-400 p-3 rounded-xl"><i class="fa-solid fa-venus text-xl"></i></div>
-                    </div>
-                    <div class="bg-gray-950 p-6 rounded-2xl border border-gray-800 flex items-center justify-between shadow-md">
-                        <div>
-                            <p class="text-xs text-gray-400 uppercase font-bold">Porcs à l'engrais</p>
-                            <h3 class="text-2xl font-extrabold text-white mt-1">156</h3>
-                        </div>
-                        <div class="bg-blue-950 text-blue-400 p-3 rounded-xl"><i class="fa-solid fa-weight-scale text-xl"></i></div>
-                    </div>
-                    <div class="bg-gray-950 p-6 rounded-2xl border border-gray-800 flex items-center justify-between shadow-md">
-                        <div>
-                            <p class="text-xs text-gray-400 uppercase font-bold">Traitements Actifs</p>
-                            <h3 id="stat-nb-traitements" class="text-2xl font-extrabold text-white mt-1">0</h3>
-                        </div>
-                        <div class="bg-indigo-950 text-indigo-400 p-3 rounded-xl"><i class="fa-solid fa-pills text-xl"></i></div>
-                    </div>
-                    <div class="bg-gray-950 p-6 rounded-2xl border border-gray-800 flex items-center justify-between shadow-md">
-                        <div>
-                            <p class="text-xs text-gray-400 uppercase font-bold">Vaccins en attente</p>
-                            <h3 id="stat-nb-vaccins" class="text-2xl font-extrabold text-white mt-1">0</h3>
-                        </div>
-                        <div class="bg-rose-950 text-rose-400 p-3 rounded-xl"><i class="fa-solid fa-syringe text-xl"></i></div>
-                    </div>
-                </div>
-                <div class="bg-gray-950 rounded-2xl p-8 border border-gray-800 shadow-xl">
-                    <h2 class="text-xl font-bold text-white mb-2">Bienvenue sur BeMiRAY Farmer</h2>
-                    <p class="text-sm text-gray-400 leading-relaxed">
-                        Sélectionnez une option dans le menu de gauche pour gérer les porcs, planifier les vaccinations, suivre les traitements ou configurer les rations alimentaires.
-                    </p>
-                </div>
-            </div>
-
-            <!-- SECTION 2 : MES PORCS / TROUPEAU -->
-            <div id="section-troupeau" class="section-content bg-gray-950 rounded-2xl shadow-xl p-8 border border-gray-800">
-                <h2 class="text-xl font-bold text-white mb-4 flex items-center"><i class="fa-solid fa-paw text-emerald-400 mr-2"></i> Suivi des Lots & Maternité</h2>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse text-sm">
-                        <thead>
-                            <tr class="bg-gray-900 text-gray-400 text-xs uppercase">
-                                <th class="p-3">ID / Lot</th>
-                                <th class="p-3">Phase</th>
-                                <th class="p-3">Effectif</th>
-                                <th class="p-3">Statut</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-gray-800">
-                            <tr>
-                                <td class="p-3 font-bold text-emerald-400">LOT-FIN-01</td>
-                                <td class="p-3">Finition (Engraissement)</td>
-                                <td class="p-3">45 têtes</td>
-                                <td class="p-3"><span class="bg-emerald-950 text-emerald-400 border border-emerald-800 px-2.5 py-1 rounded-full text-xs font-semibold">Conforme</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- SECTION 3 : VACCINATIONS -->
-            <div id="section-vaccins" class="section-content bg-gray-950 rounded-2xl shadow-xl p-8 border border-gray-800">
-                <h2 class="text-xl font-bold text-white mb-4 flex items-center"><i class="fa-solid fa-syringe text-rose-400 mr-2"></i> Planification des Vaccinations</h2>
-                <form id="form-vaccin" class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6 items-end">
-                    <div>
-                        <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Lot / Porc</label>
-                        <input type="text" id="input-vac-lot" required placeholder="Ex: Lot Croissance" class="w-full bg-gray-900 border border-gray-700 rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-rose-500">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Type de Vaccin</label>
-                        <input type="text" id="input-vac-type" required placeholder="Ex: Peste Porcine Classique" class="w-full bg-gray-900 border border-gray-700 rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-rose-500">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Date Prévue</label>
-                        <input type="date" id="input-vac-date" required class="w-full bg-gray-900 border border-gray-700 rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-rose-500">
-                    </div>
-                    <div>
-                        <button type="submit" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-bold py-2.5 px-4 rounded-lg text-sm transition shadow">
-                            <i class="fa-solid fa-plus mr-2"></i> Ajouter Vaccin
-                        </button>
-                    </div>
-                </form>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse text-sm">
-                        <thead>
-                            <tr class="bg-gray-900 text-gray-400 text-xs uppercase">
-                                <th class="p-3">Lot</th>
-                                <th class="p-3">Vaccin</th>
-                                <th class="p-3">Date</th>
-                                <th class="p-3 text-center">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody id="table-vaccin-body" class="divide-y divide-gray-800"></tbody>
-                    </table>
-                </div>
-                <div id="empty-vaccin" class="text-center py-6 text-gray-500 text-xs italic">Aucune vaccination planifiée.</div>
-            </div>
-
-            <!-- SECTION 4 : TRAITEMENTS -->
-            <div id="section-traitements" class="section-content bg-gray-950 rounded-2xl shadow-xl p-8 border border-gray-800">
-                <h2 class="text-xl font-bold text-white mb-4 flex items-center"><i class="fa-solid fa-pills text-indigo-400 mr-2"></i> Gestion des Traitements</h2>
-                <form id="form-traitement" class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6 items-end">
-                    <div>
-                        <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Lot / Animal</label>
-                        <input type="text" id="input-trait-lot" required placeholder="Ex: Lot Truies" class="w-full bg-gray-900 border border-gray-700 rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-indigo-500">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Médicament / Produit</label>
-                        <input type="text" id="input-trait-prod" required placeholder="Ex: Vitamines ADE" class="w-full bg-gray-900 border border-gray-700 rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-indigo-500">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Durée</label>
-                        <input type="text" id="input-trait-duree" required placeholder="Ex: 3 jours" class="w-full bg-gray-900 border border-gray-700 rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-indigo-500">
-                    </div>
-                    <div>
-                        <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 px-4 rounded-lg text-sm transition shadow">
-                            <i class="fa-solid fa-plus mr-2"></i> Ajouter
-                        </button>
-                    </div>
-                </form>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse text-sm">
-                        <thead>
-                            <tr class="bg-gray-900 text-gray-400 text-xs uppercase">
-                                <th class="p-3">Cible</th>
-                                <th class="p-3">Produit</th>
-                                <th class="p-3">Durée</th>
-                                <th class="p-3 text-center">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody id="table-traitement-body" class="divide-y divide-gray-800"></tbody>
-                    </table>
-                </div>
-                <div id="empty-traitement" class="text-center py-6 text-gray-500 text-xs italic">Aucun traitement actif enregistré.</div>
-            </div>
-
-            <!-- SECTION 5 : BIOSÉCURITÉ -->
-            <div id="section-biosecurite" class="section-content bg-gray-950 rounded-2xl shadow-xl p-8 border border-gray-800">
-                <h2 class="text-xl font-bold text-white mb-4 flex items-center"><i class="fa-solid fa-shield-halved text-amber-400 mr-2"></i> Protocoles de Biosécurité</h2>
-                <p class="text-sm text-gray-400 mb-4">Suivi des pédiluves et désinfections à l'entrée de la porcherie.</p>
-                <div class="bg-gray-900 p-4 rounded-xl border border-gray-800 text-sm text-gray-300">
-                    <p><i class="fa-solid fa-circle-check text-emerald-400 mr-2"></i> Pédiluves principaux : Désinfectant renouvelé quotidiennement.</p>
-                </div>
-            </div>
-
-            <!-- SECTION 6 : FORMULATION -->
-            <div id="section-alimentation" class="section-content bg-gray-950 rounded-2xl shadow-xl p-8 border border-gray-800">
-                <h2 class="text-xl font-bold text-white mb-2 flex items-center"><i class="fa-solid fa-weight-scale text-emerald-400 mr-2"></i> Formulation des Rations</h2>
-                <p class="text-xs text-gray-400 mb-6">Optimisation des coûts de provende pour le cheptel porcin.</p>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="bg-gray-900 p-5 rounded-xl border border-gray-800">
-                        <label class="block text-xs font-bold text-gray-400 uppercase mb-2">Phase d'élevage</label>
-                        <select id="select-phase" class="w-full bg-gray-950 border border-gray-700 rounded-lg p-3 text-sm text-white mb-4 focus:outline-none">
-                            <option>Porc Croissance (25-50 kg)</option>
-                            <option>Porc Finition (50-100 kg)</option>
-                            <option>Truie Gestante</option>
-                        </select>
-                        <button id="btn-calcul" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 rounded-lg text-sm transition">Calculer la formule optimale</button>
-                    </div>
-                    <div class="bg-gray-900 p-5 rounded-xl border border-gray-800 flex flex-col justify-between">
-                        <p class="text-xs text-gray-300 leading-relaxed">
-                            L'algorithme ajuste automatiquement les proportions de maïs, soja, son de riz et CMV pour garantir un gain moyen quotidien optimal au meilleur coût.
-                        </p>
-                        <span class="text-xs text-emerald-400 font-semibold mt-4"><i class="fa-solid fa-circle-info mr-1"></i> Mode de calcul automatique activé</span>
-                    </div>
-                </div>
-            </div>
-
-        </main>
     </div>
 
-    <!-- Script JavaScript pour basculer dynamiquement entre les sections au clic -->
+    <!-- Section Hero -->
+    <section class="bg-gradient-to-r from-emerald-900 to-emerald-700 text-white py-16">
+        <div class="container mx-auto px-6 text-center">
+            <h1 class="text-4xl md:text-5xl font-extrabold mb-4">Pilotez votre élevage avec précision</h1>
+            <p class="text-lg md:text-xl text-emerald-100 max-w-2xl mx-auto mb-8">
+                Centralisez le suivi sanitaire, gérez les performances des lots et optimisez vos coûts d'alimentation en toute simplicité.
+            </p>
+            <div class="flex justify-center space-x-4">
+                <a href="#vaccination" class="bg-white text-emerald-800 font-bold px-5 py-3 rounded-lg shadow hover:bg-emerald-50 transition">Gestion Vaccins</a>
+                <a href="#traitements" class="bg-emerald-600 text-white font-bold px-5 py-3 rounded-lg shadow hover:bg-emerald-500 transition">Traitements & Soins</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tableau de bord / Statistiques -->
+    <section id="dashboard" class="container mx-auto px-6 -mt-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div class="bg-white p-6 rounded-xl shadow-md border-l-4 border-emerald-600 flex items-center justify-between">
+                <div>
+                    <p class="text-xs text-gray-500 uppercase font-bold">Truies en gestation</p>
+                    <h3 class="text-2xl font-extrabold text-gray-800 mt-1">24</h3>
+                </div>
+                <div class="bg-emerald-100 p-3 rounded-full text-emerald-700"><i class="fa-solid fa-venus text-xl"></i></div>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-md border-l-4 border-blue-600 flex items-center justify-between">
+                <div>
+                    <p class="text-xs text-gray-500 uppercase font-bold">Porcs à l'engrais</p>
+                    <h3 class="text-2xl font-extrabold text-gray-800 mt-1">156</h3>
+                </div>
+                <div class="bg-blue-100 p-3 rounded-full text-blue-700"><i class="fa-solid fa-weight-scale text-xl"></i></div>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-md border-l-4 border-indigo-600 flex items-center justify-between">
+                <div>
+                    <p class="text-xs text-gray-500 uppercase font-bold">Traitements Actifs</p>
+                    <h3 id="stat-nb-traitements" class="text-2xl font-extrabold text-gray-800 mt-1">0</h3>
+                </div>
+                <div class="bg-indigo-100 p-3 rounded-full text-indigo-700"><i class="fa-solid fa-pills text-xl"></i></div>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-md border-l-4 border-rose-600 flex items-center justify-between">
+                <div>
+                    <p class="text-xs text-gray-500 uppercase font-bold">Vaccinations en attente</p>
+                    <h3 id="stat-nb-vaccins" class="text-2xl font-extrabold text-gray-800 mt-1">0</h3>
+                </div>
+                <div class="bg-rose-100 p-3 rounded-full text-rose-700"><i class="fa-solid fa-syringe text-xl"></i></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 1 : Planification des Vaccinations -->
+    <section id="vaccination" class="container mx-auto px-6 py-12">
+        <div class="bg-white rounded-xl shadow-md p-8 border-t-4 border-rose-600">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-800"><i class="fa-solid fa-syringe text-rose-600 mr-2"></i> Planification des Vaccinations</h2>
+                    <p class="text-sm text-gray-500">Enregistrez les lots ou porcs devant recevoir un vaccin</p>
+                </div>
+            </div>
+
+            <form id="form-vaccin" class="bg-gray-50 p-6 rounded-xl border border-gray-200 mb-8 grid grid-cols-1 md:grid-cols-5 gap-4 items-end">
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 uppercase mb-1">ID du Lot / Porc</label>
+                    <input type="text" id="input-lot-vac" required placeholder="Ex: LOT-CROISS-02" class="w-full border border-gray-300 rounded-lg p-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-rose-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Type de Vaccin</label>
+                    <select id="input-vaccin" class="w-full border border-gray-300 rounded-lg p-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-rose-500">
+                        <option value="Peste Porcine Classique (PPC)">Peste Porcine Classique (PPC)</option>
+                        <option value="Rouget du Porc">Rouget du Porc</option>
+                        <option value="Maladie d'Aujeszky">Maladie d'Aujeszky</option>
+                        <option value="Parvovirose (Truies)">Parvovirose (Truies)</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Date Prévue</label>
+                    <input type="date" id="input-date-vac" required class="w-full border border-gray-300 rounded-lg p-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-rose-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Effectif</label>
+                    <input type="text" id="input-eff-vac" placeholder="Ex: 25 têtes" class="w-full border border-gray-300 rounded-lg p-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-rose-500">
+                </div>
+                <div>
+                    <button type="submit" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-bold py-2.5 px-4 rounded-lg text-sm transition shadow">
+                        <i class="fa-solid fa-plus mr-2"></i> Ajouter
+                    </button>
+                </div>
+            </form>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-gray-100 text-gray-600 text-xs uppercase tracking-wider">
+                            <th class="p-3">Lot / Identifiant</th>
+                            <th class="p-3">Vaccin Requis</th>
+                            <th class="p-3">Date Prévue</th>
+                            <th class="p-3">Effectif</th>
+                            <th class="p-3 text-center">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-vaccin-body" class="divide-y divide-gray-200 text-sm"></tbody>
+                </table>
+            </div>
+            <div id="empty-vaccin" class="text-center py-6 text-gray-400 text-sm italic">Aucune vaccination planifiée.</div>
+        </div>
+    </section>
+
+    <!-- SECTION 2 : Traitements en cours -->
+    <section id="traitements" class="container mx-auto px-6 py-6">
+        <div class="bg-white rounded-xl shadow-md p-8 border-t-4 border-indigo-600">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-800"><i class="fa-solid fa-pills text-indigo-600 mr-2"></i> Suivi des Traitements en Cours</h2>
+                    <p class="text-sm text-gray-500">Gérez les vitamines, vermifuges et antibiothérapies du cheptel</p>
+                </div>
+            </div>
+
+            <form id="form-traitement" class="bg-gray-50 p-6 rounded-xl border border-gray-200 mb-8 grid grid-cols-1 md:grid-cols-5 gap-4 items-end">
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Lot / Truie concernée</label>
+                    <input type="text" id="input-lot-trait" required placeholder="Ex: Lot Truies Gestantes" class="w-full border border-gray-300 rounded-lg p-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Produit / Médicament</label>
+                    <input type="text" id="input-produit" required placeholder="Ex: Vermifuge / Vitamines ADE" class="w-full border border-gray-300 rounded-lg p-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Durée / Fréquence</label>
+                    <input type="text" id="input-duree" required placeholder="Ex: 3 jours d'affilée" class="w-full border border-gray-300 rounded-lg p-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Statut</label>
+                    <select id="input-statut-trait" class="w-full border border-gray-300 rounded-lg p-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        <option value="En cours">En cours</option>
+                        <option value="Planifié pour demain">Planifié</option>
+                    </select>
+                </div>
+                <div>
+                    <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 px-4 rounded-lg text-sm transition shadow">
+                        <i class="fa-solid fa-plus mr-2"></i> Ajouter
+                    </button>
+                </div>
+            </form>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-gray-100 text-gray-600 text-xs uppercase tracking-wider">
+                            <th class="p-3">Cible</th>
+                            <th class="p-3">Produit Administré</th>
+                            <th class="p-3">Durée / Posologie</th>
+                            <th class="p-3">Statut</th>
+                            <th class="p-3 text-center">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-traitement-body" class="divide-y divide-gray-200 text-sm"></tbody>
+                </table>
+            </div>
+            <div id="empty-traitement" class="text-center py-6 text-gray-400 text-sm italic">Aucun traitement en cours enregistré.</div>
+        </div>
+    </section>
+
+    <!-- SECTION 3 : Biosécurité -->
+    <section id="biosecurite" class="container mx-auto px-6 py-6 mb-16">
+        <div class="bg-white rounded-xl shadow-md p-8 border-t-4 border-amber-500">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-800"><i class="fa-solid fa-triangle-exclamation text-amber-600 mr-2"></i> Protocoles de Biosécurité</h2>
+                    <p class="text-sm text-gray-500">Contrôle des désinfections, pédiluves et registres sanitaires de l'élevage</p>
+                </div>
+            </div>
+
+            <form id="form-bio" class="bg-gray-50 p-6 rounded-xl border border-gray-200 mb-8 grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Zone / Poste concerné</label>
+                    <input type="text" id="input-zone" required placeholder="Ex: Pédiluves entrée porcherie" class="w-full border border-gray-300 rounded-lg p-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-amber-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Action requise / Protocole</label>
+                    <input type="text" id="input-protocole" required placeholder="Ex: Renouvellement solution désinfectante" class="w-full border border-gray-300 rounded-lg p-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-amber-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Fréquence</label>
+                    <input type="text" id="input-freq" required placeholder="Ex: Quotidienne" class="w-full border border-gray-300 rounded-lg p-2.5 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-amber-500">
+                </div>
+                <div>
+                    <button type="submit" class="w-full bg-amber-600 hover:bg-amber-700 text-white font-bold py-2.5 px-4 rounded-lg text-sm transition shadow">
+                        <i class="fa-solid fa-plus mr-2"></i> Enregistrer
+                    </button>
+                </div>
+            </form>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-gray-100 text-gray-600 text-xs uppercase tracking-wider">
+                            <th class="p-3">Zone</th>
+                            <th class="p-3">Protocole / Tâche</th>
+                            <th class="p-3">Fréquence</th>
+                            <th class="p-3 text-center">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-bio-body" class="divide-y divide-gray-200 text-sm"></tbody>
+                </table>
+            </div>
+            <div id="empty-bio" class="text-center py-6 text-gray-400 text-sm italic">Aucun protocole de biosécurité enregistré.</div>
+        </div>
+    </section>
+
+    <!-- Gestion du Troupeau -->
+    <section id="troupeau" class="container mx-auto px-6 py-6">
+        <div class="bg-white rounded-xl shadow-md p-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-2">Suivi des Lots & Maternité</h2>
+            <p class="text-sm text-gray-500 mb-4">Gestion globale du cheptel porcin BeMiRAY.</p>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse text-sm">
+                    <thead>
+                        <tr class="bg-gray-100 text-gray-600 text-xs uppercase">
+                            <th class="p-3">ID / Lot</th>
+                            <th class="p-3">Phase</th>
+                            <th class="p-3">Effectif</th>
+                            <th class="p-3">Statut</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        <tr>
+                            <td class="p-3 font-bold text-emerald-800">LOT-FIN-01</td>
+                            <td class="p-3">Finition</td>
+                            <td class="p-3">45 têtes</td>
+                            <td class="p-3"><span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-semibold">Conforme</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pied de page -->
+    <footer class="bg-gray-900 text-gray-400 py-8">
+        <div class="container mx-auto px-6 text-center text-sm">
+            <p>&copy; 2026 BeMiRAY Farmer. Ambohitraina, Ilafy, Antananarivo. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts JavaScript -->
     <script>
-        function changerSection(nomSection, elementBouton) {
-            // Masquer toutes les sections
-            document.querySelectorAll('.section-content').forEach(sec => {
-                sec.classList.remove('active');
-            });
+        document.addEventListener('DOMContentLoaded', function () {
+            chargerToutesDonnees();
 
-            // Afficher la section ciblée
-            document.getElementById('section-' + nomSection).classList.add('active');
-
-            // Retirer le style actif de tous les boutons du menu
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.classList.remove('bg-emerald-600', 'text-white', 'font-semibold', 'shadow');
-                btn.classList.add('text-gray-300', 'hover:bg-gray-800', 'hover:text-white');
-            });
-
-            // Appliquer le style actif au bouton cliqué
-            elementBouton.classList.remove('text-gray-300', 'hover:bg-gray-800', 'hover:text-white');
-            elementBouton.classList.add('bg-emerald-600', 'text-white', 'font-semibold', 'shadow');
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            chargerDonnees();
-
-            // Formulaire Vaccins
-            document.getElementById('form-vaccin').addEventListener('submit', function(e) {
+            document.getElementById('form-vaccin').addEventListener('submit', function (e) {
                 e.preventDefault();
                 const item = {
-                    lot: document.getElementById('input-vac-lot').value.trim(),
-                    type: document.getElementById('input-vac-type').value.trim(),
-                    date: document.getElementById('input-vac-date').value
+                    lot: document.getElementById('input-lot-vac').value.trim(),
+                    vaccin: document.getElementById('input-vaccin').value,
+                    date: document.getElementById('input-date-vac').value,
+                    effectif: document.getElementById('input-eff-vac').value.trim() || '1 tête'
                 };
-                let liste = JSON.parse(localStorage.getItem('bemiray_app_vaccins')) || [];
-                liste.push(item);
-                localStorage.setItem('bemiray_app_vaccins', JSON.stringify(liste));
+                ajouterDonnee('bemiray_vaccins', item);
                 this.reset();
-                chargerDonnees();
+                chargerToutesDonnees();
             });
 
-            // Formulaire Traitements
-            document.getElementById('form-traitement').addEventListener('submit', function(e) {
+            document.getElementById('form-traitement').addEventListener('submit', function (e) {
                 e.preventDefault();
                 const item = {
-                    lot: document.getElementById('input-trait-lot').value.trim(),
-                    prod: document.getElementById('input-trait-prod').value.trim(),
-                    duree: document.getElementById('input-trait-duree').value.trim()
+                    lot: document.getElementById('input-lot-trait').value.trim(),
+                    produit: document.getElementById('input-produit').value.trim(),
+                    duree: document.getElementById('input-duree').value.trim(),
+                    statut: document.getElementById('input-statut-trait').value
                 };
-                let liste = JSON.parse(localStorage.getItem('bemiray_app_traitements')) || [];
-                liste.push(item);
-                localStorage.setItem('bemiray_app_traitements', JSON.stringify(liste));
+                ajouterDonnee('bemiray_traitements', item);
                 this.reset();
-                chargerDonnees();
+                chargerToutesDonnees();
             });
 
-            document.getElementById('btn-calcul').addEventListener('click', function() {
-                alert("Formulation calculée avec succès ! Les proportions optimales sont prêtes.");
+            document.getElementById('form-bio').addEventListener('submit', function (e) {
+                e.preventDefault();
+                const item = {
+                    zone: document.getElementById('input-zone').value.trim(),
+                    protocole: document.getElementById('input-protocole').value.trim(),
+                    freq: document.getElementById('input-freq').value.trim()
+                };
+                ajouterDonnee('bemiray_bio', item);
+                this.reset();
+                chargerToutesDonnees();
             });
         });
 
-        function chargerDonnees() {
-            // Vaccins
-            let vaccins = JSON.parse(localStorage.getItem('bemiray_app_vaccins')) || [];
+        function ajouterDonnee(cle, objet) {
+            let liste = JSON.parse(localStorage.getItem(cle)) || [];
+            liste.push(objet);
+            localStorage.setItem(cle, JSON.stringify(liste));
+        }
+
+        function supprimerDonnee(cle, index) {
+            let liste = JSON.parse(localStorage.getItem(cle)) || [];
+            liste.splice(index, 1);
+            localStorage.setItem(cle, JSON.stringify(liste));
+            chargerToutesDonnees();
+        }
+
+        function chargerToutesDonnees() {
+            let vaccins = JSON.parse(localStorage.getItem('bemiray_vaccins')) || [];
             const tbVac = document.getElementById('table-vaccin-body');
             const emVac = document.getElementById('empty-vaccin');
             document.getElementById('stat-nb-vaccins').textContent = vaccins.length;
@@ -356,20 +368,20 @@
             emVac.style.display = vaccins.length === 0 ? 'block' : 'none';
             vaccins.forEach((item, index) => {
                 tbVac.innerHTML += `
-                    <tr class="hover:bg-gray-900/50">
-                        <td class="p-3 font-bold text-rose-400">${item.lot}</td>
-                        <td class="p-3 text-gray-300">${item.type}</td>
-                        <td class="p-3 text-gray-300">${item.date}</td>
+                    <tr class="hover:bg-gray-50">
+                        <td class="p-3 font-bold text-rose-700">${item.lot}</td>
+                        <td class="p-3">${item.vaccin}</td>
+                        <td class="p-3">${item.date}</td>
+                        <td class="p-3">${item.effectif}</td>
                         <td class="p-3 text-center">
-                            <button onclick="supprimerDonnee('bemiray_app_vaccins', ${index})" class="text-rose-400 bg-rose-950/50 hover:bg-rose-900 px-2.5 py-1 rounded text-xs font-bold transition">
-                                <i class="fa-solid fa-trash"></i>
+                            <button onclick="supprimerDonnee('bemiray_vaccins', ${index})" class="text-rose-600 bg-rose-50 hover:bg-rose-100 px-2.5 py-1 rounded text-xs font-bold transition">
+                                <i class="fa-solid fa-trash"></i> Fait
                             </button>
                         </td>
                     </tr>`;
             });
 
-            // Traitements
-            let traitements = JSON.parse(localStorage.getItem('bemiray_app_traitements')) || [];
+            let traitements = JSON.parse(localStorage.getItem('bemiray_traitements')) || [];
             const tbTrait = document.getElementById('table-traitement-body');
             const emTrait = document.getElementById('empty-traitement');
             document.getElementById('stat-nb-traitements').textContent = traitements.length;
@@ -377,24 +389,37 @@
             emTrait.style.display = traitements.length === 0 ? 'block' : 'none';
             traitements.forEach((item, index) => {
                 tbTrait.innerHTML += `
-                    <tr class="hover:bg-gray-900/50">
-                        <td class="p-3 font-bold text-indigo-400">${item.lot}</td>
-                        <td class="p-3 text-gray-300">${item.prod}</td>
-                        <td class="p-3 text-gray-300">${item.duree}</td>
+                    <tr class="hover:bg-gray-50">
+                        <td class="p-3 font-bold text-indigo-700">${item.lot}</td>
+                        <td class="p-3">${item.produit}</td>
+                        <td class="p-3">${item.duree}</td>
+                        <td class="p-3"><span class="bg-indigo-100 text-indigo-800 px-2 py-0.5 rounded text-xs font-semibold">${item.statut}</span></td>
                         <td class="p-3 text-center">
-                            <button onclick="supprimerDonnee('bemiray_app_traitements', ${index})" class="text-rose-400 bg-rose-950/50 hover:bg-rose-900 px-2.5 py-1 rounded text-xs font-bold transition">
-                                <i class="fa-solid fa-trash"></i>
+                            <button onclick="supprimerDonnee('bemiray_traitements', ${index})" class="text-indigo-600 bg-indigo-50 hover:bg-indigo-100 px-2.5 py-1 rounded text-xs font-bold transition">
+                                <i class="fa-solid fa-trash"></i> Terminé
                             </button>
                         </td>
                     </tr>`;
             });
-        }
 
-        function supprimerDonnee(cle, index) {
-            let liste = JSON.parse(localStorage.getItem(cle)) || [];
-            liste.splice(index, 1);
-            localStorage.setItem(cle, JSON.stringify(liste));
-            chargerDonnees();
+            let bios = JSON.parse(localStorage.getItem('bemiray_bio')) || [];
+            const tbBio = document.getElementById('table-bio-body');
+            const emBio = document.getElementById('empty-bio');
+            tbBio.innerHTML = '';
+            emBio.style.display = bios.length === 0 ? 'block' : 'none';
+            bios.forEach((item, index) => {
+                tbBio.innerHTML += `
+                    <tr class="hover:bg-gray-50">
+                        <td class="p-3 font-bold text-amber-700">${item.zone}</td>
+                        <td class="p-3">${item.protocole}</td>
+                        <td class="p-3">${item.freq}</td>
+                        <td class="p-3 text-center">
+                            <button onclick="supprimerDonnee('bemiray_bio', ${index})" class="text-amber-700 bg-amber-50 hover:bg-amber-100 px-2.5 py-1 rounded text-xs font-bold transition">
+                                <i class="fa-solid fa-check"></i> Fait
+                            </button>
+                        </td>
+                    </tr>`;
+            });
         }
     </script>
 </body>
